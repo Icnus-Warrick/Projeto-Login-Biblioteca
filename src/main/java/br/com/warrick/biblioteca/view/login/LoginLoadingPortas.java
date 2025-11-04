@@ -1,5 +1,6 @@
 package br.com.warrick.biblioteca.view.login;
 
+import br.com.warrick.biblioteca.util.I18nManager;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -117,7 +118,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
 
     /* ================================ CARREGAMENTO DAS IMAGEM = */
     private void carregarImagens() {
-        System.out.println("Carregando imagens...");
+        System.out.println(I18nManager.msg("animation.loading"));
         
         // Carregar Batente
         try {
@@ -126,7 +127,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
                 imagemBatente = new ImageIcon(batenteURL).getImage();
                 System.out.println("✓ Batente carregado com sucesso");
             } else {
-                System.err.println("✗ ERRO: Arquivo Batente.png não encontrado em /Imagem/");
+                System.err.println("✗ " + I18nManager.msg("error.image.not.found") + ": Batente.png");
             }
         } catch (Exception e) {
             System.err.println("✗ ERRO ao carregar Batente: " + e.getMessage());
@@ -140,7 +141,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
                 imagemPortaE = new ImageIcon(portaEURL).getImage();
                 System.out.println("✓ PortaE carregada com sucesso");
             } else {
-                System.err.println("✗ ERRO: Arquivo PortaE.png não encontrado em /Imagem/");
+                System.err.println("✗ " + I18nManager.msg("error.image.not.found") + ": PortaE.png");
             }
         } catch (Exception e) {
             System.err.println("✗ ERRO ao carregar PortaE: " + e.getMessage());
@@ -154,7 +155,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
                 imagemPortaD = new ImageIcon(portaDURL).getImage();
                 System.out.println("✓ PortaD carregada com sucesso");
             } else {
-                System.err.println("✗ ERRO: Arquivo PortaD.png não encontrado em /Imagem/");
+                System.err.println("✗ " + I18nManager.msg("error.image.not.found") + ": PortaD.png");
             }
         } catch (Exception e) {
             System.err.println("✗ ERRO ao carregar PortaD: " + e.getMessage());

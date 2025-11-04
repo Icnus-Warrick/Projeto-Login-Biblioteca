@@ -1,5 +1,6 @@
 package br.com.warrick.biblioteca.view.login;
 
+import br.com.warrick.biblioteca.util.I18nManager;
 import javax.swing.*;
 import java.awt.*;
 
@@ -34,7 +35,7 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
         // Primeiro, definir a janela como não decorada
         setUndecorated(true);
         // Depois configurar o resto
-        setTitle("Abrindo a Biblioteca - Aguarde...");
+        setTitle(I18nManager.msg("app.loading.title"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Configurar para que o fundo seja completamente transparente
         setBackground(new Color(0, 0, 0, 0));
@@ -146,7 +147,7 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
                 app.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 // Torna a janela visível por último
                 app.setVisible(true);
-                System.out.println("Aplicação exibida com sucesso");
+                System.out.println(I18nManager.msg("app.success"));
             } catch (Exception e) {
                 System.err.println("Erro ao exibir aplicação: " + e.getMessage());
                 e.printStackTrace();
