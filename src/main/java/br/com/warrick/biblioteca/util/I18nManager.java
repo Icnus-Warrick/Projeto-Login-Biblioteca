@@ -1,5 +1,7 @@
 package br.com.warrick.biblioteca.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
@@ -21,6 +23,9 @@ public class I18nManager {
     private static final String BUNDLE_BASE_NAME = "messages";
     private static final String PREF_LANGUAGE_KEY = "app.language";
     private static final String PREF_COUNTRY_KEY = "app.country";
+    
+    // Lista de listeners para mudanças de idioma
+    private final List<LanguageChangeListener> listeners = new ArrayList<>();
     
     // Locales suportados
     public static final Locale LOCALE_PT_BR = new Locale("pt", "BR");
@@ -127,9 +132,13 @@ public class I18nManager {
      * @param locale Novo locale
      */
     public void setLocale(Locale locale) {
+        Locale oldLocale = this.currentLocale;
         this.currentLocale = locale;
         loadBundle();
         saveLocale();
+        
+        // Notificar listeners
+        notifyLanguageChanged(oldLocale, locale);
     }
     
     /**
@@ -198,5 +207,46 @@ public class I18nManager {
      */
     public static String msg(String key, Object... params) {
         return getInstance().getMessage(key, params);
+    }
+    
+    /**
+     * Adiciona um listener para mudanças de idioma
+     * @param listener Listener a ser adicionado
+     */
+    public void addLanguageChangeListener(LanguageChangeListener listener) {
+        if (listener != null && !listeners.contains(listener)) {
+            listeners.add(listener);
+        }
+    }
+    
+    /**
+     * Remove um listener de mudanças de idioma
+     * @param listener Listener a ser removido
+     */
+    public void removeLanguageChangeListener(LanguageChangeListener listener) {
+        listeners.remove(listener);
+    }
+    
+    /**
+     * Remove todos os listeners
+     */
+    public void clearLanguageChangeListeners() {
+        listeners.clear();
+    }
+    
+    /**
+     * Notifica todos os listeners sobre mudança de idioma
+     * @param oldLocale Locale anterior
+     * @param newLocale Novo locale
+     */
+    private void notifyLanguageChanged(Locale oldLocale, Locale newLocale) {
+        for (LanguageChangeListener listener : listeners) {
+            try {
+                listener.onLanguageChanged(oldLocale, newLocale);
+            } catch (Exception e) {
+                System.err.println("Erro ao notificar listener: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
 }
