@@ -8,21 +8,36 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 /**
+ * Utilitário para carregar e redimensionar imagens
+ * Garante qualidade otimizada nas imagens carregadas
+ *
  * Projeto: Biblioteca
+ *
  * @author Warrick
  * @since 02/11/2025
  */
 public class ImageLoader {
     
+    /* ========================================== MÉTODOS ESTÁTICOS ========================================== */
+    
     /**
- * Projeto: Biblioteca 
-     * Carrega uma imagem da pasta de recursos com a qualidade otimizada
-     * @param path Caminho para a imagem na pasta de recursos (ex: "/Imagem/PortaE.png")
-     * @param width Largura desejada (use -1 para largura original)
-     * @param height Altura desejada (use -1 para altura original)
-     * @return ImageIcon com a imagem carregada e redimensionada com qualidade
+     * Cria um ícone a partir de uma imagem
+     * 
+     * @param path Caminho da imagem
+     * @param width Largura desejada
+     * @param height Altura desejada
+     * @return ImageIcon redimensionado ou null
+     * 
+     * @throws IllegalArgumentException Se o caminho for nulo ou vazio
+     * @see ImageIcon
+     * @see BufferedImage
+     * @see ImageIO#read(java.net.URL)
      */
     public static ImageIcon loadImage(String path, int width, int height) {
+        // Validação do parâmetro path
+        if (path == null || path.trim().isEmpty()) {
+            throw new IllegalArgumentException("O caminho da imagem não pode ser nulo ou vazio");
+        }
         try {
             // Carrega a imagem usando o class loader
             URL imgURL = ImageLoader.class.getResource(path);

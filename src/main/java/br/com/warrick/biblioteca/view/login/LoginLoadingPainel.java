@@ -5,7 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Janela principal para exibirção da animação de login Versão Refatorada e Simplicada
+ * Janela principal para exibição da animação de login
+ * Versão Refatorada e Simplificada
  *
  * Projeto: Biblioteca
  *
@@ -14,12 +15,12 @@ import java.awt.*;
  */
 public class LoginLoadingPainel extends javax.swing.JFrame {
 
-    // Componentes Principais
+    /* ============================================== COMPONENTES PRINCIPAIS ============================================= */
     private CardLayout cardLayout;
     private JPanel mainPanel;
     private LoginLoadingPortas painelPortas;
 
-    // Construtor padrão
+    /* ============================================== CONSTRUTOR PADRÃO ============================================= */
     public LoginLoadingPainel() {
         // Primeiro configurar a janela antes de inicializar componentes
         configurarJanela();
@@ -30,7 +31,7 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
         configurarPaineis();
     }
 
-    // Configuração da janela principal
+    /* ========================================= CONFIGURAÇÃO DA JANELA PRINCIPAL ======================================== */
     private void configurarJanela() {
         // Primeiro, definir a janela como não decorada
         setUndecorated(true);
@@ -41,7 +42,7 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0, 0));
     }
 
-    // Iniciando componentes
+    /* ========================================= INICIALIZAÇÃO DOS COMPONENTES ======================================== */
     public void inicializarComponentes() {
         // Criar CardLayout para gerenciar múltiplas telas
         cardLayout = new CardLayout();
@@ -52,7 +53,7 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
 
     }
 
-    // Configurar Paineis
+    /* =========================================== CONFIGURAÇÃO DOS PAINÉIS ========================================== */
     private void configurarPaineis() {
         // Criar painel de portas
         painelPortas = new LoginLoadingPortas(this) {
@@ -82,7 +83,7 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
         cardLayout.show(mainPanel, "PORTAS");
     }
 
-    // metodo publico para navegação
+    /* ========================================= MÉTODOS PÚBLICOS DE NAVEGAÇÃO ======================================== */
     public void mostrarPortas() {
         cardLayout.show(mainPanel, "PORTAS");
     }
@@ -111,7 +112,7 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
         return mainPanel;
     }
 
-    // Metodos auxiliares para integração
+    /* ========================================= MÉTODOS AUXILIARES DE INTEGRAÇÃO ===================================== */
     public void reiniciarAnimacao() {
         painelPortas.fecharPortas();
         
@@ -121,12 +122,12 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
         timer.start();
     }
     
-    //Verifica se a animação está eme andamento
-    public boolean isAnimando(){
+    // Verifica se a animação está em andamento
+    public boolean isAnimando() {
         return painelPortas.isAnimando();
     }
 
-    // metodo estatico para executar a aplicação
+    /* ========================================= MÉTODO PRINCIPAL DE EXECUÇÃO ======================================== */
     public static void executar() {
         // Configurar Look and Feel do sistema na thread da interface gráfica
         try {
@@ -155,7 +156,7 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
         });
     }
     
-    // Limpeza de Recursos
+    /* ============================================= LIMPEZA DE RECURSOS ============================================ */
     @Override
     public void dispose(){
         // Libera recusros do painel de portas
@@ -165,9 +166,11 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
         super.dispose();
     }
 
+    /* ========================================= CÓDIGO GERADO PELO NETBEANS ========================================= */
     /**
-     * Inicializa os componentes da interface gráfica. Código gerado pelo NetBeans Form Editor. Não modifique este
-     * método manualmente.
+     * Inicializa os componentes da interface gráfica. 
+     * Código gerado pelo NetBeans Form Editor. 
+     * Não modifique este método manualmente.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -188,6 +191,7 @@ public class LoginLoadingPainel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /* ========================================= VARIÁVEIS DO NETBEANS ========================================= */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

@@ -7,40 +7,56 @@ import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 /**
- * Gerenciador de Internacionalização (i18n)
- * Responsável por carregar e fornecer mensagens traduzidas
- * 
+ * Gerenciador de internacionalização (i18n) da aplicação
+ * Implementação em Singleton para acesso global
+ *
  * Projeto: Biblioteca
- * 
+ *
  * @author Warrick
  * @since 04/11/2025
  */
 public class I18nManager {
     
+    /* ========================================== INSTÂNCIA SINGLETON ========================================== */
     private static I18nManager instance;
+    /* ========================================== RECURSOS DE IDIOMA ========================================== */
     private ResourceBundle bundle;
     private Locale currentLocale;
     private static final String BUNDLE_BASE_NAME = "messages";
+    
+    /* ========================================== PREFERÊNCIAS ========================================== */
     private static final String PREF_LANGUAGE_KEY = "app.language";
     private static final String PREF_COUNTRY_KEY = "app.country";
     
-    // Lista de listeners para mudanças de idioma
+    /* ========================================== LISTENERS ========================================== */
     private final List<LanguageChangeListener> listeners = new ArrayList<>();
     
-    // Locales suportados
+    /* ========================================== LOCALES SUPORTADOS ========================================== */
+    
+    /** Locale para Português do Brasil */
     public static final Locale LOCALE_PT_BR = new Locale("pt", "BR");
+    
+    /** Locale para Inglês Americano */
     public static final Locale LOCALE_EN_US = new Locale("en", "US");
     
+    /* ============================================== CONSTRUTOR ============================================== */
+    
     /**
-     * Construtor privado (Singleton)
+     * Construtor privado para o padrão Singleton
+     * Inicializa o gerenciador de internacionalização
      */
     private I18nManager() {
         loadSavedLocale();
+        loadBundle();
     }
     
+    /* ============================================== MÉTODOS PÚBLICOS ============================================== */
+    
     /**
-     * Obtém a instância única do gerenciador
-     * @return Instância do I18nManager
+     * Obtém a instância única do gerenciador de internacionalização.
+     * Implementa o padrão Singleton com verificação thread-safe.
+     * 
+     * @return A instância única de I18nManager
      */
     public static I18nManager getInstance() {
         if (instance == null) {
@@ -53,8 +69,14 @@ public class I18nManager {
         return instance;
     }
     
+    /* ============================================== MÉTODOS PRIVADOS ============================================== */
+    
     /**
-     * Carrega o locale salvo nas preferências ou usa o padrão do sistema
+     * Carrega o locale salvo nas preferências do usuário ou utiliza o padrão do sistema.
+     * Se não encontrar um locale salvo, tenta detectar o idioma do sistema operacional.
+     * 
+     * @see Preferences
+     * @see Locale#getDefault()
      */
     private void loadSavedLocale() {
         try {
@@ -84,7 +106,11 @@ public class I18nManager {
     }
     
     /**
-     * Carrega o bundle de recursos para o locale atual
+     * Carrega o ResourceBundle correspondente ao locale atual.
+     * Se ocorrer algum erro ao carregar o bundle, tenta carregar o bundle padrão.
+     * 
+     * @see ResourceBundle
+     * @see #currentLocale
      */
     private void loadBundle() {
         try {
@@ -98,9 +124,12 @@ public class I18nManager {
     }
     
     /**
-     * Obtém uma mensagem traduzida pela chave
-     * @param key Chave da mensagem
-     * @return Mensagem traduzida
+     * Obtém uma mensagem traduzida com base na chave fornecida.
+     * Se a chave não for encontrada, retorna a própria chave entre exclamações.
+     * 
+     * @param key A chave da mensagem no arquivo de recursos
+     * @return A mensagem traduzida ou a chave entre '!' se não encontrada
+     * @see ResourceBundle#getString(String)
      */
     public String getMessage(String key) {
         try {
@@ -112,10 +141,13 @@ public class I18nManager {
     }
     
     /**
-     * Obtém uma mensagem traduzida com parâmetros
-     * @param key Chave da mensagem
-     * @param params Parâmetros para substituir na mensagem
-     * @return Mensagem traduzida com parâmetros
+     * Obtém uma mensagem traduzida com parâmetros formatados.
+     * Os parâmetros são substituídos na mensagem usando String.format().
+     * 
+     * @param key A chave da mensagem no arquivo de recursos
+     * @param params Parâmetros a serem inseridos na mensagem
+     * @return A mensagem formatada com os parâmetros ou a chave entre '!' se não encontrada
+     * @see String#format(String, Object...)
      */
     public String getMessage(String key, Object... params) {
         try {
@@ -128,8 +160,12 @@ public class I18nManager {
     }
     
     /**
-     * Altera o locale da aplicação
-     * @param locale Novo locale
+     * Altera o locale atual da aplicação e notifica todos os listeners registrados.
+     * 
+     * @param locale O novo locale a ser definido
+     * @see #notifyLanguageChanged(Locale, Locale)
+     * @see #loadBundle()
+     * @see #saveLocale()
      */
     public void setLocale(Locale locale) {
         Locale oldLocale = this.currentLocale;
@@ -142,7 +178,11 @@ public class I18nManager {
     }
     
     /**
-     * Salva o locale atual nas preferências
+     * Salva as configurações de idioma atuais nas preferências do usuário.
+     * As preferências são persistidas entre execuções da aplicação.
+     * 
+     * @see Preferences
+     * @see #currentLocale
      */
     private void saveLocale() {
         try {
@@ -156,31 +196,41 @@ public class I18nManager {
     }
     
     /**
-     * Obtém o locale atual
-     * @return Locale atual
+     * Retorna o locale atualmente configurado na aplicação.
+     * 
+     * @return O objeto Locale atual
+     * @see Locale
      */
     public Locale getCurrentLocale() {
         return currentLocale;
     }
     
     /**
-     * Verifica se o locale atual é PT-BR
-     * @return true se for PT-BR
+     * Verifica se o idioma atual é Português do Brasil.
+     * 
+     * @return true se o locale atual for PT-BR, false caso contrário
+     * @see #LOCALE_PT_BR
      */
     public boolean isPortuguese() {
         return currentLocale.equals(LOCALE_PT_BR);
     }
     
     /**
-     * Verifica se o locale atual é EN-US
-     * @return true se for EN-US
+     * Verifica se o idioma atual é Inglês Americano.
+     * 
+     * @return true se o locale atual for EN-US, false caso contrário
+     * @see #LOCALE_EN_US
      */
     public boolean isEnglish() {
         return currentLocale.equals(LOCALE_EN_US);
     }
     
     /**
-     * Alterna entre PT-BR e EN-US
+     * Alterna o idioma entre Português do Brasil e Inglês Americano.
+     * Se o idioma atual for PT-BR, muda para EN-US, e vice-versa.
+     * 
+     * @see #setLocale(Locale)
+     * @see #isPortuguese()
      */
     public void toggleLanguage() {
         if (isPortuguese()) {
@@ -191,27 +241,35 @@ public class I18nManager {
     }
     
     /**
-     * Método estático para acesso rápido às mensagens
-     * @param key Chave da mensagem
-     * @return Mensagem traduzida
+     * Método de conveniência estático para obter mensagens sem precisar da instância.
+     * 
+     * @param key A chave da mensagem no arquivo de recursos
+     * @return A mensagem traduzida
+     * @see #getMessage(String)
      */
     public static String msg(String key) {
         return getInstance().getMessage(key);
     }
     
     /**
-     * Método estático para acesso rápido às mensagens com parâmetros
-     * @param key Chave da mensagem
-     * @param params Parâmetros
-     * @return Mensagem traduzida
+     * Método de conveniência estático para obter mensagens formatadas sem precisar da instância.
+     * 
+     * @param key A chave da mensagem no arquivo de recursos
+     * @param params Parâmetros a serem inseridos na mensagem
+     * @return A mensagem formatada com os parâmetros
+     * @see #getMessage(String, Object...)
      */
     public static String msg(String key, Object... params) {
         return getInstance().getMessage(key, params);
     }
     
     /**
-     * Adiciona um listener para mudanças de idioma
-     * @param listener Listener a ser adicionado
+     * Registra um listener para ser notificado quando o idioma for alterado.
+     * O mesmo listener não será adicionado mais de uma vez.
+     * 
+     * @param listener O listener a ser registrado
+     * @see LanguageChangeListener
+     * @see #removeLanguageChangeListener(LanguageChangeListener)
      */
     public void addLanguageChangeListener(LanguageChangeListener listener) {
         if (listener != null && !listeners.contains(listener)) {
@@ -220,24 +278,34 @@ public class I18nManager {
     }
     
     /**
-     * Remove um listener de mudanças de idioma
-     * @param listener Listener a ser removido
+     * Remove um listener previamente registrado para mudanças de idioma.
+     * 
+     * @param listener O listener a ser removido
+     * @see #addLanguageChangeListener(LanguageChangeListener)
+     * @see #clearLanguageChangeListeners()
      */
     public void removeLanguageChangeListener(LanguageChangeListener listener) {
         listeners.remove(listener);
     }
     
     /**
-     * Remove todos os listeners
+     * Remove todos os listeners registrados para mudanças de idioma.
+     * 
+     * @see #addLanguageChangeListener(LanguageChangeListener)
+     * @see #removeLanguageChangeListener(LanguageChangeListener)
      */
     public void clearLanguageChangeListeners() {
         listeners.clear();
     }
     
     /**
-     * Notifica todos os listeners sobre mudança de idioma
-     * @param oldLocale Locale anterior
-     * @param newLocale Novo locale
+     * Notifica todos os listeners registrados sobre a mudança de idioma.
+     * Este método é chamado internamente sempre que o locale é alterado.
+     * 
+     * @param oldLocale O locale antes da mudança
+     * @param newLocale O novo locale após a mudança
+     * @see LanguageChangeListener#onLanguageChanged(Locale, Locale)
+     * @see #setLocale(Locale)
      */
     private void notifyLanguageChanged(Locale oldLocale, Locale newLocale) {
         for (LanguageChangeListener listener : listeners) {

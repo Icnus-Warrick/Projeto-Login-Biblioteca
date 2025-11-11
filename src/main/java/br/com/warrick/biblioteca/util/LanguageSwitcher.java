@@ -5,23 +5,37 @@ import java.awt.*;
 import java.util.Locale;
 
 /**
- * Componente para alternar entre idiomas
- * 
+ * Componente para troca de idioma da aplicação
+ * Permite selecionar entre os idiomas suportados
+ *
  * Projeto: Biblioteca
- * 
+ *
  * @author Warrick
  * @since 04/11/2025
  */
 public class LanguageSwitcher extends JPanel {
     
+    /* ========================================== COMPONENTES ========================================== */
     private JComboBox<LanguageOption> languageComboBox;
-    private I18nManager i18nManager;
+    private final I18nManager i18nManager;
     
+    /* ========================================== CONSTRUTOR ========================================== */
+    
+    /**
+     * Cria um novo seletor de idioma
+     * Inicializa os componentes e carrega os idiomas disponíveis
+     */
     public LanguageSwitcher() {
         i18nManager = I18nManager.getInstance();
         initComponents();
     }
     
+    /* ========================================== INICIALIZAÇÃO ========================================== */
+    
+    /**
+     * Inicializa os componentes da interface
+     * Configura o layout e carrega as opções de idioma
+     */
     private void initComponents() {
         setLayout(new FlowLayout(FlowLayout.LEFT));
         
@@ -57,9 +71,11 @@ public class LanguageSwitcher extends JPanel {
         add(languageComboBox);
     }
     
+    /* ========================================== EVENTOS ========================================== */
+    
     /**
-     * Método chamado quando o idioma é alterado
-     * Pode ser sobrescrito para atualizar a interface
+     * Chamado quando o idioma é alterado
+     * Exibe uma mensagem informando sobre a necessidade de reiniciar
      */
     protected void onLanguageChanged() {
         // Mostrar mensagem de que é necessário reiniciar
@@ -71,21 +87,53 @@ public class LanguageSwitcher extends JPanel {
         );
     }
     
+    /* ============================================== CLASSE INTERNA ============================================== */
+    
     /**
-     * Classe interna para representar uma opção de idioma
+     * Classe interna que representa uma opção de idioma na caixa de seleção.
      */
     private static class LanguageOption {
-        private String displayName;
-        private Locale locale;
         
+        /* ============================================== ATRIBUTOS ============================================== */
+        
+        /** Nome de exibição do idioma */
+        private final String displayName;
+        
+        /** Locale correspondente ao idioma */
+        private final Locale locale;
+        
+        /* ============================================== CONSTRUTOR ============================================== */
+        
+        /**
+         * Cria uma nova opção de idioma.
+         * 
+         * @param displayName Nome a ser exibido na interface
+         * @param locale Locale correspondente ao idioma
+         */
         public LanguageOption(String displayName, Locale locale) {
             this.displayName = displayName;
             this.locale = locale;
         }
         
+        /* ============================================== MÉTODOS PÚBLICOS ============================================== */
+        
+        /**
+         * Obtém o locale associado a esta opção de idioma.
+         * 
+         * @return O objeto Locale correspondente
+         */
+        
         public Locale getLocale() {
             return locale;
         }
+        
+        /* ============================================== MÉTODOS SOBRESCRITOS ============================================== */
+        
+        /**
+         * Retorna a representação em string desta opção de idioma.
+         * 
+         * @return O nome de exibição do idioma
+         */
         
         @Override
         public String toString() {

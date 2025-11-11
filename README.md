@@ -101,40 +101,27 @@ Contribuições são bem-vindas! Siga estes passos:
 1. Faça um Fork do projeto
 2. Crie uma Branch para sua Feature (`git checkout -b feature/AmazingFeature`)
 3. Adicione suas mudanças (`git add .`)
-4. Faça o Commit das suas alterações (`git commit -m 'Adiciona alguma feature incrível'`)
 5. Faça o Push para a Branch (`git push origin feature/AmazingFeature`)
 6. Abra um Pull Request
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
 
-## ✨ Agradecimentos
+## 🙏 Agradecimentos e Créditos
 
-- [FlatLaf](https://www.formdev.com/flatlaf/) - Por fornecer um Look and Feel moderno para Java Swing
-- [Maven](https://maven.apache.org/) - Por facilitar o gerenciamento de dependências
-- [SQLite](https://www.sqlite.org/) - Pelo banco de dados leve e eficiente
-  - `controller/`: Controladores da aplicação
-  - `dao/`: Acesso a dados
-  - `model/`: Modelos de dados
-  - `service/`: Lógica de negócio
-  - `view/`: Interfaces gráficas
-  - `peripherals/`: Componentes customizados da UI
-  - `utils/`: Utilitários diversos
-- `src/main/resources/`: Recursos estáticos (imagens, etc.)
-- `pom.xml`: Configuração Maven
+Este projeto utiliza componentes de código aberto e personalizados. Por favor, consulte o arquivo [CREDITS.md](CREDITS.md) para uma lista completa de créditos e atribuições de terceiros.
 
-## Funcionalidades
+## 🧩 Tecnologias e Ferramentas
 
-- Login de usuários
-- Gerenciamento de livros
-- Empréstimos e devoluções
-- Interface moderna e intuitiva
+- [FlatLaf](https://www.formdev.com/flatlaf/) - Look and Feel moderno para Java Swing
+- [Maven](https://maven.apache.org/) - Gerenciamento de dependências
+- [SQLite](https://www.sqlite.org/) - Banco de dados leve e eficiente
 
-## Autor
+## 👨‍💻 Autor
 
-Warrick - Desenvolvedor principal
+**Warrick** - Desenvolvedor principal
 
-## Licença
+---
 
-Este projeto é distribuído sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+Desenvolvido com ❤️ por Warrick

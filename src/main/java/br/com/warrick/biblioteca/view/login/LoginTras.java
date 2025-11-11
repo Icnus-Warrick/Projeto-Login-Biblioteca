@@ -1,21 +1,27 @@
 package br.com.warrick.biblioteca.view.login;
 
+import br.com.warrick.biblioteca.util.I18nManager;
+
 /**
+ * Painel de registro de usuário da aplicação
+ * Gerencia o cadastro de novos usuários e validação de dados
+ *
  * Projeto: Biblioteca
+ *
  * @author Warrick
  * @since 02/11/2025
  */
 public class LoginTras extends javax.swing.JPanel {
 
-    // Referência para a aplicação pai
+    /* ============================================== VARIÁVEIS DE INSTÂNCIA =========================================== */
     private LoginApp parentApp;
 
-    // Construtor padrão
+    /* ============================================== CONSTRUTOR PADRÃO ============================================= */
     public LoginTras() {
         this(null);
     }
 
-    // Construtor com referência à aplicação pai
+    /* ========================================= CONSTRUTOR COM PARÂMETRO ========================================== */
     public LoginTras(LoginApp parentApp) {
         this.parentApp = parentApp;
         initComponents();
@@ -23,9 +29,15 @@ public class LoginTras extends javax.swing.JPanel {
         setBackground(new java.awt.Color(0, 0, 0, 0));
         setupListeners();
         setupValidation();
+        atualizarTexto();
+        
+        // Adicionar listener para mudanças de idioma
+        I18nManager.getInstance().addLanguageChangeListener((oldLocale, newLocale) -> {
+            atualizarTexto();
+        });
     }
 
-    // Método para configurar os listeners dos componentes
+    /* ========================================= CONFIGURAÇÃO DOS LISTENERS ========================================= */
     private void setupListeners() {
         // Adicionar listeners após initComponents para não interferir no código gerado
         cmdLogin.addActionListener(e -> {
@@ -63,13 +75,19 @@ public class LoginTras extends javax.swing.JPanel {
         });
     }
 
+    /* ========================================= CONFIGURAÇÃO DAS VALIDAÇÕES ======================================== */
     private void setupValidation() {
         // Inicialmente esconder mensagens de validação
         lblConf.setVisible(false);
         lblInfR1.setVisible(false);
         lblInfR2.setVisible(false);
+        
+        // Configurar fonte e cor padrão para as mensagens
+        lblInfR1.setFont(new java.awt.Font("Segoe UI", 0, 12));
+        lblInfR2.setFont(new java.awt.Font("Segoe UI", 0, 14));
     }
 
+    /* ========================================= REGISTRO DE USUÁRIO =============================================== */
     private void registrarUsuario() {
         String nome = txtNome.getText().trim();
         String usuario = txtUsuarioR.getText().trim();
@@ -79,30 +97,31 @@ public class LoginTras extends javax.swing.JPanel {
 
         // Validações
         if (nome.isEmpty() || usuario.isEmpty() || senha.isEmpty()) {
-            mostrarMensagem("Nome, usuário e senha são obrigatórios!", java.awt.Color.RED);
+            mostrarMensagem(I18nManager.msg("register.error.empty"), java.awt.Color.RED);
             return;
         }
 
         if (!senha.equals(senhaConfirmacao)) {
-            mostrarMensagem("As senhas não coincidem!", java.awt.Color.RED);
+            mostrarMensagem(I18nManager.msg("register.error.password_mismatch"), java.awt.Color.RED);
             return;
         }
 
         if (!email.isEmpty() && (!email.contains("@") || !email.contains("."))) {
-            mostrarMensagem("E-mail inválido!", java.awt.Color.RED);
+            mostrarMensagem(I18nManager.msg("register.error.invalid_email"), java.awt.Color.RED);
             return;
         }
 
         // Usar controller para registrar
         br.com.warrick.biblioteca.controller.UsuarioController controller = new br.com.warrick.biblioteca.controller.UsuarioController();
         if (controller.cadastrarUsuario(nome, usuario, senha, email, "")) { // estilo preferido vazio por enquanto
-            mostrarMensagem("Usuário registrado com sucesso!", java.awt.Color.GREEN);
+            mostrarMensagem(I18nManager.msg("register.success"), new java.awt.Color(0, 150, 0));
             limparCampos();
         } else {
-            mostrarMensagem("Erro ao registrar usuário. Tente novamente.", java.awt.Color.RED);
+            mostrarMensagem(I18nManager.msg("register.error.generic"), java.awt.Color.RED);
         }
     }
 
+    /* ========================================= VERIFICAÇÃO DE USUÁRIO ============================================ */
     private void verificarUsuarioExistente() {
         String usuario = txtUsuarioR.getText().trim();
         if (usuario.isEmpty()) {
@@ -118,21 +137,27 @@ public class LoginTras extends javax.swing.JPanel {
             lblConf.setText("X");
             lblConf.setForeground(java.awt.Color.RED);
             lblConf.setVisible(true);
+            lblInfR1.setText(I18nManager.msg("register.unavailable"));
+            lblInfR1.setForeground(java.awt.Color.RED);
             lblInfR1.setVisible(true);
         } else {
             lblConf.setText("V");
-            lblConf.setForeground(java.awt.Color.GREEN);
+            lblConf.setForeground(new java.awt.Color(0, 150, 0));
             lblConf.setVisible(true);
-            lblInfR1.setVisible(false);
+            lblInfR1.setText(I18nManager.msg("register.available"));
+            lblInfR1.setForeground(new java.awt.Color(0, 150, 0));
+            lblInfR1.setVisible(true);
         }
     }
 
+    /* ========================================= MÉTODOS AUXILIARES ================================================ */
     private void mostrarMensagem(String mensagem, java.awt.Color cor) {
         lblInfR2.setText(mensagem);
         lblInfR2.setForeground(cor);
         lblInfR2.setVisible(true);
     }
 
+    // Limpa todos os campos do formulário
     private void limparCampos() {
         txtNome.setText("");
         txtUsuarioR.setText("");
@@ -141,15 +166,40 @@ public class LoginTras extends javax.swing.JPanel {
         txtSenhaRC.setText("");
         lblConf.setVisible(false);
         lblInfR1.setVisible(false);
+        lblInfR2.setVisible(false);
+    }
+    
+    /* ========================================= ATUALIZAÇÃO DE TEXTO ============================================== */
+    private void atualizarTexto() {
+        // Atualizar título
+        lblTituloR.setText(I18nManager.msg("register.title"));
+        
+        // Atualizar campos de texto
+        txtNome.setLabelText(I18nManager.msg("register.name"));
+        txtUsuarioR.setLabelText(I18nManager.msg("register.user"));
+        txtEmail.setLabelText(I18nManager.msg("register.email"));
+        txtSenhaR.setLabelText(I18nManager.msg("register.password"));
+        txtSenhaRC.setLabelText(I18nManager.msg("register.confirm_password"));
+        
+        // Atualizar botões
+        cmdLogin.setText(I18nManager.msg("register.button"));
+        cmdSair.setText(I18nManager.msg("login.exit"));
+        
+        // Atualizar link de voltar
+        lblInfR3.setText(I18nManager.msg("register.back"));
+        
+        // Forçar redesenho
+        revalidate();
+        repaint();
     }
 
+    /* ========================================= CÓDIGO GERADO PELO NETBEANS ========================================= */
     /**
- * Projeto: Biblioteca
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
-     * content of this method is always regenerated by the Form Editor.
+     * Este método é chamado dentro do construtor para inicializar o formulário.
+     * AVISO: NÃO modifique este código. O conteúdo deste método é sempre regenerado pelo Editor de Formulários.
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Código Gerado">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         lblTituloR = new javax.swing.JLabel();

@@ -5,26 +5,39 @@ import java.awt.*;
 
 /**
  * Exemplo de uso do sistema de internacionalização
- * Execute esta classe para ver o i18n em ação
- * 
+ * Demonstra a troca de idiomas em tempo de execução
+ *
  * Projeto: Biblioteca
- * 
+ *
  * @author Warrick
  * @since 04/11/2025
  */
 public class I18nExample extends JFrame {
     
+    /* ========================================== COMPONENTES DA INTERFACE ========================================== */
     private JLabel titleLabel;
     private JLabel messageLabel;
     private JButton loginButton;
     private JButton toggleButton;
     private LanguageSwitcher languageSwitcher;
     
+    /* ========================================== CONSTRUTOR ========================================== */
+    
+    /**
+     * Construtor da classe I18nExample.
+     * Inicializa os componentes da interface e atualiza os textos.
+     */
+    
     public I18nExample() {
         initComponents();
         updateTexts();
     }
     
+    /* ========================================== MÉTODOS PRIVADOS ========================================== */
+    
+    /**
+     * Inicializa os componentes da interface
+     */
     private void initComponents() {
         setTitle("i18n Example");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,7 +118,8 @@ public class I18nExample extends JFrame {
     }
     
     /**
-     * Atualiza todos os textos da interface com as mensagens traduzidas
+     * Atualiza os textos dos componentes
+     * Usa o I18nManager para obter as strings traduzidas
      */
     private void updateTexts() {
         titleLabel.setText(I18nManager.msg("app.title"));
@@ -120,8 +134,12 @@ public class I18nExample extends JFrame {
         repaint();
     }
     
+    /* ========================================== MÉTODO PRINCIPAL ========================================== */
+    
     /**
-     * Método main para executar o exemplo
+     * Ponto de entrada do exemplo
+     * 
+     * @param args Argumentos da linha de comando
      */
     public static void main(String[] args) {
         // Configurar Look and Feel

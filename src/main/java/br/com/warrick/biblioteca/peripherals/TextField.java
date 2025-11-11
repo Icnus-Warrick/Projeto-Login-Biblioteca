@@ -19,11 +19,16 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 /**
+ * Componente de campo de texto personalizado com rótulo flutuante e feedback visual.
+ * Estende JTextField para fornecer uma melhor experiência de usuário com animações
+ * e estilização moderna.
+ *
  * Projeto: Biblioteca
+ *
+ * @author Ra Ven - Criador original dos componentes personalizados (YouTube/GitHub)
  * @author Warrick
  * @since 02/11/2025
  */
-
 
 
 public class TextField extends JTextField {   

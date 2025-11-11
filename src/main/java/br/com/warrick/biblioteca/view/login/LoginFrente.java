@@ -1,33 +1,43 @@
 package br.com.warrick.biblioteca.view.login;
 
+import br.com.warrick.biblioteca.util.I18nManager;
+
 /**
+ * Painel de login da aplicação
+ * Gerencia a autenticação do usuário e navegação para registro
+ *
  * Projeto: Biblioteca
+ *
  * @author Warrick
  * @since 02/11/2025
  */
 public class LoginFrente extends javax.swing.JPanel {
 
-    /** Referência para a aplicação pai, usada para navegação entre telas. */
+    /* ============================================== VARIÁVEIS DE INSTÂNCIA =========================================== */
     private LoginApp parentApp;
 
-    /** Construtor padrão. Inicializa os componentes da interface e configura os listeners. */
+    /* ============================================== CONSTRUTOR PADRÃO ============================================= */
     public LoginFrente() {
         initComponents();
         setOpaque(false);
         setBackground(new java.awt.Color(0, 0, 0, 0));
+        setupIdioma();
         setupListeners();
+        atualizarTexto();
     }
 
-    /** Construtor que aceita uma referência para a aplicação pai. Permite integração com a aplicação principal para transições de tela. */
+    /* ========================================= CONSTRUTOR COM PARÂMETRO ========================================== */
     public LoginFrente(LoginApp parentApp) {
         this.parentApp = parentApp;
         initComponents();
         setOpaque(false);
         setBackground(new java.awt.Color(0, 0, 0, 0));
+        setupIdioma();
         setupListeners();
+        atualizarTexto();
     }
 
-    /** Método privado para configurar os event listeners dos componentes da interface. Adiciona ações para botões de login, sair e link de registro. */
+    /* ========================================= CONFIGURAÇÃO DOS LISTENERS ========================================= */
     private void setupListeners() {
         // Configurar listeners após initComponents para evitar interferência no código gerado automaticamente
         // Configurar ação do botão de login: validar credenciais e iniciar aplicação
@@ -42,8 +52,8 @@ public class LoginFrente extends javax.swing.JPanel {
                     = new br.com.warrick.biblioteca.controller.UsuarioController();
 
             if (controller.fazerLogin(usuario, senha)) {
-                lblInfo3.setText("Login bem-sucedido!");
-                lblInfo3.setForeground(java.awt.Color.GREEN);
+                lblInfo3.setText(I18nManager.msg("login.success"));
+                lblInfo3.setForeground(new java.awt.Color(0, 150, 0)); // Verde mais escuro para melhor contraste
 
                 // Fechar a janela de login
                 java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
@@ -53,24 +63,42 @@ public class LoginFrente extends javax.swing.JPanel {
 
                 // Iniciar a aplicação principal em uma nova thread
                 new Thread(() -> {
-                    try {
-                        System.out.println("Iniciando LApp...");
-                        br.com.warrick.biblioteca.view.login.LoginLoadingPainel.executar();
-                        System.out.println("LApp iniciado com sucesso!");
+                    try {                        
+                        br.com.warrick.biblioteca.view.login.LoginLoadingPainel.executar();                        
                     } catch (Exception ex) {
                         System.err.println("Erro ao iniciar LApp: " + ex.getMessage());
                         ex.printStackTrace();
                     }
                 }).start();
             } else {
-                lblInfo3.setText("Usuário ou senha inválidos.");
+                lblInfo3.setText(I18nManager.msg("login.error"));
                 lblInfo3.setForeground(java.awt.Color.RED);
             }
         });
 
         // Configurar ação do botão sair: encerrar a aplicação
         cmdSair.addActionListener(e -> System.exit(0));
+        
+        // Configurar listener para o label de recuperação de senha: navegar para tela de recuperação
+        lblInfo2.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (parentApp != null) {
+                    parentApp.mostrarRecuperacao();
+                }
+            }
 
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblInfo2.setForeground(java.awt.Color.CYAN);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblInfo2.setForeground(java.awt.Color.WHITE);
+            }
+        });
+        
         // Configurar listener para o label de registro: navegar para tela de registro
         lblInfo4.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -90,14 +118,78 @@ public class LoginFrente extends javax.swing.JPanel {
                 lblInfo4.setForeground(java.awt.Color.WHITE);
             }
         });
+        
+        // Configurar listener para o combobox de idioma
+        cbbIdioma.addActionListener(e -> {
+           int index = cbbIdioma.getSelectedIndex();
+           if(index==0){
+               I18nManager.getInstance().setLocale(I18nManager.LOCALE_PT_BR);               
+           }else{
+               I18nManager.getInstance().setLocale(I18nManager.LOCALE_EN_US);
+           }           
+        });
+        
+        I18nManager.getInstance().addLanguageChangeListener((oldLocale,newLocale) ->{
+            atualizarTexto();
+        });
+    }
+    
+    /* ========================================= ATUALIZAÇÃO DE TEXTO ============================================== */
+    private void atualizarTexto() {
+        // Atualizar labels de título
+        lblTitulo1.setText(I18nManager.msg("login.title"));
+        lblTitulo2.setText(I18nManager.msg("login.quote1"));
+        lblTitulo3.setText(I18nManager.msg("login.quote2"));
+        lblTitulo4.setText(I18nManager.msg("login.quote3"));
+        lblTitulo5.setText(I18nManager.msg("login.quote4"));
+        
+        // Atualizar campos de texto
+        txtUsuario.setLabelText(I18nManager.msg("login.username").toUpperCase());
+        txtSenha.setLabelText(I18nManager.msg("login.password").toUpperCase());
+        
+        // Atualizar botões
+        cmdLogin.setText(I18nManager.msg("login.button"));
+        cmdSair.setText(I18nManager.msg("login.exit"));
+        
+        // Atualizar labels de informação
+        lblInfo2.setText(I18nManager.msg("login.forgot"));
+        lblInfo4.setText(I18nManager.msg("login.no_account"));
+        
+        // Atualizar ComboBox de idioma
+        cbbIdioma.setLabelText(I18nManager.msg("settings.language"));
+        
+        // Atualizar itens do ComboBox mantendo a seleção atual
+        int selectedIndex = cbbIdioma.getSelectedIndex();
+        cbbIdioma.removeAllItems();
+        cbbIdioma.addItem("Português (BR)");
+        cbbIdioma.addItem("English (US)");
+        cbbIdioma.setSelectedIndex(selectedIndex);
+        
+        revalidate();
+        repaint();
+    }
+    
+    /* ========================================= CONFIGURAÇÃO DE IDIOMA ============================================ */
+    private void setupIdioma() {
+        // Popular ComboBox com os mesmos valores usados em atualizarTexto()
+        cbbIdioma.addItem("Português (BR)");
+        cbbIdioma.addItem("English (US)");
+        
+        // Seleciona idioma atual
+        if(I18nManager.getInstance().isPortuguese()){
+            cbbIdioma.setSelectedIndex(0);
+        }else{
+            cbbIdioma.setSelectedIndex(1);
+        }
     }
 
+    /* ========================================= CÓDIGO GERADO PELO NETBEANS ========================================= */
     /**
-     * Projeto: Biblioteca This method is called from within the constructor to initialize the form. WARNING: Do NOT
-     * modify this code. The content of this method is always regenerated by the Form Editor.
+     * Este método é chamado dentro do construtor para inicializar o formulário.
+     * AVISO: NÃO modifique este código. O conteúdo deste método é sempre regenerado pelo Editor de Formulários.
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Código Gerado">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         lblTitulo1 = new javax.swing.JLabel();
@@ -113,6 +205,7 @@ public class LoginFrente extends javax.swing.JPanel {
         lblInfo4 = new javax.swing.JLabel();
         lblTitulo4 = new javax.swing.JLabel();
         lblTitulo5 = new javax.swing.JLabel();
+        cbbIdioma = new br.com.warrick.biblioteca.peripherals.ComboBox();
         lblFundo = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -201,13 +294,24 @@ public class LoginFrente extends javax.swing.JPanel {
         lblTitulo5.setToolTipText("");
         add(lblTitulo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 580, 407, 40));
 
+        cbbIdioma.setForeground(new java.awt.Color(255, 204, 0));
+        cbbIdioma.setLabelText("IDIOMA");
+        cbbIdioma.setLightWeightPopupEnabled(false);
+        cbbIdioma.setLineColor(new java.awt.Color(218, 165, 4));
+        cbbIdioma.setName(""); // NOI18N
+        cbbIdioma.setOpaque(false);
+        cbbIdioma.setRequestFocusEnabled(false);
+        add(cbbIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 610, 140, 40));
+
         lblFundo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/LivroLogin.png"))); // NOI18N
         add(lblFundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
+    /* ========================================= VARIÁVEIS DO NETBEANS ========================================= */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private br.com.warrick.biblioteca.peripherals.ComboBox cbbIdioma;
     private br.com.warrick.biblioteca.peripherals.WButton cmdLogin;
     private br.com.warrick.biblioteca.peripherals.WButton cmdSair;
     private javax.swing.JLabel lblFundo;

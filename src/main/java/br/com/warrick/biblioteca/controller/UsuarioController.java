@@ -6,17 +6,26 @@ import br.com.warrick.biblioteca.service.UsuarioService;
 import java.sql.SQLException;
 
 /**
+ * Controlador responsável por gerenciar as operações relacionadas aos usuários
+ * Atua como intermediário entre a camada de visualização e a camada de serviço
+ *
  * Projeto: Biblioteca
+ *
  * @author Warrick
  * @since 28/10/2025
  */
 public class UsuarioController {
 
-    // Serviço para operações relacionadas ao usuário
-    private UsuarioService usuarioService = new UsuarioService();
+    /* ============================================== ATRIBUTOS ============================================== */
+    private final UsuarioService usuarioService = new UsuarioService();
     
-    /* =================================================== MÉTODOS ================================================== */
-    // Método para autenticar o usuário com nome e senha
+    /* ========================================= MÉTODOS DE AUTENTICAÇÃO ======================================= */
+    /**
+     * Autentica um usuário com nome de usuário e senha
+     * @param usuario Nome de usuário
+     * @param senha Senha do usuário
+     * @return boolean - true se a autenticação for bem-sucedida, false caso contrário
+     */
     public boolean fazerLogin(String usuario, String senha) {
         try {
             Usuario user = usuarioService.autenticar(usuario, senha);
@@ -27,7 +36,16 @@ public class UsuarioController {
         }
     }
 
-    // Método para cadastrar um novo usuário no sistema
+    /* ========================================= MÉTODOS DE CADASTRO ========================================= */
+    /**
+     * Cadastra um novo usuário no sistema
+     * @param nome Nome completo do usuário
+     * @param username Nome de usuário único
+     * @param senha Senha do usuário
+     * @param email Email do usuário
+     * @param estiloPreferido Estilo de leitura preferido
+     * @return boolean - true se o cadastro for bem-sucedido, false caso contrário
+     */
     public boolean cadastrarUsuario(String nome, String username, String senha, String email, String estiloPreferido) {
         try {
             usuarioService.cadastrarUsuario(nome, username, senha, email, estiloPreferido);
@@ -38,7 +56,12 @@ public class UsuarioController {
         }
     }
 
-    // Método para buscar um usuário pelo nome de usuário
+    /* ========================================= MÉTODOS DE CONSULTA ========================================= */
+    /**
+     * Busca um usuário pelo nome de usuário
+     * @param username Nome de usuário a ser buscado
+     * @return Usuario - Objeto Usuario se encontrado, null caso contrário
+     */
     public Usuario buscarUsuarioPorUsername(String username) {
         try {
             return usuarioService.buscarPorUsername(username);
@@ -48,7 +71,12 @@ public class UsuarioController {
         }
     }
 
-    // Método para atualizar os dados de um usuário existente
+    /* ========================================= MÉTODOS DE ATUALIZAÇÃO ======================================= */
+    /**
+     * Atualiza os dados de um usuário existente
+     * @param usuario Objeto Usuario com os dados atualizados
+     * @return boolean - true se a atualização for bem-sucedida, false caso contrário
+     */
     public boolean atualizarUsuario(Usuario usuario) {
         try {
             usuarioService.atualizarUsuario(usuario);
@@ -59,10 +87,16 @@ public class UsuarioController {
         }
     }
 
-    // Método para deletar um usuário pelo ID
-    public boolean deletarUsuario(int id) {
+    /* ========================================= MÉTODOS DE EXCLUSÃO ========================================== */
+
+    /**
+     * Remove um usuário do sistema pelo seu ID
+     * @param id ID do usuário a ser removido
+     * @return boolean - true se a exclusão for bem-sucedida, false caso contrário
+     */
+    public boolean excluirUsuario(int id) {
         try {
-            usuarioService.deletarUsuario(id);
+            usuarioService.excluirUsuario(id);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

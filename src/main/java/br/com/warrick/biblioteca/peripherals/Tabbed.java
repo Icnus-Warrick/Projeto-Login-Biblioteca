@@ -17,7 +17,11 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.interpolation.PropertySetter;
 
 /**
+ * Componente de abas personalizado com suporte a animações e estilização moderna.
+ *
  * Projeto: Biblioteca
+ *
+ * @author Ra Ven - Criador original dos componentes personalizados (YouTube/GitHub)
  * @author Warrick
  * @since 02/11/2025
  */

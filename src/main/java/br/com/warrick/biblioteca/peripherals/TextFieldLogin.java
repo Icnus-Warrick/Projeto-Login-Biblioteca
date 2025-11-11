@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -19,13 +18,16 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 /**
+ * Componente de campo de texto personalizado para telas de login, com rótulo flutuante
+ * e feedback visual. Estende JTextField para fornecer uma melhor experiência de usuário
+ * com animações e estilização moderna.
+ *
  * Projeto: Biblioteca
+ *
+ * @author Ra Ven - Criador original dos componentes personalizados (YouTube/GitHub)
  * @author Warrick
  * @since 02/11/2025
  */
-
-
-
 public class TextFieldLogin extends JTextField {
 
    
@@ -55,7 +57,10 @@ public class TextFieldLogin extends JTextField {
     private Color lineColor = new Color(218, 165, 4);
 
     public TextFieldLogin() {
-        setBorder(new EmptyBorder(15, 3, 5, 3));
+        // Parâmetros do EmptyBorder: top, left, bottom, right
+        // Aumentando o valor do segundo parâmetro para mover o texto para a direita
+        // Aumentando o valor do quarto parâmetro para dar mais espaço à direita
+        setBorder(new EmptyBorder(15, 10, 5, 5));
         setSelectionColor(new Color(171, 122, 24));
         addMouseListener(new MouseAdapter() {
             @Override

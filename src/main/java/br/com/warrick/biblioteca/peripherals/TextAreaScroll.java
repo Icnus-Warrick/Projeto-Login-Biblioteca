@@ -15,7 +15,12 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 /**
+ * Componente de área de texto com rolagem personalizada, incluindo barras de rolagem
+ * personalizadas e suporte a rótulo flutuante.
+ *
  * Projeto: Biblioteca
+ *
+ * @author Ra Ven - Criador original dos componentes personalizados (YouTube/GitHub)
  * @author Warrick
  * @since 02/11/2025
  */

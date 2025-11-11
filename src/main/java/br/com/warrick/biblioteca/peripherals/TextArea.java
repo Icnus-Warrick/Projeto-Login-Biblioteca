@@ -14,7 +14,12 @@ import javax.swing.event.DocumentListener;
 import org.jdesktop.animation.timing.Animator;
 
 /**
+ * Componente de área de texto personalizada com rótulo flutuante e feedback visual.
+ * Estende JTextArea para fornecer uma experiência de usuário mais rica com animações.
+ *
  * Projeto: Biblioteca
+ *
+ * @author Ra Ven - Criador original dos componentes personalizados (YouTube/GitHub)
  * @author Warrick
  * @since 02/11/2025
  */

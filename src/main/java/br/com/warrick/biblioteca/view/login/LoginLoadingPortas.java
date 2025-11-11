@@ -23,38 +23,39 @@ import javax.swing.Timer;
  * @author Warrick
  * @since 02/11/2025
  */
+
 public class LoginLoadingPortas extends javax.swing.JPanel {
 
-    /* ================================ BUFFER DE IMAGEM = */
+    /* ============================================== BUFFER DE IMAGEM ============================================== */
     private BufferedImage buffer;
     private Graphics2D bufferGraphics;
 
-    /* ================================ IMAGENS DAS PORTAS E BATENTES = */
+    /* ======================================== IMAGENS DAS PORTAS E BATENTES ======================================= */
     private Image imagemBatente;
     private Image imagemPortaE;
     private Image imagemPortaD;
 
-    /* ================================ CONSTANTES DE POSICIONAMENTO = */
+    /* ======================================== CONSTANTES DE POSICIONAMENTO ======================================== */
     private static final int LARGURA_PAINEL = 570;
     private static final int ALTURA_PAINEL = 881;
     private static final int POSICAO_INICIAL_PORTA_E = 133;
     private static final int POSICAO_FINAL_PORTA_E = 21;
     private static final int POSICAO_INICIAL_PORTA_D = 284;
-    private static final int POSICAO_FINAL_PORTA_D = 390;
+    private static final int POSICAO_FINAL_PORTA_D = 391;
     private static final int POSICAO_Y_PORTAS = 89;
 
-    /* ================================ CONFIGURAÇÕES DE ANIMAÇÃO = */
+    /* ========================================== CONFIGURAÇÕES DE ANIMAÇÃO ========================================= */
     private static final int VELOCIDADE_ANIMACAO = 2;
     private static final int DELAY_ANIMACAO = 16;
     private static final int DELAY_INICIAL = 500;
 
-    /* ================================ VARIÁVEIS DE CONTROLE DA ANIMAÇÃO = */
+    /* ====================================== VARIÁVEIS DE CONTROLE DA ANIMAÇÃO ======================================*/
     private int posicaoAtualE;
     private int posicaoAtualD;
     private Timer timerAnimacao;
     private boolean animacaoEmAndamento;
 
-    /* ================================ CONSTRUTOR PADRÃO = */
+    /* ============================================== CONSTRUTOR PADRÃO ============================================= */
     public LoginLoadingPortas() {
         initComponents();
         
@@ -73,12 +74,12 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
         startupTimer.start();
     }
 
-    /* ================================ CONSTRUTOR COM PARÂMETRO  = */
+    /* ========================================== CONSTRUTOR COM PARÂMETRO ========================================== */
     public LoginLoadingPortas(LoginLoadingPainel parentApp) {
         this();
     }
 
-    /* ================================ CONSTRUTOR DO PAINEL = */
+    /* ============================================ CONSTRUTOR DO PAINEL ============================================ */
     private void configurarPainel() {
         setPreferredSize(new Dimension(LARGURA_PAINEL, ALTURA_PAINEL));
         setSize(LARGURA_PAINEL, ALTURA_PAINEL);
@@ -89,7 +90,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
         setBackground(new Color(0, 0, 0, 0));
     }
 
-    /* ================================ INICIALIZAÇÂO DO BUFFER DE IMAGEM = */
+    /* ====================================== INICIALIZAÇÂO DO BUFFER DE IMAGEM ===================================== */
     private void inicializarBuffer() {
         // Criar buff com suporte a trasnparência (ARGB)
         buffer = new BufferedImage(
@@ -116,7 +117,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
         );
     }
 
-    /* ================================ CARREGAMENTO DAS IMAGEM = */
+    /* =========================================== CARREGAMENTO DAS IMAGEM ========================================== */
     private void carregarImagens() {
         System.out.println(I18nManager.msg("animation.loading"));
         
@@ -168,7 +169,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
         System.out.println("  PortaD: " + (imagemPortaD != null ? "OK" : "FALHA"));
     }
 
-    /* ================================ MÉTODO PRINCIPAL DE DESENHO = */
+    /* ========================================= MÉTODO PRINCIPAL DE DESENHO ======================================== */
     // ESTE É O CORAÇÃO DA SOLUÇÃO: DESENHA TUDO NO BUFFER PRIMEIRO
     @Override
     protected void paintComponent(Graphics g) {
@@ -188,7 +189,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
 
     }
 
-    /* ================================ DESENHA TODOS OS COMPONENTES NO BUFFER = */
+    /* =================================== DESENHA TODOS OS COMPONENTES NO BUFFER =================================== */
     private void desenharNoBuffer() {
         // Verificar se as imagens foram carregadas
         if (imagemBatente == null || imagemPortaE == null || imagemPortaD == null) {
@@ -206,7 +207,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
 
     }
 
-    /* ================================ INICIALIZAÇÂO DO TIMER DE ANIMAÇÂO = */
+    /* ===================================== INICIALIZAÇÂO DO TIMER DE ANIMAÇÂO ===================================== */
     private void inicializarTimer() {
         timerAnimacao = new Timer(DELAY_ANIMACAO, new ActionListener() {
             @Override
@@ -216,7 +217,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
         });
     }
 
-    /* ================================ LÓGICA DA ANIMAÇÂO = */
+    /* ============================================= LÓGICA DA ANIMAÇÂO ============================================= */
     private void animar() {
         // Verifica se o componente está visível
         if (!isVisible() || !isDisplayable()) {
@@ -256,7 +257,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
             onAnimacaoConcluida();
         }
     }
-
+    
     // INICIA A ANIMAÇÂO DA ABERTURA DAS PORTAS
     public void abrirPortas() {
         if (animacaoEmAndamento) {
@@ -321,7 +322,7 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
         imagemPortaE = null;
         imagemPortaD = null;
     }
-
+    /* ========================================= CÓDIGO GERADO PELO NETBEANS ========================================= */
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
      * content of this method is always regenerated by the Form Editor.
@@ -329,10 +330,32 @@ public class LoginLoadingPortas extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        // Não adicionar componentes - usamos paintComponent customizado
+
+        lblBatente = new javax.swing.JLabel();
+        lblPortaD = new javax.swing.JLabel();
+        lblPortaE = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblBatente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBatente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Batente.png"))); // NOI18N
+        add(lblBatente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 568, 880));
+
+        lblPortaD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPortaD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/PortaD.png"))); // NOI18N
+        lblPortaD.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        add(lblPortaD, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 89, 154, 710));
+
+        lblPortaE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPortaE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/PortaE.png"))); // NOI18N
+        lblPortaE.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        add(lblPortaE, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 89, 154, 710));
     }// </editor-fold>//GEN-END:initComponents
 
-
+    /* ========================================= VARIÁVEIS DO NETBEANS ========================================= */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblBatente;
+    private javax.swing.JLabel lblPortaD;
+    private javax.swing.JLabel lblPortaE;
     // End of variables declaration//GEN-END:variables
 }

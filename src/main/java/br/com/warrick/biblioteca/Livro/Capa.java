@@ -41,19 +41,64 @@ public class Capa extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        sBarSup1 = new javax.swing.JPanel();
+        lblIcone = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        lblSubTitulo = new javax.swing.JLabel();
+        lblAutor = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(51, 153, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        sBarSup1.setBackground(new java.awt.Color(204, 204, 0));
+        sBarSup1.setPreferredSize(new java.awt.Dimension(0, 5));
+
+        javax.swing.GroupLayout sBarSup1Layout = new javax.swing.GroupLayout(sBarSup1);
+        sBarSup1.setLayout(sBarSup1Layout);
+        sBarSup1Layout.setHorizontalGroup(
+            sBarSup1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 585, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        sBarSup1Layout.setVerticalGroup(
+            sBarSup1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
         );
+
+        add(sBarSup1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, -20, 585, 5));
+
+        lblIcone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIcone.setText("KJA");
+        add(lblIcone, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 175, 31));
+        lblIcone.getAccessibleContext().setAccessibleName("KJA");
+
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("TITULO");
+        add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 160, 550, 180));
+
+        lblSubTitulo.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        lblSubTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSubTitulo.setText("SUB TITULO");
+        add(lblSubTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 560, 65));
+
+        lblAutor.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblAutor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAutor.setText("FERNANDO SANTOS");
+        add(lblAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 700, 550, 35));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Capas1.png"))); // NOI18N
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblAutor;
+    private javax.swing.JLabel lblIcone;
+    private javax.swing.JLabel lblSubTitulo;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel sBarSup1;
     // End of variables declaration//GEN-END:variables
 }

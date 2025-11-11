@@ -20,29 +20,61 @@ import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 /**
+ * Botão personalizado com efeitos visuais avançados, incluindo animações de hover e clique.
+ * Fornece feedback visual rico para melhorar a experiência do usuário.
+ *
  * Projeto: Biblioteca
+ *
+ * @author Ra Ven - Criador original dos componentes personalizados (YouTube/GitHub)
  * @author Warrick
  * @since 02/11/2025
  */
-
-
 public class WButton extends JButton {
 
+    /* ========================================== ATRIBUTOS ========================================== */
+    
+    /** Controladores de animação */
     private Animator animatorOver;
     private Animator animatorPress;
+    
+    /** Estados da animação */
     private float animateOver;
     private float animatePress;
+    
+    /** Estados do mouse */
     private boolean mouseOver;
     private boolean mousePress;
+    
+    /* ========================================== APARÊNCIA ========================================== */
+    
+    /** Tamanho da borda */
     private int borderSize = 2;
+    
+    /** Ponto de clique do mouse */
     private Point mousePoint;
+    
+    /** Cores personalizadas */
     private Color selectedColor;
-    private Color effectColor ;
+    private Color effectColor;
 
+    /* ========================================== CONSTRUTOR ========================================== */
+    
+    /**
+     * Cria um novo botão personalizado
+     * Inicializa as animações e aparência
+     */
     public WButton() {
+        // Inicializa com uma cor padrão
+        this.selectedColor = new Color(0, 120, 212); // Azul padrão
+        this.effectColor = new Color(selectedColor.getRed(), selectedColor.getGreen(), selectedColor.getBlue(), 60);
         init();
     }
 
+    /* ========================================== INICIALIZAÇÃO ========================================== */
+    
+    /**
+     * Configura as propriedades iniciais
+     */
     private void init() {       
         setOpaque(false);
         setBackground(new Color(0, 0, 0, 0)); // Fundo transparente
@@ -90,6 +122,12 @@ public class WButton extends JButton {
         addMouseMotionListener(mouseEvent);
     }
 
+    /* ========================================== MÉTODOS PRIVADOS ========================================== */
+    
+    /**
+     * Inicializa as animações do botão
+     * Configura as propriedades de tempo e interpolação
+     */
     private void initAnimator() {
         animatorOver = new Animator(250, new TimingTargetAdapter() {
             @Override
@@ -114,6 +152,10 @@ public class WButton extends JButton {
         
     }
 
+    /**
+     * Inicia a animação de hover
+     * Controla o efeito quando o mouse está sobre o botão
+     */
     private void startAnimationOver() {
         if (animatorOver.isRunning()) {
             float f = animatorOver.getTimingFraction();
@@ -126,6 +168,10 @@ public class WButton extends JButton {
         updateEffectColor();
     }
 
+    /**
+     * Inicia a animação de clique
+     * Controla o efeito quando o botão é pressionado
+     */
     private void startAnimationPress() {
         if (animatorPress.isRunning()) {
             float f = animatorPress.getTimingFraction();
@@ -137,6 +183,13 @@ public class WButton extends JButton {
         animatorPress.start();
     }
 
+    /* ========================================== MÉTODOS SOBRESCRITOS ========================================== */
+    
+    /**
+     * Desenha o componente personalizado
+     * 
+     * @param g Contexto gráfico para desenho
+     */
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
@@ -186,10 +239,18 @@ public class WButton extends JButton {
         g2.dispose();
     }
 
-    private RadialGradientPaint getGradient(Point point, int alpha, float size) {
+    /**
+     * Cria um gradiente radial para o efeito de hover
+     * 
+     * @param p Ponto central do gradiente
+     * @param alpha Valor de transparência (0-255)
+     * @param size Tamanho do gradiente
+     * @return Objeto RadialGradientPaint configurado
+     */
+    private RadialGradientPaint getGradient(Point2D p, int alpha, float size) {
         int width = getWidth();
         int height = getHeight();
-        Point2D center = point;
+        Point2D center = p;
         float radius = (float) Math.max(width, height) * size;
         float[] dist = {0.0f, 1.0f};
         int red = effectColor.getRed();
@@ -200,36 +261,68 @@ public class WButton extends JButton {
         
     }
 
+    /**
+     * Retorna o tamanho da borda do botão
+     * 
+     * @return Tamanho da borda
+     */
     public int getBorderSize() {
         return borderSize;
     }
 
+    /**
+     * Define o tamanho da borda do botão
+     * 
+     * @param borderSize Tamanho da borda
+     */
     public void setBorderSize(int borderSize) {
         this.borderSize = borderSize;
         repaint();
     }
 
+    /**
+     * Retorna a cor selecionada do botão
+     * 
+     * @return Cor selecionada
+     */
     public Color getSelectedColor() {
         return selectedColor;
     }
 
+    /**
+     * Define a cor selecionada do botão
+     * 
+     * @param selectedColor Cor selecionada
+     */
     public void setSelectedColor(Color selectedColor) {
         this.selectedColor = selectedColor;
         repaint();
     }
 
+    /**
+     * Retorna a cor do efeito do botão
+     * 
+     * @return Cor do efeito
+     */
     public Color getEffectColor() {
         return effectColor;
     }
 
+    /**
+     * Define a cor do efeito do botão
+     * 
+     * @param effectColor Cor do efeito
+     */
     public void setEffectColor(Color effectColor) {
         this.effectColor = effectColor;
         repaint();
     }
     
-    public void updateEffectColor() {         
-        effectColor = UIManager.getColor("Button.borderColor");
-        selectedColor = UIManager.getColor("Menu.background");  
-        repaint();
+    /**
+     * Atualiza a cor do efeito com transparência
+     * Baseado na cor selecionada
+     */
+    private void updateEffectColor() {
+        effectColor = new Color(selectedColor.getRed(), selectedColor.getGreen(), selectedColor.getBlue(), 60);
     }
 }

@@ -1,0 +1,10 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 800" width="80" height="800">
+	<defs>
+		<image  width="80" height="769" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAMBAQMAAABC5aEhAAAAAXNSR0IB2cksfwAAAAZQTFRFTysTAAAAr9TnEgAAAAJ0Uk5T/wDltzBKAAAASUlEQVR4nO3WMQoAIRADwPX/jz47K+FQQVadVNMFUqVESxnht8wNFYiIOMNARETEa5nha+RlnMsM8yEiIiIiIiLii4w/bqjosgLVzCj4rGZ2swAAAABJRU5ErkJggg=="/>
+	</defs>
+	<style>
+	</style>
+	<g id="Tras1">
+		<use id="Camada 15" href="#img1" x="0" y="16"/>
+	</g>
+</svg>

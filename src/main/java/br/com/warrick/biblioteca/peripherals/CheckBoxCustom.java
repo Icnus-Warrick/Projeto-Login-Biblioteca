@@ -8,22 +8,42 @@ import java.awt.RenderingHints;
 import javax.swing.JCheckBox;
 
 /**
+ * Componente personalizado de checkbox com estilo moderno
+ * Estende JCheckBox para fornecer uma aparência personalizada com cantos arredondados
+ * e feedback visual aprimorado
+ *
  * Projeto: Biblioteca
+ *
+ * @author Ra Ven - Criador original dos componentes personalizados (YouTube/GitHub)
  * @author Warrick
  * @since 02/11/2025
  */
-
-
 public class CheckBoxCustom extends JCheckBox {
-
+    
+    /* ========================================== CONSTANTES ========================================== */
+    
+    /** Tamanho da borda arredondada em pixels */
     private final int border = 4;
 
+    /* ========================================== CONSTRUTOR ========================================== */
+    
+    /**
+     * Cria uma nova instância de CheckBoxCustom com configurações padrão
+     * Configura o cursor como mão, fundo transparente e cor de destaque azul
+     */
     public CheckBoxCustom() {
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setOpaque(false);
         setBackground(new Color(69, 124, 235));
     }
 
+    /* ========================================== MÉTODOS SOBRESCRITOS ========================================== */
+    
+    /**
+     * Desenha o componente personalizado
+     * 
+     * @param grphcs Contexto gráfico para desenho
+     */
     @Override
     public void paint(Graphics grphcs) {
         super.paint(grphcs);

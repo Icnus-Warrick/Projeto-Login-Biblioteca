@@ -24,7 +24,12 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 /**
+ * Componente personalizado de campo de senha para tela de login com suporte a
+ * mostrar/esconder senha e animações de rótulo flutuante.
+ *
  * Projeto: Biblioteca
+ *
+ * @author Ra Ven - Criador original dos componentes personalizados (YouTube/GitHub)
  * @author Warrick
  * @since 02/11/2025
  */
@@ -37,6 +42,7 @@ public class PasswordFieldLogin extends JPasswordField {
     }
 
     public void setShowAndHide(boolean showAndHide) {
+        System.out.println("setShowAndHide chamado com: " + showAndHide);
         this.showAndHide = showAndHide;
         repaint();
     }
@@ -64,14 +70,32 @@ public class PasswordFieldLogin extends JPasswordField {
     private boolean mouseOver = false;
     private String labelText = "Label";
     private Color lineColor = new Color(218, 165, 4);
-    private final Image eye;
-    private final Image eye_hide;
+    private Image eye;
+    private Image eye_hide;
     private boolean hide = true;
     private boolean showAndHide;
 
     public PasswordFieldLogin() {
-        setBorder(new EmptyBorder(20, 3, 10, 30));
+        // Ajuste as margens: top, left, bottom, right
+        // O segundo valor controla o posicionamento do label
+        setBorder(new EmptyBorder(15, 3, 5, 30));
         setSelectionColor(new Color(171, 122, 24));
+        
+        // Garante que o botão de mostrar/esconder senha está ativado
+        this.showAndHide = true;
+        System.out.println("PasswordFieldLogin inicializado. showAndHide: " + showAndHide);
+        
+        // Define a margem direita para o botão de mostrar/esconder
+        setMargin(new Insets(0, 10, 0, 30));
+        
+        // Carrega os ícones
+        loadIcons();
+        
+        // Habilita o botão de mostrar/esconder senha
+        setShowAndHide(true);
+        
+        // Define a margem esquerda do texto (sem afetar o label)
+        setMargin(new Insets(0, 10, 0, 0));  // Ajuste este valor para mover o texto
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent me) {
@@ -88,14 +112,21 @@ public class PasswordFieldLogin extends JPasswordField {
             @Override
             public void mousePressed(MouseEvent me) {
                 if (showAndHide) {
-                    int x = getWidth() - 25;
-                    if (new Rectangle(x, 25, 20, 20).contains(me.getPoint())) {
+                    int x = getWidth() - 30;
+                    if (new Rectangle(x, 0, 30, getHeight()).contains(me.getPoint())) {
+                        // Inverte o estado de hide
                         hide = !hide;
+                        
+                        // Ajusta o echo char baseado no estado
                         if (hide) {
-                            setEchoChar('*');
+                            // Se está escondendo a senha, mostra os caracteres como '•'
+                            setEchoChar('•');
                         } else {
+                            // Se está mostrando a senha, remove o echo char
                             setEchoChar((char) 0);
                         }
+                        
+                        // Força o redesenho para atualizar o ícone
                         repaint();
                     }
                 }
@@ -138,12 +169,70 @@ public class PasswordFieldLogin extends JPasswordField {
             }
 
         };
-        eye = new ImageIcon(getClass().getResource("/Icone/eye.png")).getImage();
-        eye_hide = new ImageIcon(getClass().getResource("/Icone/eye_hide.png")).getImage();
         animator = new Animator(300, target);
+        loadIcons();
         animator.setResolution(0);
         animator.setAcceleration(0.5f);
         animator.setDeceleration(0.5f);
+    }
+
+    /**
+     * Carrega os ícones de mostrar/esconder senha
+     */
+    private void loadIcons() {
+        System.out.println("Tentando carregar ícones do classpath...");
+        try {
+            // Tenta carregar do classpath - caminho relativo ao pacote
+            String eyePath = "/Icone/eye.png";
+            String eyeHidePath = "/Icone/eye_hide.png";
+            
+            System.out.println("Tentando carregar: " + eyePath);
+            System.out.println("Tentando carregar: " + eyeHidePath);
+            
+            // Usa o class loader para carregar os recursos
+            ClassLoader classLoader = getClass().getClassLoader();
+            java.net.URL eyeUrl = classLoader.getResource("Icone/eye.png");
+            java.net.URL eyeHideUrl = classLoader.getResource("Icone/eye_hide.png");
+            
+            System.out.println("Caminho do eye.png: " + (eyeUrl != null ? eyeUrl.toString() : "não encontrado"));
+            System.out.println("Caminho do eye_hide.png: " + (eyeHideUrl != null ? eyeHideUrl.toString() : "não encontrado"));
+            
+            if (eyeUrl != null && eyeHideUrl != null) {
+                eye = new ImageIcon(eyeUrl).getImage();
+                eye_hide = new ImageIcon(eyeHideUrl).getImage();
+                System.out.println("Ícones carregados com sucesso do classpath!");
+                return;
+            }
+            
+            // Se não encontrou, tenta carregar diretamente do sistema de arquivos
+            System.out.println("Tentando carregar do sistema de arquivos...");
+            String basePath = System.getProperty("user.dir");
+            String[] possiblePaths = {
+                basePath + "/src/main/resources/Icone/",
+                basePath + "/resources/Icone/",
+                basePath + "/Icone/"
+            };
+            
+            for (String path : possiblePaths) {
+                java.io.File eyeFile = new java.io.File(path + "eye.png");
+                java.io.File eyeHideFile = new java.io.File(path + "eye_hide.png");
+                
+                System.out.println("Verificando caminho: " + eyeFile.getAbsolutePath() + " (Existe: " + eyeFile.exists() + ")");
+                
+                if (eyeFile.exists() && eyeHideFile.exists()) {
+                    eye = new ImageIcon(eyeFile.getAbsolutePath()).getImage();
+                    eye_hide = new ImageIcon(eyeHideFile.getAbsolutePath()).getImage();
+                    System.out.println("Ícones carregados com sucesso do diretório: " + path);
+                    return;
+                }
+            }
+            
+            System.err.println("Arquivos de ícone não encontrados em nenhum dos caminhos esperados.");
+            
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar ícones: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void showing(boolean action) {
@@ -159,13 +248,19 @@ public class PasswordFieldLogin extends JPasswordField {
     }
 
     @Override
-    public void paint(Graphics grphcs) {
-        super.paint(grphcs);
-        Graphics2D g2 = (Graphics2D) grphcs;
+    protected void paintComponent(Graphics g) {
+        // Primeiro, desenha o componente normalmente
+        super.paintComponent(g);
+        
+        // Agora desenha os elementos adicionais
+        Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+        
         int width = getWidth();
         int height = getHeight();
+        
+        // Desenha a linha inferior
         if (mouseOver) {
             g2.setColor(lineColor);
         } else {
@@ -174,18 +269,85 @@ public class PasswordFieldLogin extends JPasswordField {
                 + "background:$h1.background");
         }
         g2.fillRect(2, height - 1, width - 4, 1);
+        
+        // Desenha o texto de dica e o estilo da linha
         createHintText(g2);
         createLineStyle(g2);
+        
+        // Desenha o ícone de mostrar/esconder senha, se necessário
         if (showAndHide) {
             createShowHide(g2);
         }
+        
+        g2.dispose();
+        
+        // Força o redesenho se os ícones ainda não foram carregados
+        if (showAndHide && (eye == null || eye_hide == null)) {
+            System.out.println("Ícones não carregados, tentando novamente...");
+            loadIcons();
+            repaint();
+        }
+    }
+    
+    @Override
+    public void paint(Graphics grphcs) {
+        super.paint(grphcs);
+        Graphics2D g2 = (Graphics2D) grphcs;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+        
+        int width = getWidth();
+        int height = getHeight();
+        
+        // Desenha a linha inferior
+        if (mouseOver) {
+            g2.setColor(lineColor);
+        } else {
+            g2.setColor(new Color(255, 255, 255));
+            putClientProperty(FlatClientProperties.STYLE, ""
+                + "background:$h1.background");
+        }
+        g2.fillRect(2, height - 1, width - 4, 1);
+        
+        // Desenha o texto de dica e o estilo da linha
+        createHintText(g2);
+        createLineStyle(g2);
+        
+        // Desenha o ícone de mostrar/esconder senha, se necessário
+        if (showAndHide) {
+            createShowHide(g2);
+        }
+        
         g2.dispose();
     }
 
+
     private void createShowHide(Graphics2D g2) {
-        int x = getWidth() - 25;
-        int y = (getHeight() - 2) / 2;
-        g2.drawImage(hide ? eye_hide : eye, x, y, null);
+        if (eye == null || eye_hide == null) {
+            // Se os ícones não foram carregados, tenta carregar novamente
+            loadIcons();
+            if (eye == null || eye_hide == null) {
+                // Se ainda não conseguiu carregar, desenha um retângulo vermelho
+                int x = getWidth() - 30;
+                int y = (getHeight() - 20) / 2;
+                g2.setColor(Color.RED);
+                g2.fillRect(x, y, 20, 20);
+                return;
+            }
+        }
+        
+        // Calcula a posição do ícone
+        int x = getWidth() - 30;  // 30 pixels da borda direita
+        int y = (getHeight() - 20) / 2;  // Centralizado verticalmente
+        
+        // Inverte a lógica dos ícones
+        // Agora, quando hide = true, mostra o ícone de olho fechado (com risco)
+        // e quando hide = false, mostra o ícone de olho aberto
+        Image icon = hide ? eye_hide : eye;
+        if (icon != null) {
+            // Desenha apenas o ícone, sem fundo
+            g2.drawImage(icon, x, y, 20, 20, null);
+        }
     }
 
     private void createHintText(Graphics2D g2) {
