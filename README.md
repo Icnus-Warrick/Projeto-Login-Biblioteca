@@ -65,29 +65,53 @@ Sistema de gerenciamento de biblioteca com interface moderna, desenvolvido em Ja
 
 ```
 src/main/java/br/com/warrick/biblioteca/
-├── app/            # Ponto de entrada da aplicação
-│   ├── Main.java   # Classe principal
-│   └── App.java    # Configuração da aplicação
-├── controller/     # Controladores (MVC)
+├── app/                    # Ponto de entrada da aplicação
+│   └── Main.java           # Classe principal
+├── config/                 # Configurações da aplicação
+│   └── ConfiguracaoCapa.java
+├── controller/             # Controladores (MVC)
+│   ├── LivroController.java
 │   └── UsuarioController.java
-├── dao/            # Acesso a dados
-│   └── UsuarioDAO.java
-├── model/          # Modelos de domínio
-│   └── Usuario.java
-├── peripherals/    # Componentes de UI personalizados
-│   ├── TextField.java
-│   ├── PasswordField.java
-│   └── ...
-├── service/        # Lógica de negócios
+├── persistence/            # Camada de persistência
+│   ├── config/             # Configurações de banco de dados
+│   │   └── ConnectionFactory.java
+│   ├── dao/                # Data Access Objects
+│   │   ├── LivroDAO.java
+│   │   ├── LivroDAOImpl.java
+│   │   ├── UsuarioDAO.java
+│   │   └── UsuarioDAOImpl.java
+│   ├── exception/          # Exceções de persistência
+│   │   └── PersistenceException.java
+│   └── model/              # Modelos de domínio (entidades)
+│       ├── Categoria.java
+│       ├── EstiloLivro.java
+│       ├── Livro.java
+│       └── Usuario.java
+├── peripherals/            # Componentes de UI personalizados
+│   └── TextFieldLogin.java
+├── service/                # Lógica de negócios
+│   ├── LivroService.java
 │   └── UsuarioService.java
-├── util/           # Utilitários
-│   ├── DatabaseManager.java
-│   ├── ImageLoader.java
-│   └── ...
-└── view/           # Interfaces gráficas
-    ├── LApp.java
-    ├── login/
-    └── ...
+├── util/                   # Utilitários
+│   ├── EstiloLivroManager.java
+│   └── HeaderMonitor.java
+└── view/                   # Interfaces gráficas
+    ├── BibliotecaApp.java  # Aplicação principal
+    ├── components/         # Componentes de UI reutilizáveis
+    │   └── card/           # Componentes de card
+    │       ├── BaseCard.java
+    │       ├── CardLivroBiblico.java
+    │       ├── GenericCard.java
+    │       └── LivroBiblicoCard.java
+    ├── login/              # Telas de login
+    │   ├── LoginApp.java
+    │   ├── LoginFrente.java
+    │   ├── LoginPortas.java
+    │   ├── LoginRecupera.java
+    │   └── LoginTras.java
+    └── screens/            # Telas principais da aplicação
+        └── livro/
+            └── ListaLivrosScreen.java
 ```
 
 ## 🎨 Interface do Usuário
