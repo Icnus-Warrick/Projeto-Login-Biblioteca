@@ -1,8 +1,15 @@
-package br.com.warrick.biblioteca.model;
+package br.com.warrick.biblioteca.persistence.model;
 
 import java.awt.Color;
 import java.io.Serializable;
 
+/**
+ * Classe que representa um livro na biblioteca.
+ * Contém informações como título, autor, editora, categoria, etc.
+ * 
+ * @author Warrick
+ * @since 11/11/2025
+ */
 public class Livro implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -21,6 +28,17 @@ public class Livro implements Serializable {
     private Integer numeroColecao;
     private boolean disponivel;
     
+    // Construtores
+    public Livro() {
+        this.disponivel = true;
+    }
+    
+    public Livro(String titulo, String autor) {
+        this();
+        this.titulo = titulo;
+        this.autor = autor;
+    }
+    
     // Métodos de conveniência para acessar as cores da categoria
     public Color getCorLombada() {
         return categoria != null ? categoria.getCorLombada() : Color.GRAY;
@@ -33,27 +51,7 @@ public class Livro implements Serializable {
     public Color getCorFonte() {
         return categoria != null ? categoria.getCorFonte() : Color.BLACK;
     }
-
-    // Construtores
-    public Livro() {
-        this.disponivel = true;
-    }
-
-    public Livro(String titulo, String autor, String isbn) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.isbn = isbn;
-        this.disponivel = true;
-    }
     
-    public Livro(String titulo, String autor, String isbn, Categoria categoria) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.isbn = isbn;
-        this.categoria = categoria;
-        this.disponivel = true;
-    }
-
     // Getters e Setters
     public Integer getId() {
         return id;
@@ -107,16 +105,16 @@ public class Livro implements Serializable {
         return genero;
     }
 
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
     public Categoria getCategoria() {
         return categoria;
     }
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-    }
-    
-    public void setGenero(String genero) {
-        this.genero = genero;
     }
 
     public String getIdioma() {
@@ -159,30 +157,6 @@ public class Livro implements Serializable {
         this.numeroColecao = numeroColecao;
     }
 
-    public Color getCorLombada() {
-        return corLombada;
-    }
-
-    public void setCorLombada(Color corLombada) {
-        this.corLombada = corLombada;
-    }
-
-    public Color getCorBarras() {
-        return corBarras;
-    }
-
-    public void setCorBarras(Color corBarras) {
-        this.corBarras = corBarras;
-    }
-
-    public Color getCorFonte() {
-        return corFonte;
-    }
-
-    public void setCorFonte(Color corFonte) {
-        this.corFonte = corFonte;
-    }
-
     public boolean isDisponivel() {
         return disponivel;
     }
@@ -190,9 +164,23 @@ public class Livro implements Serializable {
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
-
+    
     @Override
     public String toString() {
-        return "Livro{" + "id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", disponivel=" + disponivel + '}';
+        return String.format("Livro{id=%d, titulo='%s', autor='%s'}", id, titulo, autor);
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        
+        Livro livro = (Livro) o;
+        return id != null && id.equals(livro.id);
+    }
+    
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

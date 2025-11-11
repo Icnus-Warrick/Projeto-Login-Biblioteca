@@ -1,7 +1,7 @@
 package br.com.warrick.biblioteca.util;
 
-import br.com.warrick.biblioteca.model.Categoria;
-import br.com.warrick.biblioteca.model.EstiloLivro;
+import br.com.warrick.biblioteca.persistence.model.Categoria;
+import br.com.warrick.biblioteca.persistence.model.EstiloLivro;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;

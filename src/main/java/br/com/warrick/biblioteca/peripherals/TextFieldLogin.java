@@ -3,6 +3,7 @@ package br.com.warrick.biblioteca.peripherals;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
 import java.awt.FontMetrics;
+import java.awt.Insets;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;

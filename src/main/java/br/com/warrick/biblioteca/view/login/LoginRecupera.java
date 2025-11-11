@@ -1,5 +1,6 @@
 package br.com.warrick.biblioteca.view.login;
 
+import br.com.warrick.biblioteca.util.I18nManager;
 import java.awt.Color;
 
 /**
@@ -13,13 +14,71 @@ import java.awt.Color;
  */
 public class LoginRecupera extends javax.swing.JPanel {
 
+    /* ============================================== VARIÁVEIS DE INSTÂNCIA =========================================== */
+    private LoginApp parentApp;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JLabel lblInfo;
 
     /* ============================================== CONSTRUTOR PADRÃO ============================================= */
     public LoginRecupera() {
         initComponents();
-        setPreferredSize(new java.awt.Dimension(1035, 720));
         setSize(1035, 720);
         setBackground(new Color(0,0,0,0));
+    }
+    
+    /* ========================================= CONFIGURAÇÃO DO PARENT APP ========================================= */
+    public void setParentApp(LoginApp parentApp) {
+        this.parentApp = parentApp;
+        
+        // Adicionar listener para mudanças de idioma
+        I18nManager.getInstance().addLanguageChangeListener((oldLocale, newLocale) -> {
+            // Atualizar textos se necessário
+        });
+    }
+    
+    /**
+     * Limpa todos os campos do formulário de recuperação de senha e redefine as mensagens
+     */
+    public void resetForm() {
+        // Limpar campos de texto
+        if (txtEmail != null) txtEmail.setText("");
+        if (txtSenha1 != null) txtSenha1.setText("");
+        if (txtSenha2 != null) txtSenha2.setText("");
+        if (txtCod1 != null) txtCod1.setText("");
+        if (txtCod2 != null) txtCod2.setText("");
+        if (txtCod3 != null) txtCod3.setText("");
+        if (txtCod4 != null) txtCod4.setText("");
+        
+        // Limpar mensagens de erro/status
+        if (lblInfo != null) {
+            lblInfo.setText("");
+            lblInfo.setVisible(false);
+        }
+        
+        // Redefinir mensagens de validação
+        if (lblInfSenha1 != null) {
+            lblInfSenha1.setText("");
+            lblInfSenha1.setVisible(false);
+        }
+        
+        if (lblInfSenha2 != null) {
+            lblInfSenha2.setText("");
+            lblInfSenha2.setVisible(false);
+        }
+        
+        // Redefinir visibilidade dos painéis se necessário
+        if (PainelRec != null) {
+            PainelRec.setVisible(false);
+        }
+        
+        if (PainelCod != null) {
+            PainelCod.setVisible(false);
+        }
+        
+        // Voltar o foco para o campo de e-mail
+        if (txtEmail != null) {
+            txtEmail.requestFocusInWindow();
+        }
     }
 
     /* ========================================= CÓDIGO GERADO PELO NETBEANS ========================================= */

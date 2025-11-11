@@ -1,4 +1,4 @@
-package br.com.warrick.biblioteca.model;
+package br.com.warrick.biblioteca.persistence.model;
 
 import java.awt.Color;
 import java.io.Serializable;
@@ -6,6 +6,9 @@ import java.io.Serializable;
 /**
  * Classe responsável por gerenciar os estilos visuais dos livros por categoria.
  * Define cores, fontes e outros atributos visuais para diferentes categorias de livros.
+ * 
+ * @author Warrick
+ * @since 11/11/2025
  */
 public class EstiloLivro implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -47,17 +50,51 @@ public class EstiloLivro implements Serializable {
     public boolean isExibirNumeroColecao() { return exibirNumeroColecao; }
     
     /**
+     * Cria um estilo padrão baseado nas cores da categoria.
+     */
+    public static EstiloLivro criarEstiloPadrao(Categoria categoria) {
+        return new Builder()
+            .corLombada(categoria.getCorLombada())
+            .corBarras(categoria.getCorBarras())
+            .corFonte(categoria.getCorFonte())
+            .corFundoPainel(new Color(250, 250, 250))
+            .corBorda(new Color(200, 200, 200))
+            .tamanhoFonteTitulo(14)
+            .tamanhoFonteAutor(12)
+            .exibirBarras(true)
+            .exibirNumeroColecao(true)
+            .build();
+    }
+    
+    /**
+     * Cria um estilo personalizado baseado em um estilo existente, mas com cores da categoria.
+     */
+    public static EstiloLivro criarEstiloPersonalizado(Categoria categoria, EstiloLivro estiloBase) {
+        return new Builder()
+            .corLombada(categoria.getCorLombada())
+            .corBarras(estiloBase.getCorBarras())
+            .corFonte(categoria.getCorFonte())
+            .corFundoPainel(estiloBase.getCorFundoPainel())
+            .corBorda(estiloBase.getCorBorda())
+            .tamanhoFonteTitulo(estiloBase.getTamanhoFonteTitulo())
+            .tamanhoFonteAutor(estiloBase.getTamanhoFonteAutor())
+            .exibirBarras(estiloBase.isExibirBarras())
+            .exibirNumeroColecao(estiloBase.isExibirNumeroColecao())
+            .build();
+    }
+    
+    /**
      * Builder para criar instâncias de EstiloLivro de forma fluente.
      */
     public static class Builder {
         // Valores padrão
-        private Color corLombada = new Color(75, 0, 130);  // Roxo escuro
-        private Color corBarras = new Color(147, 112, 219); // Roxo claro
-        private Color corFonte = Color.WHITE;
-        private Color corFundoPainel = Color.WHITE;
+        private Color corLombada = new Color(150, 150, 150);
+        private Color corBarras = new Color(100, 100, 100);
+        private Color corFonte = Color.BLACK;
+        private Color corFundoPainel = new Color(250, 250, 250);
         private Color corBorda = new Color(200, 200, 200);
-        private int tamanhoFonteTitulo = 12;
-        private int tamanhoFonteAutor = 10;
+        private int tamanhoFonteTitulo = 14;
+        private int tamanhoFonteAutor = 12;
         private boolean exibirBarras = true;
         private boolean exibirNumeroColecao = true;
         
@@ -111,54 +148,11 @@ public class EstiloLivro implements Serializable {
         }
     }
     
-    /**
-     * Cria um estilo padrão para uma categoria específica.
-     */
-    public static EstiloLivro criarEstiloPadrao(Categoria categoria) {
-        if (categoria == null) {
-            return new EstiloLivro.Builder()
-                .corLombada(Color.GRAY)
-                .corBarras(Color.LIGHT_GRAY)
-                .corFonte(Color.BLACK)
-                .build();
-        }
-        
-        // Cores baseadas na categoria
-        Color corLombada = categoria.getCorLombada();
-        Color corBarras = categoria.getCorBarras();
-        Color corFonte = categoria.getCorFonte();
-        
-        return new EstiloLivro.Builder()
-            .corLombada(corLombada)
-            .corBarras(corBarras)
-            .corFonte(corFonte)
-            .build();
-    }
-    
-    /**
-     * Cria um estilo personalizado para uma categoria específica.
-     */
-    public static EstiloLivro criarEstiloPersonalizado(Categoria categoria, EstiloLivro estiloBase) {
-        if (estiloBase == null) {
-            return criarEstiloPadrao(categoria);
-        }
-        
-        // Se não for informada uma categoria, retorna o estilo base
-        if (categoria == null) {
-            return estiloBase;
-        }
-        
-        // Cria um novo estilo baseado no estilo base, mas com as cores da categoria
-        return new EstiloLivro.Builder()
-            .corLombada(categoria.getCorLombada())
-            .corBarras(categoria.getCorBarras())
-            .corFonte(categoria.getCorFonte())
-            .corFundoPainel(estiloBase.getCorFundoPainel())
-            .corBorda(estiloBase.getCorBorda())
-            .tamanhoFonteTitulo(estiloBase.getTamanhoFonteTitulo())
-            .tamanhoFonteAutor(estiloBase.getTamanhoFonteAutor())
-            .exibirBarras(estiloBase.isExibirBarras())
-            .exibirNumeroColecao(estiloBase.isExibirNumeroColecao())
-            .build();
+    @Override
+    public String toString() {
+        return String.format(
+            "EstiloLivro{corLombada=%s, corBarras=%s, corFonte=%s}",
+            corLombada, corBarras, corFonte
+        );
     }
 }

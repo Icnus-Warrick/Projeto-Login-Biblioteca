@@ -1,4 +1,4 @@
-package br.com.warrick.biblioteca.utils;
+package br.com.warrick.biblioteca.util;
 
 import java.io.IOException;
 import java.nio.file.*;

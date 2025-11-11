@@ -16,25 +16,44 @@ public class LoginTras extends javax.swing.JPanel {
     /* ============================================== VARIÁVEIS DE INSTÂNCIA =========================================== */
     private LoginApp parentApp;
 
-    /* ============================================== CONSTRUTOR PADRÃO ============================================= */
     public LoginTras() {
-        this(null);
+        initComponents();
     }
 
     /* ========================================= CONSTRUTOR COM PARÂMETRO ========================================== */
-    public LoginTras(LoginApp parentApp) {
+    public void setParentApp(LoginApp parentApp) {
         this.parentApp = parentApp;
-        initComponents();
-        setOpaque(false);
-        setBackground(new java.awt.Color(0, 0, 0, 0));
-        setupListeners();
-        setupValidation();
-        atualizarTexto();
-        
+
         // Adicionar listener para mudanças de idioma
         I18nManager.getInstance().addLanguageChangeListener((oldLocale, newLocale) -> {
             atualizarTexto();
         });
+    }
+
+    /**
+     * Limpa todos os campos do formulário de registro e redefine as mensagens
+     */
+    public void resetForm() {
+        // Limpar campos de texto
+        txtNome.setText("");
+        txtUsuarioR.setText("");
+        txtEmail.setText("");
+        txtSenhaR.setText("");
+        txtSenhaRC.setText("");
+
+        // Redefinir mensagens e estados
+        if (lblConf != null) lblConf.setVisible(false);
+        if (lblInfR1 != null) {
+            lblInfR1.setText("");
+            lblInfR1.setVisible(false);
+        }
+        if (lblInfR2 != null) {
+            lblInfR2.setText("");
+            lblInfR2.setVisible(false);
+        }
+
+        // Voltar o foco para o primeiro campo
+        txtNome.requestFocusInWindow();
     }
 
     /* ========================================= CONFIGURAÇÃO DOS LISTENERS ========================================= */
@@ -81,7 +100,7 @@ public class LoginTras extends javax.swing.JPanel {
         lblConf.setVisible(false);
         lblInfR1.setVisible(false);
         lblInfR2.setVisible(false);
-        
+
         // Configurar fonte e cor padrão para as mensagens
         lblInfR1.setFont(new java.awt.Font("Segoe UI", 0, 12));
         lblInfR2.setFont(new java.awt.Font("Segoe UI", 0, 14));
@@ -131,7 +150,7 @@ public class LoginTras extends javax.swing.JPanel {
         }
 
         br.com.warrick.biblioteca.controller.UsuarioController controller = new br.com.warrick.biblioteca.controller.UsuarioController();
-        br.com.warrick.biblioteca.model.Usuario usuarioExistente = controller.buscarUsuarioPorUsername(usuario);
+        br.com.warrick.biblioteca.persistence.model.Usuario usuarioExistente = controller.buscarUsuarioPorUsername(usuario);
 
         if (usuarioExistente != null) {
             lblConf.setText("X");
@@ -168,26 +187,26 @@ public class LoginTras extends javax.swing.JPanel {
         lblInfR1.setVisible(false);
         lblInfR2.setVisible(false);
     }
-    
+
     /* ========================================= ATUALIZAÇÃO DE TEXTO ============================================== */
     private void atualizarTexto() {
         // Atualizar título
         lblTituloR.setText(I18nManager.msg("register.title"));
-        
+
         // Atualizar campos de texto
         txtNome.setLabelText(I18nManager.msg("register.name"));
         txtUsuarioR.setLabelText(I18nManager.msg("register.user"));
         txtEmail.setLabelText(I18nManager.msg("register.email"));
         txtSenhaR.setLabelText(I18nManager.msg("register.password"));
         txtSenhaRC.setLabelText(I18nManager.msg("register.confirm_password"));
-        
+
         // Atualizar botões
         cmdLogin.setText(I18nManager.msg("register.button"));
         cmdSair.setText(I18nManager.msg("login.exit"));
-        
+
         // Atualizar link de voltar
         lblInfR3.setText(I18nManager.msg("register.back"));
-        
+
         // Forçar redesenho
         revalidate();
         repaint();

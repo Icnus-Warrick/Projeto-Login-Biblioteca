@@ -1,28 +1,24 @@
 package br.com.warrick.biblioteca.Livro;
 
-import br.com.warrick.biblioteca.configuracao.ConfiguracaoCapa;
-import br.com.warrick.biblioteca.model.Categoria;
+import br.com.warrick.biblioteca.persistence.model.Categoria;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  * Projeto: Biblioteca
  *
  * @author Warrick
-* @since 02/11/2025
+ * @since 02/11/2025
  */
 public class Lombada extends javax.swing.JPanel {
 
-    // Informações básicas do livro
+    // InformaÃ§Ãµes bÃ¡sicas do livro
     private String titulo;
     private String autor;
     private String isbn;
@@ -34,10 +30,10 @@ public class Lombada extends javax.swing.JPanel {
     private Integer numeroPaginas;    
     private Integer numeroColecao;
     
-    // Categoria e configuração do livro
+    // Categoria e configuraÃ§Ã£o do livro
     private Categoria categoria;
-    private ConfiguracaoCapa.ConfiguracaoEstilo configuracao;
-    private boolean isColecao;  // Indica se pertence a uma coleção
+    private br.com.warrick.biblioteca.Configuracao.ConfiguracaoCapa.ConfiguracaoEstilo configuracao;
+    private boolean isColecao;  // Indica se pertence a uma coleÃ§Ã£o
     private Image imagemLombada; // Imagem SVG da lombada
 
     public Lombada(String titulo, String autor, String colecao, Categoria categoria) {
@@ -48,11 +44,11 @@ public class Lombada extends javax.swing.JPanel {
         this.categoria = categoria;
         this.isColecao = (colecao != null && !colecao.isEmpty());
         
-        // Obtém a configuração para a categoria
-        this.configuracao = ConfiguracaoCapa.getInstancia().getConfiguracao(categoria);
+        // ObtÃ©m a configuraÃ§Ã£o para a categoria
+        this.configuracao = br.com.warrick.biblioteca.Configuracao.ConfiguracaoCapa.getInstancia().getConfiguracao(categoria);
         
-        // Carrega a imagem SVG se necessário
-        if (configuracao.getTipoExibicao() == ConfiguracaoCapa.TipoExibicao.SVG) {
+        // Carrega a imagem SVG se necessÃ¡rio
+        if (configuracao.getTipoExibicao() == br.com.warrick.biblioteca.Configuracao.ConfiguracaoCapa.TipoExibicao.SVG) {
             carregarImagemSVG();
         }
         
@@ -64,10 +60,10 @@ public class Lombada extends javax.swing.JPanel {
     }
     
     /**
-     * Carrega a imagem SVG da lombada, se necessário.
+     * Carrega a imagem SVG da lombada, se necessÃ¡rio.
      */
     private void carregarImagemSVG() {
-        if (configuracao.getTipoExibicao() == ConfiguracaoCapa.TipoExibicao.SVG && 
+        if (configuracao.getTipoExibicao() == br.com.warrick.biblioteca.Configuracao.ConfiguracaoCapa.TipoExibicao.SVG && 
             configuracao.getCaminhoSVG() != null) {
             
             try {
@@ -81,7 +77,7 @@ public class Lombada extends javax.swing.JPanel {
     }
     
     private void atualizarCores() {
-        // Configura a exibição com base no tipo de exibição selecionado
+        // Configura a exibiÃ§Ã£o com base no tipo de exibiÃ§Ã£o selecionado
         switch (configuracao.getTipoExibicao()) {
             case BARRAS:
                 // Exibe as barras tradicionais
@@ -95,7 +91,7 @@ public class Lombada extends javax.swing.JPanel {
                 BarInf3.setBackground(corBarras);
                 BarInf4.setBackground(corBarras);
                 
-                // Torna as barras visíveis
+                // Torna as barras visÃ­veis
                 BarSup1.setVisible(true);
                 BarSup2.setVisible(true);
                 BarSup3.setVisible(true);
@@ -156,20 +152,20 @@ public class Lombada extends javax.swing.JPanel {
         Graphics2D g2d = (Graphics2D) g;
         
         // Desenha a imagem de fundo se estiver usando SVG
-        if (configuracao.getTipoExibicao() == ConfiguracaoCapa.TipoExibicao.SVG && imagemLombada != null) {
+        if (configuracao.getTipoExibicao() == br.com.warrick.biblioteca.Configuracao.ConfiguracaoCapa.TipoExibicao.SVG && imagemLombada != null) {
             g2d.drawImage(imagemLombada, 0, 0, getWidth(), getHeight(), this);
         }
         
         // Configura a cor do texto
         g2d.setColor(configuracao.getCorFonte());
         
-        // Rotaciona o contexto gráfico para desenhar o texto na vertical
+        // Rotaciona o contexto grÃ¡fico para desenhar o texto na vertical
         g2d.rotate(Math.PI / 2);
         
-        // Desenha o título
+        // Desenha o tÃ­tulo
         g2d.drawString(titulo, 5, -5);
         
-        // Se for parte de uma coleção e estiver habilitado, mostra o número da coleção
+        // Se for parte de uma coleÃ§Ã£o e estiver habilitado, mostra o nÃºmero da coleÃ§Ã£o
         if (isColecao && numeroColecao != null && configuracao.isExibirNumeroColecao()) {
             g2d.drawString("#" + numeroColecao, 25, -5);
         }
@@ -412,3 +408,4 @@ public class Lombada extends javax.swing.JPanel {
     private javax.swing.JLabel lblNome;
     // End of variables declaration//GEN-END:variables
 }
+

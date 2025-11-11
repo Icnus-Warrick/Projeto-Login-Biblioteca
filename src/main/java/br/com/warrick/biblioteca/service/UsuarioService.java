@@ -1,7 +1,8 @@
 package br.com.warrick.biblioteca.service;
 
-import br.com.warrick.biblioteca.dao.UsuarioDAO;
-import br.com.warrick.biblioteca.model.Usuario;
+import br.com.warrick.biblioteca.persistence.dao.UsuarioDAO;
+import br.com.warrick.biblioteca.persistence.dao.UsuarioDAOImpl;
+import br.com.warrick.biblioteca.persistence.model.Usuario;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -19,7 +20,7 @@ public class UsuarioService {
 
     /* ============================================== ATRIBUTOS ============================================== */
     /** DAO para acesso aos dados do usuário */
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAOImpl();
 
     /* ========================================= MÉTODOS PÚBLICOS ========================================= */
     
@@ -51,8 +52,16 @@ public class UsuarioService {
             throw new IllegalArgumentException("Usuario já cadastrado");
         }
 
-        Usuario novoUsuario = new Usuario(nome, usuario, senha, email, estiloPreferido);
-        usuarioDAO.salvar(novoUsuario);
+        Usuario novoUsuario = new Usuario();
+        novoUsuario.setNome(nome);
+        novoUsuario.setUsername(usuario);
+        novoUsuario.setSenha(senha);
+        novoUsuario.setEmail(email);
+        novoUsuario.setTema(estiloPreferido);
+        novoUsuario.setAdmin(false);
+        novoUsuario.setAtivo(true);
+        
+        usuarioDAO.inserir(novoUsuario);
     }
 
     /**
@@ -100,6 +109,9 @@ public class UsuarioService {
      * @throws IllegalArgumentException Se o usuário for nulo ou não existir
      */
     public void atualizarUsuario(Usuario usuario) throws SQLException, IllegalArgumentException {
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não pode ser nulo");
+        }
         usuarioDAO.atualizar(usuario);
     }
 
@@ -116,6 +128,9 @@ public class UsuarioService {
      * @throws IllegalArgumentException Se o usuário não existir
      */
     public void excluirUsuario(int id) throws SQLException, IllegalArgumentException {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID de usuário inválido");
+        }
         usuarioDAO.deletar(id);
     }
 

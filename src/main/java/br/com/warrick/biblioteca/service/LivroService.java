@@ -1,8 +1,8 @@
 package br.com.warrick.biblioteca.service;
 
-import br.com.warrick.biblioteca.dao.LivroDAO;
-import br.com.warrick.biblioteca.dao.LivroDAOImpl;
-import br.com.warrick.biblioteca.model.Livro;
+import br.com.warrick.biblioteca.persistence.dao.LivroDAO;
+import br.com.warrick.biblioteca.persistence.dao.LivroDAOImpl;
+import br.com.warrick.biblioteca.persistence.model.Livro;
 import java.util.List;
 
 public class LivroService {

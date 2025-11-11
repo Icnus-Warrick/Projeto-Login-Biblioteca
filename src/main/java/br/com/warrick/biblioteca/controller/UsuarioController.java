@@ -1,6 +1,6 @@
 package br.com.warrick.biblioteca.controller;
 
-import br.com.warrick.biblioteca.model.Usuario;
+import br.com.warrick.biblioteca.persistence.model.Usuario;
 import br.com.warrick.biblioteca.service.UsuarioService;
 
 import java.sql.SQLException;

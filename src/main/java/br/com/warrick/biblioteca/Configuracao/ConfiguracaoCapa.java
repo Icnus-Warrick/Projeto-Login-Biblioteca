@@ -1,6 +1,6 @@
 package br.com.warrick.biblioteca.Configuracao;
 
-import br.com.warrick.biblioteca.model.Categoria;
+import br.com.warrick.biblioteca.persistence.model.Categoria;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.HashMap;

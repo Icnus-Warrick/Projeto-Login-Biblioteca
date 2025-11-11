@@ -1,10 +1,17 @@
-package br.com.warrick.biblioteca.model;
+package br.com.warrick.biblioteca.persistence.model;
 
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representa uma categoria de livros na biblioteca.
+ * Pode ter subcategorias, formando uma hierarquia.
+ * 
+ * @author Warrick
+ * @since 11/11/2025
+ */
 public class Categoria implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -18,40 +25,48 @@ public class Categoria implements Serializable {
     private List<Categoria> subcategorias;
     private EstiloLivro estiloPersonalizado;
     
-    // Categorias principais
-    public static final Categoria FICCAO = new Categoria(1, "Ficção", "Livros de ficção em geral", 
-            new Color(75, 0, 130),  // Roxo
-            new Color(147, 112, 219), // Roxo claro
-            Color.WHITE);
-            
-    public static final Categoria TECNICO = new Categoria(2, "Técnico", "Livros técnicos e didáticos", 
-            new Color(0, 0, 139),    // Azul escuro
-            new Color(100, 149, 237), // Azul claro
-            Color.WHITE);
-            
-    public static final Categoria RELIGIAO = new Categoria(3, "Religião", "Livros religiosos e espirituais",
-            new Color(139, 0, 0),    // Vermelho escuro
-            new Color(205, 92, 92),   // Vermelho claro
-            Color.WHITE);
-            
-    public static final Categoria INFANTIL = new Categoria(4, "Infantil", "Livros infantis", 
-            new Color(255, 215, 0),   // Dourado
-            new Color(255, 255, 0),   // Amarelo
-            Color.BLACK);
-            
-    public static final Categoria ACADEMICO = new Categoria(5, "Acadêmico", "Livros acadêmicos", 
-            new Color(0, 100, 0),     // Verde escuro
-            new Color(144, 238, 144), // Verde claro
-            Color.BLACK);
-            
-    public static final Categoria TECNOLOGIA = new Categoria(6, "Tecnologia", "Livros de tecnologia e informática",
-            new Color(47, 79, 79),    // Azul petróleo escuro
-            new Color(102, 205, 170), // Azul petróleo claro
-            Color.WHITE);
+    // Categorias principais - declaradas como nulas inicialmente
+    public static final Categoria FICCAO;
+    public static final Categoria TECNICO;
+    public static final Categoria RELIGIAO;
+    public static final Categoria INFANTIL;
+    public static final Categoria ACADEMICO;
+    public static final Categoria TECNOLOGIA;
     
-    // Inicialização das subcategorias
+    // Bloco estático para inicialização das categorias
     static {
-        // Subcategorias de Religião
+        // Inicialização das categorias principais
+        FICCAO = new Categoria(1, "Ficção", "Livros de ficção em geral", 
+                new Color(75, 0, 130),  // Roxo
+                new Color(147, 112, 219), // Roxo claro
+                Color.WHITE);
+                
+        TECNICO = new Categoria(2, "Técnico", "Livros técnicos e didáticos", 
+                new Color(0, 0, 139),    // Azul escuro
+                new Color(100, 149, 237), // Azul claro
+                Color.WHITE);
+                
+        RELIGIAO = new Categoria(3, "Religião", "Livros religiosos e espirituais",
+                new Color(139, 0, 0),    // Vermelho escuro
+                new Color(205, 92, 92),   // Vermelho claro
+                Color.WHITE);
+                
+        INFANTIL = new Categoria(4, "Infantil", "Livros infantis", 
+                new Color(255, 215, 0),   // Dourado
+                new Color(255, 255, 0),   // Amarelo
+                Color.BLACK);
+                
+        ACADEMICO = new Categoria(5, "Acadêmico", "Livros acadêmicos", 
+                new Color(0, 100, 0),     // Verde escuro
+                new Color(144, 238, 144), // Verde claro
+                Color.BLACK);
+                
+        TECNOLOGIA = new Categoria(6, "Tecnologia", "Livros de tecnologia e informática",
+                new Color(47, 79, 79),    // Azul petróleo escuro
+                new Color(102, 205, 170), // Azul petróleo claro
+                Color.WHITE);
+        
+        // Inicialização das subcategorias
         Categoria biblia = new Categoria(7, "Bíblia", "Textos bíblicos", 
                 new Color(139, 0, 0), new Color(205, 92, 92), Color.WHITE, RELIGIAO);
                 
@@ -61,7 +76,6 @@ public class Categoria implements Serializable {
         Categoria estudoBiblico = new Categoria(9, "Estudo Bíblico", "Guias e comentários bíblicos", 
                 new Color(165, 42, 42), new Color(205, 133, 63), Color.WHITE, RELIGIAO);
         
-        // Subcategorias de Tecnologia
         Categoria programacao = new Categoria(10, "Programação", "Linguagens de programação", 
                 new Color(25, 25, 112), new Color(70, 130, 180), Color.WHITE, TECNOLOGIA);
                 
@@ -71,14 +85,12 @@ public class Categoria implements Serializable {
         Categoria web = new Categoria(12, "Desenvolvimento Web", "Front-end e back-end", 
                 new Color(0, 100, 0), new Color(60, 179, 113), Color.WHITE, TECNOLOGIA);
         
-        // Subcategorias de Ficção
         Categoria ficcaoCientifica = new Categoria(13, "Ficção Científica", "Ficção científica", 
                 new Color(72, 61, 139), new Color(123, 104, 238), Color.WHITE, FICCAO);
                 
         Categoria fantasia = new Categoria(14, "Fantasia", "Literatura fantástica", 
                 new Color(85, 26, 139), new Color(147, 112, 219), Color.WHITE, FICCAO);
         
-        // Subcategorias de Técnico
         Categoria engenharia = new Categoria(15, "Engenharia", "Engenharias em geral", 
                 new Color(0, 0, 128), new Color(65, 105, 225), Color.WHITE, TECNICO);
                 
@@ -86,34 +98,28 @@ public class Categoria implements Serializable {
                 new Color(139, 0, 0), new Color(255, 99, 71), Color.WHITE, TECNICO);
         
         // Inicializa as listas de subcategorias
-        RELIGIAO.subcategorias = List.of(biblia, teologia, estudoBiblico);
-        TECNOLOGIA.subcategorias = List.of(programacao, dados, web);
-        FICCAO.subcategorias = List.of(ficcaoCientifica, fantasia);
-        TECNICO.subcategorias = List.of(engenharia, saude);
+        RELIGIAO.subcategorias = new ArrayList<>();
+        RELIGIAO.subcategorias.add(biblia);
+        RELIGIAO.subcategorias.add(teologia);
+        RELIGIAO.subcategorias.add(estudoBiblico);
+        
+        TECNOLOGIA.subcategorias = new ArrayList<>();
+        TECNOLOGIA.subcategorias.add(programacao);
+        TECNOLOGIA.subcategorias.add(dados);
+        TECNOLOGIA.subcategorias.add(web);
+        
+        FICCAO.subcategorias = new ArrayList<>();
+        FICCAO.subcategorias.add(ficcaoCientifica);
+        FICCAO.subcategorias.add(fantasia);
+        
+        TECNICO.subcategorias = new ArrayList<>();
+        TECNICO.subcategorias.add(engenharia);
+        TECNICO.subcategorias.add(saude);
     }
-    public static final Categoria FICCAO = new Categoria(1, "Ficção", "Livros de ficção", 
-            new Color(75, 0, 130),  // Roxo
-            new Color(147, 112, 219), // Roxo claro
-            Color.WHITE);
-            
-    public static final Categoria TECNICO = new Categoria(2, "Técnico", "Livros técnicos", 
-            new Color(0, 0, 139),    // Azul escuro
-            new Color(100, 149, 237), // Azul claro
-            Color.WHITE);
-            
+    
     public static final Categoria BIOGRAFIA = new Categoria(3, "Biografia", "Biografias e memórias", 
             new Color(139, 69, 19),  // Marrom
             new Color(210, 180, 140), // Marrom claro
-            Color.BLACK);
-            
-    public static final Categoria INFANTIL = new Categoria(4, "Infantil", "Livros infantis", 
-            new Color(255, 215, 0),   // Dourado
-            new Color(255, 255, 0),   // Amarelo
-            Color.BLACK);
-            
-    public static final Categoria ACADEMICO = new Categoria(5, "Acadêmico", "Livros acadêmicos", 
-            new Color(0, 100, 0),     // Verde escuro
-            new Color(144, 238, 144), // Verde claro
             Color.BLACK);
     
     public Categoria() {
@@ -160,7 +166,7 @@ public class Categoria implements Serializable {
         return EstiloLivro.criarEstiloPadrao(this);
     }
     
-    // Getters e Setters existentes
+    // Getters e Setters
     public Integer getId() {
         return id;
     }

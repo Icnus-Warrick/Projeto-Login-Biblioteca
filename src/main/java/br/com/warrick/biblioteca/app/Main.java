@@ -2,7 +2,7 @@ package br.com.warrick.biblioteca.app;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
-import br.com.warrick.biblioteca.utils.DatabaseManager;
+import br.com.warrick.biblioteca.persistence.config.ConnectionFactory;
 import br.com.warrick.biblioteca.view.login.LoginApp;
 
 /**
@@ -18,9 +18,9 @@ public class Main {
 
     /* ========================================= MÉTODO PRINCIPAL ============================================== */
     public static void main(String[] args) {
-        // Inicializar banco de dados
-        DatabaseManager.init();
-
+        // Inicializar a fábrica de conexões (o banco será criado automaticamente se não existir)
+        ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
+        
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception e) {

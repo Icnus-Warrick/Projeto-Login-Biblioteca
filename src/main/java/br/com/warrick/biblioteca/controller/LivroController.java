@@ -1,6 +1,7 @@
 package br.com.warrick.biblioteca.controller;
 
-import br.com.warrick.biblioteca.model.Livro;
+import br.com.warrick.biblioteca.persistence.model.Categoria;
+import br.com.warrick.biblioteca.persistence.model.Livro;
 import br.com.warrick.biblioteca.service.LivroService;
 import java.awt.Color;
 import java.util.List;
@@ -29,9 +30,13 @@ public class LivroController {
         livro.setNumeroPaginas(numeroPaginas);
         livro.setColecao(colecao);
         livro.setNumeroColecao(numeroColecao);
-        livro.setCorLombada(corLombada);
-        livro.setCorBarras(corBarras);
-        livro.setCorFonte(corFonte);
+        
+        // Criar e configurar a categoria com as cores fornecidas
+        Categoria categoria = new Categoria();
+        categoria.setCorLombada(corLombada);
+        categoria.setCorBarras(corBarras);
+        categoria.setCorFonte(corFonte);
+        livro.setCategoria(categoria);
         
         livroService.cadastrarLivro(livro);
     }
@@ -52,9 +57,14 @@ public class LivroController {
             livro.setNumeroPaginas(numeroPaginas);
             livro.setColecao(colecao);
             livro.setNumeroColecao(numeroColecao);
-            livro.setCorLombada(corLombada);
-            livro.setCorBarras(corBarras);
-            livro.setCorFonte(corFonte);
+            
+            // Atualizar as cores através da categoria
+            if (livro.getCategoria() == null) {
+                livro.setCategoria(new Categoria());
+            }
+            livro.getCategoria().setCorLombada(corLombada);
+            livro.getCategoria().setCorBarras(corBarras);
+            livro.getCategoria().setCorFonte(corFonte);
             
             livroService.atualizarLivro(livro);
         }

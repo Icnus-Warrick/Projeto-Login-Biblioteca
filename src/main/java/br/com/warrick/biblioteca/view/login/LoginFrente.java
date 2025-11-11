@@ -1,6 +1,9 @@
 package br.com.warrick.biblioteca.view.login;
 
 import br.com.warrick.biblioteca.util.I18nManager;
+import br.com.warrick.biblioteca.peripherals.*;
+import br.com.warrick.biblioteca.view.BibliotecaApp;
+import javax.swing.SwingUtilities;
 
 /**
  * Painel de login da aplicação
@@ -11,6 +14,7 @@ import br.com.warrick.biblioteca.util.I18nManager;
  * @author Warrick
  * @since 02/11/2025
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class LoginFrente extends javax.swing.JPanel {
 
     /* ============================================== VARIÁVEIS DE INSTÂNCIA =========================================== */
@@ -21,26 +25,39 @@ public class LoginFrente extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
         setBackground(new java.awt.Color(0, 0, 0, 0));
-        setupIdioma();
         setupListeners();
         atualizarTexto();
     }
 
     /* ========================================= CONSTRUTOR COM PARÂMETRO ========================================== */
-    public LoginFrente(LoginApp parentApp) {
+    public void setParentApp(LoginApp parentApp) {
         this.parentApp = parentApp;
-        initComponents();
-        setOpaque(false);
-        setBackground(new java.awt.Color(0, 0, 0, 0));
-        setupIdioma();
-        setupListeners();
-        atualizarTexto();
+    }
+    
+    /**
+     * Limpa todos os campos do formulário de login e redefine as mensagens
+     */
+    public void resetForm() {
+        // Limpar campos de texto
+        txtUsuario.setText("");
+        txtSenha.setText("");
+        
+        // Limpar mensagens de erro/sucesso
+        if (lblInfo3 != null) {
+            lblInfo3.setText("");
+            lblInfo3.setVisible(false);
+        }
+        
+        // Voltar o foco para o campo de usuário
+        txtUsuario.requestFocusInWindow();
     }
 
     /* ========================================= CONFIGURAÇÃO DOS LISTENERS ========================================= */
     private void setupListeners() {
         // Configurar listeners após initComponents para evitar interferência no código gerado automaticamente
         // Configurar ação do botão de login: validar credenciais e iniciar aplicação
+        // No método setupListeners(), substitua o código do cmdLogin.addActionListener:
+
         cmdLogin.addActionListener(e -> {
             // Obter o nome de usuário inserido, removendo espaços em branco
             String usuario = txtUsuario.getText().trim();
@@ -55,21 +72,10 @@ public class LoginFrente extends javax.swing.JPanel {
                 lblInfo3.setText(I18nManager.msg("login.success"));
                 lblInfo3.setForeground(new java.awt.Color(0, 150, 0)); // Verde mais escuro para melhor contraste
 
-                // Fechar a janela de login
-                java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
-                if (window != null) {
-                    window.dispose();
+                // Iniciar a sequência de login com delays e animação
+                if (parentApp != null) {
+                    parentApp.iniciarSequenciaLogin();
                 }
-
-                // Iniciar a aplicação principal em uma nova thread
-                new Thread(() -> {
-                    try {                        
-                        br.com.warrick.biblioteca.view.login.LoginLoadingPainel.executar();                        
-                    } catch (Exception ex) {
-                        System.err.println("Erro ao iniciar LApp: " + ex.getMessage());
-                        ex.printStackTrace();
-                    }
-                }).start();
             } else {
                 lblInfo3.setText(I18nManager.msg("login.error"));
                 lblInfo3.setForeground(java.awt.Color.RED);
