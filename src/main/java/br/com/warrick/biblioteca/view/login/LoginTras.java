@@ -18,6 +18,7 @@ public class LoginTras extends javax.swing.JPanel {
 
     public LoginTras() {
         initComponents();
+        setupListeners();
     }
 
     /* ========================================= CONSTRUTOR COM PARÂMETRO ========================================== */

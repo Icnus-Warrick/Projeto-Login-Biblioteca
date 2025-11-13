@@ -38,15 +38,13 @@ public class LoginApp extends javax.swing.JFrame {
         setResizable(false);
 
         // Configura o tamanho e a posição da janela
-        setSize(1200, 885);
+        setSize(1920, 1080);
 
         // Centraliza a janela na tela
         setLocationRelativeTo(null);
 
         // Configura o fundo transparente
         setupTransparentWindow();
-
-
 
         // Inicializar os painéis
         initializePanels();
@@ -65,120 +63,89 @@ public class LoginApp extends javax.swing.JFrame {
     }
 
     /**
-     * Exibe o painel de login
+     * Exibe o painel de login SEM animação
      */
     public void showLogin() {
-        fecharPortasERodar(() -> {
-            SwingUtilities.invokeLater(() -> {
-                cardLayout.show(mainPanel, "LOGIN");
-                loginFrente.resetForm();
-            });
+        SwingUtilities.invokeLater(() -> {
+            cardLayout.show(mainPanel, "LOGIN");
+            loginFrente.resetForm();
         });
     }
 
     /**
-     * Exibe o painel de registro
+     * Exibe o painel de registro SEM animação
      */
     public void showRegister() {
-        fecharPortasERodar(() -> {
-            SwingUtilities.invokeLater(() -> {
-                cardLayout.show(mainPanel, "REGISTRO");
-                loginTras.resetForm();
-            });
+        SwingUtilities.invokeLater(() -> {
+            cardLayout.show(mainPanel, "REGISTRO");
+            loginTras.resetForm();
         });
     }
 
     /**
-     * Exibe o painel de recuperação de senha
+     * Exibe o painel de recuperação de senha SEM animação
      */
     public void showRecovery() {
-        fecharPortasERodar(() -> {
-            SwingUtilities.invokeLater(() -> {
-                cardLayout.show(mainPanel, "RECUPERAR");
-                loginRecupera.resetForm();
-            });
+        SwingUtilities.invokeLater(() -> {
+            cardLayout.show(mainPanel, "RECUPERAR");
+            loginRecupera.resetForm();
         });
     }
 
     /**
-     * Inicia a sequência de login bem-sucedido COM EFEITO DE ENTRADA: 1. Mostra o painel de portas fechadas 2. Aguarda
-     * X segundos 3. Abre as portas com animação 4. Aguarda Y segundos após abrir 5. ZOOM IN - Efeito de entrar pelas
-     * portas 6. Abre a BibliotecaApp e fecha a janela de login
+     * Inicia a sequência de login bem-sucedido COM EFEITO DE ENTRADA:
+     * 1. Mostra o painel de portas fechadas
+     * 2. Aguarda X segundos
+     * 3. Abre as portas com animação
+     * 4. Automaticamente inicia o zoom quando as portas abrirem
+     * 5. Abre a BibliotecaApp e fecha a janela de login
      */
     public void iniciarSequenciaLogin() {
         System.out.println("=== INICIANDO SEQUÊNCIA DE LOGIN ===");
 
         final int DELAY_ANTES_ABRIR = 1000;
-        final int DELAY_APOS_ABRIR = 800;
 
+        // Mostrar painel de portas
         cardLayout.show(mainPanel, "LOADING");
         loginPortas.fecharPortas();
+
+        // Configurar callback para quando TODO o processo terminar (após o zoom)
+        Runnable abrirApp = () -> {
+            System.out.println("Abrindo BibliotecaApp...");
+
+            // Fechar a janela de login
+            java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(loginPortas);
+            if (window != null) {
+                window.dispose();
+            }
+
+            // Iniciar a aplicação principal
+            SwingUtilities.invokeLater(() -> {
+                try {
+                    br.com.warrick.biblioteca.view.BibliotecaApp app
+                            = new br.com.warrick.biblioteca.view.BibliotecaApp();
+                    app.setVisible(true);
+                } catch (Exception ex) {
+                    System.err.println("Erro ao abrir BibliotecaApp: " + ex.getMessage());
+                    ex.printStackTrace();
+                }
+            });
+        };
 
         Timer delayAntes = new Timer(DELAY_ANTES_ABRIR, e -> {
             System.out.println("Iniciando abertura das portas...");
 
-            loginPortas.iniciarAnimacao(() -> {
-                System.out.println("Portas abertas! Aguardando...");
-
-                Timer delayDepois = new Timer(DELAY_APOS_ABRIR, ev -> {
-                    System.out.println("Iniciando efeito de entrada (zoom)...");
-
-                    // Configurar callback para quando o zoom terminar
-                    Runnable abrirApp = () -> {
-                        System.out.println("Abrindo BibliotecaApp...");
-
-                        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(loginPortas);
-                        if (window != null) {
-                            window.dispose();
-                        }
-
-                        SwingUtilities.invokeLater(() -> {
-                            try {
-                                br.com.warrick.biblioteca.view.BibliotecaApp app
-                                        = new br.com.warrick.biblioteca.view.BibliotecaApp();
-                                app.setVisible(true);
-                            } catch (Exception ex) {
-                                System.err.println("Erro ao abrir BibliotecaApp: " + ex.getMessage());
-                                ex.printStackTrace();
-                            }
-                        });
-                    };
-
-                    // Iniciar o zoom com callback
-                    loginPortas.iniciarAnimacao(abrirApp);
-                    loginPortas.entrarPelasPortas();
-                });
-                delayDepois.setRepeats(false);
-                delayDepois.start();
-            });
+            // Iniciar apenas a abertura das portas
+            // O zoom será iniciado automaticamente quando as portas abrirem completamente
+            loginPortas.iniciarAnimacao(abrirApp);
         });
         delayAntes.setRepeats(false);
         delayAntes.start();
-
-        System.out.println("Abrindo BibliotecaApp...");
-
-        // 5. Fechar a janela de login
-        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(loginPortas);
-
-        if (window != null) {
-            window.dispose();
-        }
-
-        // Iniciar a aplicação principal
-        SwingUtilities.invokeLater(() -> {
-            try {
-                br.com.warrick.biblioteca.view.BibliotecaApp app
-                        = new br.com.warrick.biblioteca.view.BibliotecaApp();
-                app.setVisible(true);
-            } catch (Exception ex) {
-                System.err.println("Erro ao abrir BibliotecaApp: " + ex.getMessage());
-                ex.printStackTrace();
-            }
-        });
     }
 
     /**
      * Exibe o painel de carregamento com animação
+     * MÉTODO MANTIDO POR COMPATIBILIDADE, MAS NÃO USADO PARA NAVEGAÇÃO ENTRE TELAS
      *
      * @param onComplete Callback a ser executado quando a animação terminar
      */
@@ -244,9 +211,12 @@ public class LoginApp extends javax.swing.JFrame {
 
     /**
      * Fecha as portas e executa uma ação quando a animação terminar
+     * MÉTODO DEPRECADO - Use iniciarSequenciaLogin() para login bem-sucedido
      *
      * @param acao Ação a ser executada após o fechamento das portas
+     * @deprecated Use iniciarSequenciaLogin() para login ou navegação direta para outras telas
      */
+    @Deprecated
     public void fecharPortasERodar(Runnable acao) {
         if (loginPortas.isAnimando()) {
             // Se já estiver animando, aguardar um pouco e tentar novamente
@@ -323,9 +293,6 @@ public class LoginApp extends javax.swing.JFrame {
         // Configura o fundo como totalmente transparente
         setBackground(new Color(0, 0, 0, 0));
 
-        // Configura a operação de fechamento
-       // setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         // Configura o gerenciador de layout do content pane
         getContentPane().setLayout(new BorderLayout());
         getContentPane().setBackground(new Color(0, 0, 0, 0));
@@ -344,7 +311,7 @@ public class LoginApp extends javax.swing.JFrame {
         // Configuração do ícone da janela
         try {
             // Substitua pelo caminho do seu ícone
-            // setIconImage(ImageIO.read(getClass().getResource("/br/com/warrick/biblioteca/resources/icon.png")));
+
         } catch (Exception e) {
             System.err.println("Erro ao carregar o ícone da aplicação: " + e.getMessage());
         }
