@@ -9,84 +9,109 @@
     <packaging>jar</packaging>
     <url>http://maven.apache.org</url>
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>    
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.release>17</maven.compiler.release>
-        <exec.mainClass>br.com.warrick.biblioteca.app.Main</exec.mainClass>
-        <junit.jupiter.version>5.10.0</junit.jupiter.version>
+        <maven.build.timestamp>${maven.build.timestamp}</maven.build.timestamp>
+        <exec.mainClass>br.com.warrick.biblioteca.view.app.Main</exec.mainClass>
+        <junit.jupiter.version>5.11.0</junit.jupiter.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+        <flatlaf.version>3.6.2</flatlaf.version>
+        <sqlite-jdbc.version>3.45.3.0</sqlite-jdbc.version>
+        <pdfbox.version>3.0.6</pdfbox.version>
+        <thumbnailator.version>0.4.20</thumbnailator.version>
+        <miglayout-swing.version>11.3</miglayout-swing.version>
+        <httpclient.version>4.5.14</httpclient.version>
+        <flatlaf-extras.version>3.6.2</flatlaf-extras.version>
     </properties>
     <repositories>
         <repository>
-            <id>jena-bio</id>
-            <url>https://bio.informatik.uni-jena.de/repository/libs-release-oss/</url>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
     <dependencies>
-        <!-- Trident para animações suaves (versão estável no Maven Central) -->
-        <dependency>
-            <groupId>org.pushing-pixels</groupId>
-            <artifactId>trident</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
-        <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>pdfbox</artifactId>
-            <version>3.0.6</version>
-        </dependency>
-        <!-- FlatLaf para Look and Feel moderno -->
-        <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf</artifactId>
-            <version>3.6.2</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.formdev/flatlaf-extras -->
-        <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf-extras</artifactId>
-            <version>3.6.2</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.formdev/flatlaf-intellij-themes -->
-        <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf-intellij-themes</artifactId>
-            <version>3.6.2</version>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.formdev/flatlaf-fonts-roboto -->
+        <!-- FlatLaf Roboto Font (adicionado manualmente) -->
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf-fonts-roboto</artifactId>
             <version>2.137</version>
         </dependency>
+        <!-- Trident mais recente do GitHub -->
+        <dependency>
+            <groupId>com.github.insubstantial</groupId>
+            <artifactId>trident</artifactId>
+            <version>7.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>${pdfbox.version}</version>
+        </dependency>
+        <!-- FlatLaf para Look and Feel moderno -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>${flatlaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
+            <version>${flatlaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
+            <version>${flatlaf.version}</version>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
-            <version>0.4.20</version>
+            <version>${thumbnailator.version}</version>
         </dependency>
         <dependency>
             <groupId>com.miglayout</groupId>
             <artifactId>miglayout-swing</artifactId>
-            <version>5.3</version>
+            <version>${miglayout-swing.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE250</version>
         </dependency>
-        <!-- TimingFramework para animações baseadas em tempo -->
+        <!-- TimingFramework necessário para os componentes de peripherals -->
         <dependency>
-            <groupId>net.java.dev.timingframework</groupId>
+            <groupId>org.jdesktop</groupId>
             <artifactId>timingframework</artifactId>
-            <version>1.0</version>
+            <version>0.55</version>
         </dependency>
         <!-- SQLite JDBC Driver -->
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
-            <version>3.45.3.0</version>
+            <version>${sqlite-jdbc.version}</version>
         </dependency>
         <!-- Testes -->
         <dependency>
@@ -100,7 +125,15 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.14</version>
+            <version>${httpclient.version}</version>
+        </dependency>
+        
+        <!-- Lombok para reduzir código boilerplate -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.32</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -109,7 +142,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
@@ -130,13 +163,22 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>${maven-jar-plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <mainClass>${exec.mainClass}</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
+                        <manifestEntries>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Implementation-Title>${project.name}</Implementation-Title>
+                            <Implementation-Vendor>${project.groupId}</Implementation-Vendor>
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <Build-Jdk-Spec>${maven.compiler.release}</Build-Jdk-Spec>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>

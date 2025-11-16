@@ -27,8 +27,9 @@ public class Livro implements Serializable {
     private Integer numeroPaginas;
     private Integer numeroColecao;
     private boolean disponivel;
+    private String caminhoArquivo;
     
-    // Construtores
+    /* ================================================= CONSTRUTOR ================================================= */
     public Livro() {
         this.disponivel = true;
     }
@@ -163,6 +164,14 @@ public class Livro implements Serializable {
 
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
+    }
+    
+    public String getCaminhoArquivo() {
+        return caminhoArquivo;
+    }
+    
+    public void setCaminhoArquivo(String caminhoArquivo) {
+        this.caminhoArquivo = caminhoArquivo;
     }
     
     @Override

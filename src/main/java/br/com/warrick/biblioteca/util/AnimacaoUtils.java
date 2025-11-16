@@ -1,6 +1,6 @@
 package br.com.warrick.biblioteca.util;
 
-import br.com.warrick.biblioteca.Livro.Livro;
+import br.com.warrick.biblioteca.view.screens.livro.*;
 import java.awt.Dimension;
 import java.awt.Point;
 import org.pushingpixels.trident.Timeline;
@@ -52,7 +52,7 @@ public class AnimacaoUtils {
             public void onTimelinePulse(float durationFraction, float timelinePosition) {
                 // Quando a animação passar da metade, mostra a capa do livro
                 if (timelinePosition > 0.5f) {
-                    livro.mostrarCapa();
+//                    livro.mostrarCapa();
                 }
             }
 
@@ -78,7 +78,7 @@ public class AnimacaoUtils {
      */
     public static void animarVolta(Livro livro, Point destino, Runnable onComplete) {
         // Mostra a lombada do livro antes de iniciar a animação
-        livro.mostrarLombada();
+//        livro.mostrarLombada();
         
         // Cria uma nova linha do tempo para a animação
         Timeline anim = new Timeline(livro);

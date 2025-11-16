@@ -12,7 +12,7 @@ package br.com.warrick.biblioteca.view.components.card;
  */
 public class CardLivroBiblico extends javax.swing.JPanel {
 
-    /* ============================================== CONSTRUTOR ============================================== */
+    /* ================================================= CONSTRUTOR ================================================= */
     /**
      * Constrói um novo CardLivroBiblico e configura seus listeners
      */
@@ -21,7 +21,7 @@ public class CardLivroBiblico extends javax.swing.JPanel {
         setupListeners();
     }
     
-    /* ============================================== MÉTODOS PRIVADOS ========================================= */
+    /* ================================================ MÉTODOS PRIVADOS ============================================ */
     /**
      * Configura os listeners de mouse para o componente
      * Inclui eventos para clique, entrada e saída do mouse

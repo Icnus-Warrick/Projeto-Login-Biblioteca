@@ -6,6 +6,8 @@ Este documento lista os créditos para códigos de terceiros e recursos utilizad
 
 ### Pacote `br.com.warrick.biblioteca.peripherals`
 - **Autor Original**: Ra Ven (YouTube/GitHub)
+- **Descrição**: Componentes personalizados para Swing e FlatLaf
+- **Website**: [https://github.com/DJ-Raven/raven-project]
   - **Componentes**:
     - CheckBoxCustom
     - ComboBox

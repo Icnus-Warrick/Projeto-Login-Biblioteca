@@ -254,18 +254,14 @@ public class LoginApp extends javax.swing.JFrame {
         return container;
     }
 
-    /**
-     * @deprecated Use showRegister() em vez disso
-     */
-    @Deprecated
+
+
     public void mostrarRegistro() {
         showRegister();
     }
 
-    /**
-     * @deprecated Use showLogin() em vez disso
-     */
-    @Deprecated
+
+
     public void mostrarLogin() {
         showLogin();
     }

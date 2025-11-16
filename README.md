@@ -4,148 +4,37 @@
 [![Maven](https://img.shields.io/badge/Maven-3.6%2B-blue)](https://maven.apache.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-Sistema de gerenciamento de biblioteca com interface moderna, desenvolvido em Java com Swing e FlatLaf. Oferece uma experiência de usuário fluida com animações suaves e design responsivo.
+Sistema de gerenciamento de biblioteca desenvolvido em Java com interface moderna e suporte a múltiplos idiomas.
+Sistema ainda em desenvolvimento, Apenas o sistema de Login em funcionamento.
 
-## 🚀 Recursos Principais
+## 🚀 Funcionalidades Principais
 
-- 🔐 Autenticação segura de usuários
-- 📚 Gerenciamento completo de acervo de livros
-- 🔄 Controle de empréstimos e devoluções
-- 🎨 Interface moderna com suporte a temas claro/escuro
-- ⚡ Animações fluidas e interativas
-- 💾 Banco de dados SQLite integrado
-- 📊 Relatórios em PDF
+- 📚 Gerenciamento de acervo de livros
+- 👥 Controle de usuários e empréstimos
+- 🌍 Suporte a múltiplos idiomas
+- 🎨 Interface moderna e responsiva
+- 💾 Armazenamento em banco de dados
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Pré-requisitos
 
-- **Linguagem**: Java 17+
-- **Interface Gráfica**: Java Swing, FlatLaf
-- **Banco de Dados**: SQLite
-- **Gerenciamento de Dependências**: Maven
-- **Bibliotecas Principais**:
-  - PDFBox: Geração e manipulação de PDFs
-  - Trident: Para animações suaves
-  - TimingFramework: Animações baseadas em tempo
-  - FlatLaf: Temas modernos para Swing
+- Java 17 ou superior
+- Maven 3.6 ou superior
 
-## 📋 Pré-requisitos
+## 📖 Documentação
 
-- JDK 17 ou superior
-- Maven 3.6+
-- Conexão com a internet (para baixar dependências)
+Para a documentação completa do projeto, incluindo guias de desenvolvimento, arquitetura e internacionalização, consulte:
 
-## 🚀 Instalação e Execução
-
-1. **Clone o repositório**:
-   ```bash
-   git clone [URL_DO_REPOSITORIO]
-   cd biblioteca
-   ```
-
-2. **Compile o projeto**:
-   ```bash
-   mvn clean install
-   ```
-
-3. **Execute a aplicação**:
-   ```bash
-   mvn exec:java -Dexec.mainClass="br.com.warrick.biblioteca.app.Main"
-   ```
-
-   Ou use o wrapper do Maven:
-   ```bash
-   # Linux/Mac
-   ./mvnw exec:java -Dexec.mainClass="br.com.warrick.biblioteca.app.Main"
-   
-   # Windows
-   mvnw.cmd exec:java -Dexec.mainClass="br.com.warrick.biblioteca.app.Main"
-   ```
-
-## 🏗️ Estrutura do Projeto
-
-```
-src/main/java/br/com/warrick/biblioteca/
-├── app/                    # Ponto de entrada da aplicação
-│   └── Main.java           # Classe principal
-├── config/                 # Configurações da aplicação
-│   └── ConfiguracaoCapa.java
-├── controller/             # Controladores (MVC)
-│   ├── LivroController.java
-│   └── UsuarioController.java
-├── persistence/            # Camada de persistência
-│   ├── config/             # Configurações de banco de dados
-│   │   └── ConnectionFactory.java
-│   ├── dao/                # Data Access Objects
-│   │   ├── LivroDAO.java
-│   │   ├── LivroDAOImpl.java
-│   │   ├── UsuarioDAO.java
-│   │   └── UsuarioDAOImpl.java
-│   ├── exception/          # Exceções de persistência
-│   │   └── PersistenceException.java
-│   └── model/              # Modelos de domínio (entidades)
-│       ├── Categoria.java
-│       ├── EstiloLivro.java
-│       ├── Livro.java
-│       └── Usuario.java
-├── peripherals/            # Componentes de UI personalizados
-│   └── TextFieldLogin.java
-├── service/                # Lógica de negócios
-│   ├── LivroService.java
-│   └── UsuarioService.java
-├── util/                   # Utilitários
-│   ├── EstiloLivroManager.java
-│   └── HeaderMonitor.java
-└── view/                   # Interfaces gráficas
-    ├── BibliotecaApp.java  # Aplicação principal
-    ├── components/         # Componentes de UI reutilizáveis
-    │   └── card/           # Componentes de card
-    │       ├── BaseCard.java
-    │       ├── CardLivroBiblico.java
-    │       ├── GenericCard.java
-    │       └── LivroBiblicoCard.java
-    ├── login/              # Telas de login
-    │   ├── LoginApp.java
-    │   ├── LoginFrente.java
-    │   ├── LoginPortas.java
-    │   ├── LoginRecupera.java
-    │   └── LoginTras.java
-    └── screens/            # Telas principais da aplicação
-        └── livro/
-            └── ListaLivrosScreen.java
-```
-
-## 🎨 Interface do Usuário
-
-A aplicação utiliza o FlatLaf para fornecer uma interface moderna e responsiva, com suporte a temas claro e escuro. Os componentes de interface foram personalizados para melhor usabilidade e experiência do usuário.
-
-## 🤝 Contribuição
-
-Contribuições são bem-vindas! Siga estes passos:
-
-1. Faça um Fork do projeto
-2. Crie uma Branch para sua Feature (`git checkout -b feature/AmazingFeature`)
-3. Adicione suas mudanças (`git add .`)
-5. Faça o Push para a Branch (`git push origin feature/AmazingFeature`)
-6. Abra um Pull Request
+- [Documentação Completa](docs/README_COMPLETO.md)
+- [Guia de Internacionalização](docs/i18n_index.md)
 
 ## 📄 Licença
 
 Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
 
-## 🙏 Agradecimentos e Créditos
+## 👥 Autores
 
-Este projeto utiliza componentes de código aberto e personalizados. Por favor, consulte o arquivo [CREDITS.md](CREDITS.md) para uma lista completa de créditos e atribuições de terceiros.
-
-## 🧩 Tecnologias e Ferramentas
-
-- [FlatLaf](https://www.formdev.com/flatlaf/) - Look and Feel moderno para Java Swing
-- [Maven](https://maven.apache.org/) - Gerenciamento de dependências
-- [SQLite](https://www.sqlite.org/) - Banco de dados leve e eficiente
-
-## 👨‍💻 Autor
-
-**Warrick** - Desenvolvedor principal
+- **Warrick** - Desenvolvedor principal
 
 ---
 
-Desenvolvido com ❤️ por Warrick
+📌 *Para mais informações, consulte a [documentação completa](docs/README_COMPLETO.md).*
