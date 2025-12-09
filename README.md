@@ -1,18 +1,19 @@
-# 📚 Biblioteca
+# 📚 Login Biblioteca
 
 [![Java](https://img.shields.io/badge/Java-17%2B-orange)](https://www.oracle.com/java/)
 [![Maven](https://img.shields.io/badge/Maven-3.6%2B-blue)](https://maven.apache.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-Sistema de gerenciamento de biblioteca desenvolvido em Java com interface moderna e suporte a múltiplos idiomas.
+Sistema de acesso, cadastro e recuperação de acesso, a biblioteca desenvolvido em Java com interface moderna e suporte a múltiplos idiomas.
 Sistema ainda em desenvolvimento, Apenas o sistema de Login em funcionamento.
 
 ## 🚀 Funcionalidades Principais
 
-- 📚 Gerenciamento de acervo de livros
-- 👥 Controle de usuários e empréstimos
+- 📚 Login de acesso
+- 📚 Cadastro de acesso
+- 📚 Recuperação de acesso
+- 👥 Controle de usuários
 - 🌍 Suporte a múltiplos idiomas
-- 🎨 Interface moderna e responsiva
 - 💾 Armazenamento em banco de dados
 
 ## 🛠️ Pré-requisitos

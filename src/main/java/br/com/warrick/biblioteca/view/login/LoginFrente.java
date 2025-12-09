@@ -1,9 +1,6 @@
 package br.com.warrick.biblioteca.view.login;
 
 import br.com.warrick.biblioteca.util.I18nManager;
-import br.com.warrick.biblioteca.peripherals.*;
-import br.com.warrick.biblioteca.view.BibliotecaApp;
-import javax.swing.SwingUtilities;
 
 /**
  * Painel de login da aplicação
@@ -43,9 +40,9 @@ public class LoginFrente extends javax.swing.JPanel {
         txtSenha.setText("");
         
         // Limpar mensagens de erro/sucesso
-        if (lblInfo3 != null) {
-            lblInfo3.setText("");
-            lblInfo3.setVisible(false);
+        if (lblInfo1 != null) {
+            lblInfo1.setText("");
+            lblInfo1.setVisible(false);
         }
         
         // Voltar o foco para o campo de usuário
@@ -69,16 +66,16 @@ public class LoginFrente extends javax.swing.JPanel {
                     = new br.com.warrick.biblioteca.controller.UsuarioController();
 
             if (controller.fazerLogin(usuario, senha)) {
-                lblInfo3.setText(I18nManager.msg("login.success"));
-                lblInfo3.setForeground(new java.awt.Color(0, 150, 0)); // Verde mais escuro para melhor contraste
+                lblInfo1.setText(I18nManager.msg("login.success"));
+                lblInfo1.setForeground(new java.awt.Color(0, 150, 0)); // Verde mais escuro para melhor contraste
 
                 // Iniciar a sequência de login com delays e animação
                 if (parentApp != null) {
                     parentApp.iniciarSequenciaLogin();
                 }
             } else {
-                lblInfo3.setText(I18nManager.msg("login.error"));
-                lblInfo3.setForeground(java.awt.Color.RED);
+                lblInfo1.setText(I18nManager.msg("login.error"));
+                lblInfo1.setForeground(java.awt.Color.RED);
             }
         });
 
@@ -86,7 +83,7 @@ public class LoginFrente extends javax.swing.JPanel {
         cmdSair.addActionListener(e -> System.exit(0));
         
         // Configurar listener para o label de recuperação de senha: navegar para tela de recuperação
-        lblInfo2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblcmdOut1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (parentApp != null) {
@@ -96,17 +93,17 @@ public class LoginFrente extends javax.swing.JPanel {
 
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblInfo2.setForeground(java.awt.Color.CYAN);
+                lblcmdOut1.setForeground(java.awt.Color.CYAN);
             }
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblInfo2.setForeground(java.awt.Color.WHITE);
+                lblcmdOut1.setForeground(java.awt.Color.WHITE);
             }
         });
         
         // Configurar listener para o label de registro: navegar para tela de registro
-        lblInfo4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblcmdOut2.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (parentApp != null) {
@@ -116,12 +113,12 @@ public class LoginFrente extends javax.swing.JPanel {
 
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblInfo4.setForeground(java.awt.Color.CYAN);
+                lblcmdOut2.setForeground(java.awt.Color.CYAN);
             }
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblInfo4.setForeground(java.awt.Color.WHITE);
+                lblcmdOut2.setForeground(java.awt.Color.WHITE);
             }
         });
         
@@ -158,8 +155,8 @@ public class LoginFrente extends javax.swing.JPanel {
         cmdSair.setText(I18nManager.msg("login.exit"));
         
         // Atualizar labels de informação
-        lblInfo2.setText(I18nManager.msg("login.forgot"));
-        lblInfo4.setText(I18nManager.msg("login.no_account"));
+        lblcmdOut1.setText(I18nManager.msg("login.forgot"));
+        lblcmdOut2.setText(I18nManager.msg("login.no_account"));
         
         // Atualizar ComboBox de idioma
         cbbIdioma.setLabelText(I18nManager.msg("settings.language"));
@@ -195,32 +192,35 @@ public class LoginFrente extends javax.swing.JPanel {
      * AVISO: NÃO modifique este código. O conteúdo deste método é sempre regenerado pelo Editor de Formulários.
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Código Gerado">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTitulo1 = new javax.swing.JLabel();
+        lblTitulo1 = new br.com.warrick.biblioteca.swing.WLabel();
         lblTitulo2 = new javax.swing.JLabel();
         lblTitulo3 = new javax.swing.JLabel();
-        txtUsuario = new br.com.warrick.biblioteca.peripherals.TextFieldLogin();
-        txtSenha = new br.com.warrick.biblioteca.peripherals.PasswordFieldLogin();
+        txtUsuario = new br.com.warrick.biblioteca.swing.WTextField();
+        txtSenha = new br.com.warrick.biblioteca.swing.WPasswordField();
+        ccbLembrar = new br.com.warrick.biblioteca.swing.WCheckBox();
+        lblcmdOut1 = new br.com.warrick.biblioteca.swing.WLabel();
         lblInfo1 = new javax.swing.JLabel();
-        lblInfo2 = new javax.swing.JLabel();
-        lblInfo3 = new javax.swing.JLabel();
-        cmdLogin = new br.com.warrick.biblioteca.peripherals.WButton();
-        cmdSair = new br.com.warrick.biblioteca.peripherals.WButton();
-        lblInfo4 = new javax.swing.JLabel();
+        cmdLogin = new br.com.warrick.biblioteca.swing.WButton();
+        cmdSair = new br.com.warrick.biblioteca.swing.WButton();
+        lblcmdOut2 = new br.com.warrick.biblioteca.swing.WLabel();
         lblTitulo4 = new javax.swing.JLabel();
         lblTitulo5 = new javax.swing.JLabel();
-        cbbIdioma = new br.com.warrick.biblioteca.peripherals.ComboBox();
+        cbbIdioma = new br.com.warrick.biblioteca.swing.WComboBox();
         lblFundo = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitulo1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         lblTitulo1.setForeground(new java.awt.Color(204, 153, 0));
-        lblTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo1.setHorizontalAlignment(0);
         lblTitulo1.setText("LOGIN");
-        add(lblTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 70, 407, 60));
+        lblTitulo1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        lblTitulo1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        lblTitulo1.setLineColor(new java.awt.Color(204, 153, 0));
+        lblTitulo1.setLineSpacing(0);
+        add(lblTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 40, 407, 80));
 
         lblTitulo2.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         lblTitulo2.setForeground(new java.awt.Color(204, 153, 0));
@@ -237,54 +237,51 @@ public class LoginFrente extends javax.swing.JPanel {
         add(lblTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 160, 407, 30));
 
         txtUsuario.setForeground(new java.awt.Color(255, 204, 0));
-        txtUsuario.setCaretColor(new java.awt.Color(255, 204, 51));
-        txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsuario.setHoverColor(new java.awt.Color(218, 189, 32));
         txtUsuario.setLabelText("USUÁRIO");
-        txtUsuario.setMinimumSize(new java.awt.Dimension(64, 46));
-        add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 360, 50));
+        txtUsuario.setLineColor(new java.awt.Color(218, 165, 4));
+        txtUsuario.setSelectionColor(new java.awt.Color(171, 122, 24));
+        add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 360, 50));
 
-        txtSenha.setForeground(new java.awt.Color(255, 204, 0));
         txtSenha.setCaretColor(new java.awt.Color(255, 255, 0));
         txtSenha.setDisabledTextColor(new java.awt.Color(255, 204, 0));
-        txtSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtSenha.setLabelText("SENHA");
+        txtSenha.setLineColor(new java.awt.Color(218, 165, 4));
+        txtSenha.setSelectionColor(new java.awt.Color(171, 122, 24));
         add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 360, 50));
+
+        ccbLembrar.setText("Lembrar da Senha.");
+        add(ccbLembrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 170, -1));
+
+        lblcmdOut1.setForeground(new java.awt.Color(255, 255, 255));
+        lblcmdOut1.setHorizontalAlignment(11);
+        lblcmdOut1.setText("Esqueci minha senha...");
+        lblcmdOut1.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblcmdOut1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        add(lblcmdOut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 378, 175, 30));
 
         lblInfo1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         lblInfo1.setForeground(new java.awt.Color(153, 0, 0));
         lblInfo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInfo1.setToolTipText("");
-        add(lblInfo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 375, 200, 25));
-
-        lblInfo2.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        lblInfo2.setForeground(new java.awt.Color(255, 255, 255));
-        lblInfo2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblInfo2.setText("Esqueci minha senha...");
-        lblInfo2.setToolTipText("");
-        add(lblInfo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 375, 200, 25));
-
-        lblInfo3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblInfo3.setForeground(new java.awt.Color(153, 0, 0));
-        lblInfo3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblInfo3.setToolTipText("");
-        add(lblInfo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 415, 407, 30));
+        add(lblInfo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 415, 407, 30));
 
         cmdLogin.setForeground(new java.awt.Color(204, 153, 0));
         cmdLogin.setText("LOGIN");
         cmdLogin.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         add(cmdLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 170, 50));
 
-        cmdSair.setForeground(new java.awt.Color(153, 51, 0));
+        cmdSair.setForeground(new java.awt.Color(153, 0, 0));
         cmdSair.setText("SAIR");
         cmdSair.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         add(cmdSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 170, 50));
 
-        lblInfo4.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        lblInfo4.setForeground(new java.awt.Color(255, 255, 255));
-        lblInfo4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblInfo4.setText("Não tem conta? Registre-se!");
-        lblInfo4.setToolTipText("");
-        add(lblInfo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 510, 250, 30));
+        lblcmdOut2.setForeground(new java.awt.Color(255, 255, 255));
+        lblcmdOut2.setHorizontalAlignment(0);
+        lblcmdOut2.setText("Não tem conta? Registre-se!");
+        lblcmdOut2.setVerticalAlignment(1);
+        lblcmdOut2.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        add(lblcmdOut2, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 515, 250, 30));
 
         lblTitulo4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         lblTitulo4.setForeground(new java.awt.Color(255, 204, 0));
@@ -304,10 +301,8 @@ public class LoginFrente extends javax.swing.JPanel {
         cbbIdioma.setLabelText("IDIOMA");
         cbbIdioma.setLightWeightPopupEnabled(false);
         cbbIdioma.setLineColor(new java.awt.Color(218, 165, 4));
-        cbbIdioma.setName(""); // NOI18N
-        cbbIdioma.setOpaque(false);
         cbbIdioma.setRequestFocusEnabled(false);
-        add(cbbIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 610, 140, 40));
+        add(cbbIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 610, 200, -1));
 
         lblFundo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/LivroLogin.png"))); // NOI18N
@@ -317,20 +312,20 @@ public class LoginFrente extends javax.swing.JPanel {
 
     /* ========================================= VARIÁVEIS DO NETBEANS ========================================= */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private br.com.warrick.biblioteca.peripherals.ComboBox cbbIdioma;
-    private br.com.warrick.biblioteca.peripherals.WButton cmdLogin;
-    private br.com.warrick.biblioteca.peripherals.WButton cmdSair;
+    private br.com.warrick.biblioteca.swing.WComboBox cbbIdioma;
+    private br.com.warrick.biblioteca.swing.WCheckBox ccbLembrar;
+    private br.com.warrick.biblioteca.swing.WButton cmdLogin;
+    private br.com.warrick.biblioteca.swing.WButton cmdSair;
     private javax.swing.JLabel lblFundo;
     private javax.swing.JLabel lblInfo1;
-    private javax.swing.JLabel lblInfo2;
-    private javax.swing.JLabel lblInfo3;
-    private javax.swing.JLabel lblInfo4;
-    private javax.swing.JLabel lblTitulo1;
+    private br.com.warrick.biblioteca.swing.WLabel lblTitulo1;
     private javax.swing.JLabel lblTitulo2;
     private javax.swing.JLabel lblTitulo3;
     private javax.swing.JLabel lblTitulo4;
     private javax.swing.JLabel lblTitulo5;
-    private br.com.warrick.biblioteca.peripherals.PasswordFieldLogin txtSenha;
-    private br.com.warrick.biblioteca.peripherals.TextFieldLogin txtUsuario;
+    private br.com.warrick.biblioteca.swing.WLabel lblcmdOut1;
+    private br.com.warrick.biblioteca.swing.WLabel lblcmdOut2;
+    private br.com.warrick.biblioteca.swing.WPasswordField txtSenha;
+    private br.com.warrick.biblioteca.swing.WTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
