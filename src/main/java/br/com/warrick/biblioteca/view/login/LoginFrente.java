@@ -69,23 +69,80 @@ public class LoginFrente extends javax.swing.JPanel {
             // Obter o nome de usuário inserido, removendo espaços em branco
             String usuario = txtUsuario.getText().trim();
             // Obter a senha inserida como string
-            String senha = new String(txtSenha.getPassword());
+            String senha = new String(txtSenha.getPassword()).trim();
 
-            // Usar controller para login
+            // Validação de campos vazios usando os próprios componentes W*
+            boolean invalido = false;
+
+            String prefixoInforme = I18nManager.msg("validation.informe");
+            // Alguns ResourceBundle retornam !chave! quando não encontram a entrada.
+            if (prefixoInforme == null
+                    || prefixoInforme.isBlank()
+                    || (prefixoInforme.startsWith("!") && prefixoInforme.endsWith("!"))) {
+                prefixoInforme = "Informe"; // fallback se a chave não existir
+            }
+
+            if (usuario.isEmpty()) {
+                String rotuloUsuario = txtUsuario.getLabelText();
+                if (rotuloUsuario == null || rotuloUsuario.isBlank()) {
+                    rotuloUsuario = "usuário";
+                }
+                txtUsuario.validarComMensagem(prefixoInforme + " " + rotuloUsuario);
+                invalido = true;
+            }
+
+            if (senha.isEmpty()) {
+                String rotuloSenha = txtSenha.getLabelText();
+                if (rotuloSenha == null || rotuloSenha.isBlank()) {
+                    rotuloSenha = "senha";
+                }
+                txtSenha.validarComMensagem(prefixoInforme + " " + rotuloSenha);
+                invalido = true;
+            }
+
+            // Se algum campo estiver inválido, não tenta fazer login
+            if (invalido) {
+                return;
+            }
+
+            // Consultar usuário no banco e validar senha com mensagens específicas por campo
             br.com.warrick.biblioteca.controller.UsuarioController controller
                     = new br.com.warrick.biblioteca.controller.UsuarioController();
 
-            if (controller.fazerLogin(usuario, senha)) {
-                lblInfo1.setText(I18nManager.msg("login.success"));
-                lblInfo1.setForeground(new java.awt.Color(0, 150, 0)); // Verde mais escuro para melhor contraste
+            br.com.warrick.biblioteca.persistence.model.Usuario user
+                    = controller.buscarUsuarioPorUsername(usuario);
 
-                // Iniciar a sequência de login com delays e animação
-                if (parentApp != null) {
-                    parentApp.iniciarSequenciaLogin();
+            if (user == null) {
+                // Usuário não encontrado: erro só no campo de usuário
+                String msgUserNotFound = I18nManager.msg("login.user.notfound");
+                if (msgUserNotFound == null || msgUserNotFound.isBlank()) {
+                    msgUserNotFound = "Usuário não encontrado";
                 }
-            } else {
-                lblInfo1.setText(I18nManager.msg("login.error"));
+                txtUsuario.validarComMensagem(msgUserNotFound);
+                lblInfo1.setText(msgUserNotFound);
                 lblInfo1.setForeground(java.awt.Color.RED);
+                return;
+            }
+
+            if (!user.getSenha().equals(senha)) {
+                // Senha incorreta: erro só no campo de senha
+                String msgSenhaIncorreta = I18nManager.msg("login.password.invalid");
+                if (msgSenhaIncorreta == null || msgSenhaIncorreta.isBlank()) {
+                    msgSenhaIncorreta = "Senha incorreta";
+                }
+                txtSenha.validarComMensagem(msgSenhaIncorreta);
+                lblInfo1.setText(msgSenhaIncorreta);
+                lblInfo1.setForeground(java.awt.Color.RED);
+                return;
+            }
+
+            // Credenciais válidas: prosseguir com o login
+            lblInfo1.setText(I18nManager.msg("login.success"));
+            lblInfo1.setForeground(new java.awt.Color(0, 150, 0)); // Verde mais escuro para melhor contraste
+
+            // Iniciar a sequência de login com delays e animação
+            if (parentApp != null) {
+                parentApp.iniciarSequenciaLogin();
             }
         });
 
@@ -256,6 +313,7 @@ public class LoginFrente extends javax.swing.JPanel {
         txtUsuario.setHoverColor(new java.awt.Color(218, 225, 27));
         txtUsuario.setLabelText("USUÁRIO");
         txtUsuario.setLineColor(new java.awt.Color(218, 165, 4));
+        txtUsuario.setObrigatorio(true);
         txtUsuario.setSelectionColor(new java.awt.Color(171, 122, 24));
         add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 360, 50));
 
@@ -266,6 +324,7 @@ public class LoginFrente extends javax.swing.JPanel {
         txtSenha.setHoverColor(new java.awt.Color(218, 225, 27));
         txtSenha.setLabelText("SENHA");
         txtSenha.setLineColor(new java.awt.Color(218, 165, 4));
+        txtSenha.setObrigatorio(true);
         txtSenha.setSelectionColor(new java.awt.Color(171, 122, 24));
         add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 360, 50));
 
@@ -338,7 +397,7 @@ public class LoginFrente extends javax.swing.JPanel {
         add(cbbIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 620, 200, 60));
 
         lblFundo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/LivroLogin.png"))); // NOI18N
+        lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/warrick/biblioteca/Imagem/LivroLogin.png"))); // NOI18N
         add(lblFundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 

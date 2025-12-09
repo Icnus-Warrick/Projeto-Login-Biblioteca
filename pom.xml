@@ -100,13 +100,7 @@
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE250</version>
-        </dependency>
-        <!-- TimingFramework necessário para os componentes de peripherals -->
-        <dependency>
-            <groupId>org.jdesktop</groupId>
-            <artifactId>timingframework</artifactId>
-            <version>0.55</version>
-        </dependency>
+        </dependency>        
         <!-- Trident necessário para os componentes de swing -->
         <dependency>
             <groupId>org.pushingpixels</groupId>

@@ -9,11 +9,15 @@ import javax.swing.*;
 import java.awt.Font;
 
 /**
- * Classe principal da aplicação Biblioteca Responsável pela inicialização do sistema e configurações iniciais
+ * Classe principal do Sistema de Autenticação
+ * 
+ * Responsável pela inicialização do sistema, configuração do tema e gerenciamento
+ * da interface gráfica principal.
  *
- * Projeto: Biblioteca
+ * Projeto Login para Biblioteca
  *
  * @author Warrick
+ * @version 1.0.0
  * @since 28/10/2025
  */
 public class Main {

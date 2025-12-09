@@ -4,11 +4,9 @@
 
 ```
 src/main/resources/
-├── Ebook/         # Arquivos de e-books
 ├── Icone/         # Ícones da interface
-├── Imagem/        # Imagens da aplicação
-├── Svg/           # Ícones vetoriais
 ├── db/            # Banco de dados SQLite
+├── Imagem/        # Imagens da aplicação
 ├── messages/      # Arquivos de internacionalização
 └── themes/        # Temas de interface
 ```

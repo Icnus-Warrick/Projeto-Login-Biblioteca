@@ -97,6 +97,7 @@
         <Property name="lineColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="4" green="a5" red="da" type="rgb"/>
         </Property>
+        <Property name="obrigatorio" type="boolean" value="true"/>
         <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="18" green="7a" red="ab" type="rgb"/>
         </Property>
@@ -128,6 +129,7 @@
         <Property name="lineColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="4" green="a5" red="da" type="rgb"/>
         </Property>
+        <Property name="obrigatorio" type="boolean" value="true"/>
         <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="18" green="7a" red="ab" type="rgb"/>
         </Property>

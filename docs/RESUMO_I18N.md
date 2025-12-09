@@ -71,16 +71,26 @@
 ### 📝 Mensagens Disponíveis
 - ✅ Aplicação (título, carregamento, sucesso)
 - ✅ Login (usuário, senha, botões, erros)
+  - ✅ Validação de campos vazios
+  - ✅ Usuário não encontrado
+  - ✅ Senha incorreta
+  - ✅ Mensagens de sucesso/erro
+- ✅ Recuperação de Senha
+  - ✅ Validação de código
+  - ✅ Confirmação de nova senha
+  - ✅ Mensagens de orientação
 - ✅ Animação (carregando, abrindo portas)
 - ✅ Erros (banco de dados, imagem, genérico)
-- ✅ Sucesso (login, cadastro)
-- ✅ Botões (OK, cancelar, salvar, excluir, etc.)
+- ✅ Sucesso (login, cadastro, recuperação de senha)
+- ✅ Botões (OK, cancelar, salvar, excluir, confirmar, etc.)
 - ✅ Menus (arquivo, editar, visualizar, ajuda)
 - ✅ Configurações (idioma, tema)
 - ✅ Biblioteca (livros, pesquisa, adicionar, editar)
 - ✅ Formulários (título, autor, descrição)
 - ✅ Confirmações (excluir, sair, cancelar)
-- ✅ Validações (email, senha, campos)
+- ✅ Validações (email, senha, campos obrigatórios)
+  - ✅ Mensagens específicas por campo
+  - ✅ Feedback visual imediato
 - ✅ Mensagens gerais (bem-vindo, carregando, salvando)
 
 ---
@@ -125,13 +135,16 @@ D:\Projetos\Biblioteca\
 │   │   ├── util/
 │   │   │   ├── I18nManager.java ⭐
 │   │   │   ├── LanguageChangeListener.java ⭐
-│   │   │   ├── LanguageSwitcher.java ⭐
-│   │   │   └── I18nExample.java 🧪
+│   │   │   └── LanguageSwitcher.java ⭐  
 │   │   └── view/
-│   │       ├── SettingsPanel.java ⭐
+│   │       ├── app/
 │   │       ├── login/
-│   │       │   ├── LoginLoadingPainel.java (atualizado)
-│   │       │   └── LoginLoadingPortas.java (atualizado)
+│   │       │   ├── LoginApp.java ⭐
+│   │       │   ├── LoginFrente.java ⭐
+│   │       │   ├── LoginPortas.java ⭐
+│   │       │   ├── LoginRecupera.java ⭐
+│   │       │   └── LoginTras.java ⭐
+│   │       └── BibliotecaApp.java ⭐
 │   └── resources/
 │       ├── messages.properties ⭐
 │       ├── messages_pt_BR.properties ⭐
@@ -146,20 +159,36 @@ D:\Projetos\Biblioteca\
 
 ---
 
-## 💾 Backups Git Criados
+## 📅 Histórico de Atualizações
+
+### Melhorias Recentes (Dez/2025)
+- ✅ Validação de login aprimorada com mensagens específicas
+- ✅ Interface de recuperação de senha redesenhada
+- ✅ Adicionado botão de cancelar no painel de código
+- ✅ Melhor feedback visual para erros de validação
+- ✅ Correção de codificação nos arquivos de mensagens
+- ✅ Melhorias na experiência do usuário durante o login
 
 ### Commits Realizados
-1. **`171a8bd`** - feat: Animação de portas funcionando - Backup inicial
-2. **`aab973c`** - feat: Implementar sistema de internacionalização (i18n) com suporte a PT-BR e EN-US
-3. **`f6d92c0`** - feat: Adicionar listeners, painel de configurações e mensagens expandidas ao sistema i18n
-4. **`2775476`** - docs: Adicionar guia rápido e snippets de código para i18n
 
 ### Estatísticas
-- **Total de arquivos criados:** 10
-- **Total de linhas adicionadas:** ~1900+
-- **Classes Java:** 5
-- **Arquivos de recursos:** 3
-- **Documentação:** 4 arquivos
+- **Total de arquivos Java:** 36+
+  - `controller/`: 1+ arquivos
+  - `persistence/`: 5+ arquivos
+  - `service/`: 1+ arquivo
+  - `swing/`: 7+ arquivos
+  - `uihelper/`: 1+ arquivo
+  - `uimanager/`: 1+ arquivo
+  - `util/`: 6+ arquivos
+  - `view/`: 13+ arquivos
+- **Arquivos de recursos (i18n):** 3 arquivos
+  - `messages.properties`
+  - `messages_pt_BR.properties`
+  - `messages_en_US.properties`
+- **Documentação:** 2 arquivos
+  - `I18N_GUIDE.md`
+  - `RESUMO_I18N.md`
+- **Total de linhas de código:** 5000+ (estimado)
 
 ---
 

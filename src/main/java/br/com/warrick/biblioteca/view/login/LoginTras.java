@@ -353,7 +353,7 @@ public class LoginTras extends javax.swing.JPanel {
         lblInfR3.setLineSpacing(0);
         add(lblInfR3, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 610, 240, 50));
 
-        lblFundoT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/LivroLoginT.png"))); // NOI18N
+        lblFundoT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/warrick/biblioteca/Imagem/LivroLoginT.png"))); // NOI18N
         add(lblFundoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 

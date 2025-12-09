@@ -1,20 +1,29 @@
-# 📚 Login Biblioteca
+# 🔐 Sistema de Autenticação
 
 [![Java](https://img.shields.io/badge/Java-17%2B-orange)](https://www.oracle.com/java/)
 [![Maven](https://img.shields.io/badge/Maven-3.6%2B-blue)](https://maven.apache.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![FlatLaf](https://img.shields.io/badge/FlatLaf-3.6.2-blueviolet)](https://www.formdev.com/flatlaf/)
 
-Sistema de acesso, cadastro e recuperação de acesso, a biblioteca desenvolvido em Java com interface moderna e suporte a múltiplos idiomas.
-Sistema ainda em desenvolvimento, Apenas o sistema de Login em funcionamento.
+Sistema de autenticação moderno desenvolvido em Java com interface FlatLaf, suporte a múltiplos idiomas e armazenamento seguro de credenciais.
 
-## 🚀 Funcionalidades Principais
+## 📌 Status do Projeto
 
-- 📚 Login de acesso
-- 📚 Cadastro de acesso
-- 📚 Recuperação de acesso
-- 👥 Controle de usuários
-- 🌍 Suporte a múltiplos idiomas
-- 💾 Armazenamento em banco de dados
+✅ Sistema de Login completo e funcional  
+✅ Suporte a múltiplos idiomas  
+✅ Interface moderna e responsiva  
+✅ Validação de formulários  
+✅ Armazenamento seguro de senhas
+
+## 🚀 Funcionalidades
+
+- 🔐 Autenticação de usuários
+- 👤 Cadastro de novos usuários
+- 🔄 Recuperação de senha
+- 🌍 Suporte a múltiplos idiomas (Português e Inglês)
+- 🎨 Interface moderna com temas claros e escuros
+- 🔒 Validação de campos em tempo real
+- 💾 Armazenamento seguro com SQLite
 
 ## 🛠️ Pré-requisitos
 

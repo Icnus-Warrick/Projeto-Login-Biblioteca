@@ -1,29 +1,28 @@
-# Créditos
+# 📝 Créditos
 
-Este documento lista os créditos para códigos de terceiros e recursos utilizados neste projeto.
+Este documento lista os créditos para códigos de terceiros, bibliotecas e recursos utilizados no desenvolvimento do Sistema de Autenticação.
 
-## Componentes de Interface Gráfica
+## 📚 Bibliotecas Principais
 
-### Pacote `br.com.warrick.biblioteca.peripherals`
-- **Autor Original**: Ra Ven (YouTube/GitHub)
-- **Descrição**: Componentes personalizados para Swing e FlatLaf
-- **Website**: [https://github.com/DJ-Raven/raven-project]
-  - **Componentes**:
-    - CheckBoxCustom
-    - ComboBox
-    - FormattedTextField
-    - ModernScrollBarUI
-    - PasswordField
-    - PasswordFieldLogin
-    - ScrollBarCustom
-    - Tabbed
-    - TextArea
-    - TextAreaScroll
-    - TextField
-    - TextFieldLogin
-    - WButton
-  - **Licença**: Código disponibilizado para uso livre com atribuição
-  - **Origem**: Componentes personalizados desenvolvidos por Ra Ven e adaptados para o projeto
+### FlatLaf
+- **Descrição**: Biblioteca de temas modernos para Java Swing
+- **Website**: [https://www.formdev.com/flatlaf/](https://www.formdev.com/flatlaf/)
+- **Licença**: Apache 2.0
+- **Versão**: 3.6.2
+
+### SQLite JDBC
+- **Descrição**: Driver JDBC para SQLite
+- **Website**: [https://github.com/xerial/sqlite-jdbc](https://github.com/xerial/sqlite-jdbc)
+- **Licença**: Apache 2.0
+- **Versão**: 3.45.3.0
+
+## 🎨 Componentes de Interface
+
+### Componentes Personalizados
+- **Baseado em**: Componentes de Ra Ven (YouTube/GitHub)
+- **Repositório Original**: [https://github.com/DJ-Raven/raven-project](https://github.com/DJ-Raven/raven-project)
+- **Licença**: Código disponibilizado para uso livre com atribuição
+- **Origem**: Componentes personalizados desenvolvidos por Ra Ven e adaptados para o projeto
 
 ### Novo Pacote `br.com.warrick.biblioteca.swing`
 - **Autor**: Warrick
@@ -130,7 +129,16 @@ Para adicionar novos créditos de terceiros, siga o formato:
 - **Licença**: Tipo de licença (se aplicável)
 ```
 
-## Notas de Uso
+## 🔄 Atualizações
+
+### v1.0.0 (Dezembro 2025)
+- Versão inicial do sistema de autenticação
+- Suporte a múltiplos idiomas (Português e Inglês)
+- Interface moderna com temas claro e escuro
+- Validação de formulários em tempo real
+- Armazenamento seguro de credenciais
+
+## 📄 Notas de Uso
 
 - Os componentes do pacote `peripherals` são baseados em implementações de código aberto e foram adaptados para as necessidades específicas deste projeto.
 - Sempre que possível, os créditos originais foram mantidos nos cabeçalhos dos arquivos fonte.

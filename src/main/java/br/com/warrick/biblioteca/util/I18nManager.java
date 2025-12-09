@@ -22,8 +22,8 @@ public class I18nManager {
     /* ========================================== RECURSOS DE IDIOMA ========================================== */
     private ResourceBundle bundle;
     private Locale currentLocale;
-    // Base name ajustado para corresponder à pasta src/main/resources/messages/
-    private static final String BUNDLE_BASE_NAME = "messages.messages";
+    // Caminho base para os arquivos de mensagens
+    private static final String BUNDLE_BASE_NAME = "br.com.warrick.biblioteca.Messages.messages";
     
     /* ========================================== PREFERÊNCIAS ========================================== */
     private static final String PREF_LANGUAGE_KEY = "app.language";

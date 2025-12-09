@@ -203,7 +203,7 @@ public class LoginPortas extends javax.swing.JPanel {
         System.out.println("Carregando imagens...");
 
         try {
-            java.net.URL batenteURL = getClass().getResource("/Imagem/Batente.png");
+            java.net.URL batenteURL = getClass().getResource("/br/com/warrick/biblioteca/Imagem/Batente.png");
             if (batenteURL != null) {
                 imagemBatente = new ImageIcon(batenteURL).getImage();
                 System.out.println("✓ Batente carregado");
@@ -215,7 +215,7 @@ public class LoginPortas extends javax.swing.JPanel {
         }
 
         try {
-            java.net.URL portaEURL = getClass().getResource("/Imagem/PortaE.png");
+            java.net.URL portaEURL = getClass().getResource("/br/com/warrick/biblioteca/Imagem/PortaE.png");
             if (portaEURL != null) {
                 imagemPortaE = new ImageIcon(portaEURL).getImage();
                 System.out.println("✓ PortaE carregada");
@@ -227,7 +227,7 @@ public class LoginPortas extends javax.swing.JPanel {
         }
 
         try {
-            java.net.URL portaDURL = getClass().getResource("/Imagem/PortaD.png");
+            java.net.URL portaDURL = getClass().getResource("/br/com/warrick/biblioteca/Imagem/PortaD.png");
             if (portaDURL != null) {
                 imagemPortaD = new ImageIcon(portaDURL).getImage();
                 System.out.println("✓ PortaD carregada");
@@ -239,7 +239,7 @@ public class LoginPortas extends javax.swing.JPanel {
         }
 
         try {
-            java.net.URL paredeURL = getClass().getResource("/Imagem/Parede1.png");
+            java.net.URL paredeURL = getClass().getResource("/br/com/warrick/biblioteca/Imagem/Parede1.png");
             if (paredeURL != null) {
                 imagemParede = new ImageIcon(paredeURL).getImage();
                 System.out.println("✓ Parede carregada");
@@ -724,7 +724,7 @@ public class LoginPortas extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1920, 1080));
 
         lblParede.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblParede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/Parede1.png"))); // NOI18N
+        lblParede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/warrick/biblioteca/Imagem/Parede1.png"))); // NOI18N
         lblParede.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         // Adicionar a label ao painel

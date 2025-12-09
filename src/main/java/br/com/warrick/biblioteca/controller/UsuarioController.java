@@ -6,12 +6,14 @@ import br.com.warrick.biblioteca.service.UsuarioService;
 import java.sql.SQLException;
 
 /**
- * Controlador responsável por gerenciar as operações relacionadas aos usuários
+ * Controlador responsável por gerenciar as operações de autenticação de usuários
  * Atua como intermediário entre a camada de visualização e a camada de serviço
+ * para operações de login, registro e gerenciamento de contas.
  *
- * Projeto: Biblioteca
+ * Projeto: Sistema de Autenticação
  *
  * @author Warrick
+ * @version 1.0.0
  * @since 28/10/2025
  */
 public class UsuarioController {
