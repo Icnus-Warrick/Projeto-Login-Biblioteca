@@ -1,6 +1,7 @@
 package br.com.warrick.biblioteca.view.login;
 
 import br.com.warrick.biblioteca.util.I18nManager;
+import java.awt.Color;
 
 /**
  * Painel de login da aplicação
@@ -14,7 +15,7 @@ import br.com.warrick.biblioteca.util.I18nManager;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class LoginFrente extends javax.swing.JPanel {
 
-    /* ============================================== VARIÁVEIS DE INSTÂNCIA =========================================== */
+    /* ============================================= VARIÁVEIS DE INSTÂNCIA ========================================= */
     private LoginApp parentApp;
 
     /* ============================================== CONSTRUTOR PADRÃO ============================================= */
@@ -22,11 +23,20 @@ public class LoginFrente extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
         setBackground(new java.awt.Color(0, 0, 0, 0));
+        configComponentes();
         setupListeners();
         atualizarTexto();
     }
+    
+    /* ================================================ CONFIGURAÇÕES =============================================== */
+    private void configComponentes(){
+        cmdLogin.setBackground(new Color(0,0,0,0));
+        cmdSair.setBackground(new Color(0,0,0,0));
+        cbbIdioma.setBackground(new Color(0,0,0,0));
+        
+    }
 
-    /* ========================================= CONSTRUTOR COM PARÂMETRO ========================================== */
+    /* ========================================== CONSTRUTOR COM PARÂMETRO ========================================== */
     public void setParentApp(LoginApp parentApp) {
         this.parentApp = parentApp;
     }
@@ -149,6 +159,9 @@ public class LoginFrente extends javax.swing.JPanel {
         // Atualizar campos de texto
         txtUsuario.setLabelText(I18nManager.msg("login.username").toUpperCase());
         txtSenha.setLabelText(I18nManager.msg("login.password").toUpperCase());
+
+        // Atualiza Check Box
+        ccbLembrar.setText(I18nManager.msg("login.remember"));
         
         // Atualizar botões
         cmdLogin.setText(I18nManager.msg("login.button"));
@@ -217,7 +230,7 @@ public class LoginFrente extends javax.swing.JPanel {
         lblTitulo1.setHorizontalAlignment(0);
         lblTitulo1.setText("LOGIN");
         lblTitulo1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        lblTitulo1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        lblTitulo1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblTitulo1.setLineColor(new java.awt.Color(204, 153, 0));
         lblTitulo1.setLineSpacing(0);
         add(lblTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 40, 407, 80));
@@ -237,28 +250,39 @@ public class LoginFrente extends javax.swing.JPanel {
         add(lblTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 160, 407, 30));
 
         txtUsuario.setForeground(new java.awt.Color(255, 204, 0));
-        txtUsuario.setHoverColor(new java.awt.Color(218, 189, 32));
+        txtUsuario.setCaretColor(new java.awt.Color(255, 255, 0));
+        txtUsuario.setDisabledTextColor(new java.awt.Color(255, 204, 0));
+        txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsuario.setHoverColor(new java.awt.Color(218, 225, 27));
         txtUsuario.setLabelText("USUÁRIO");
         txtUsuario.setLineColor(new java.awt.Color(218, 165, 4));
         txtUsuario.setSelectionColor(new java.awt.Color(171, 122, 24));
         add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 360, 50));
 
+        txtSenha.setForeground(new java.awt.Color(255, 204, 0));
         txtSenha.setCaretColor(new java.awt.Color(255, 255, 0));
         txtSenha.setDisabledTextColor(new java.awt.Color(255, 204, 0));
+        txtSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtSenha.setHoverColor(new java.awt.Color(218, 225, 27));
         txtSenha.setLabelText("SENHA");
         txtSenha.setLineColor(new java.awt.Color(218, 165, 4));
         txtSenha.setSelectionColor(new java.awt.Color(171, 122, 24));
         add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 360, 50));
 
         ccbLembrar.setText("Lembrar da Senha.");
+        ccbLembrar.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        ccbLembrar.setHoverColor(new java.awt.Color(3, 155, 216));
+        ccbLembrar.setSelectedTextColor(new java.awt.Color(0, 255, 255));
+        ccbLembrar.setUnselectedTextColor(new java.awt.Color(255, 255, 255));
         add(ccbLembrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 170, -1));
 
         lblcmdOut1.setForeground(new java.awt.Color(255, 255, 255));
         lblcmdOut1.setHorizontalAlignment(11);
         lblcmdOut1.setText("Esqueci minha senha...");
-        lblcmdOut1.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        lblcmdOut1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        add(lblcmdOut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 378, 175, 30));
+        lblcmdOut1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblcmdOut1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lblcmdOut1.setLineSpacing(4);
+        add(lblcmdOut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 380, 175, 30));
 
         lblInfo1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         lblInfo1.setForeground(new java.awt.Color(153, 0, 0));
@@ -268,12 +292,19 @@ public class LoginFrente extends javax.swing.JPanel {
 
         cmdLogin.setForeground(new java.awt.Color(204, 153, 0));
         cmdLogin.setText("LOGIN");
+        cmdLogin.setToolTipText("");
         cmdLogin.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        cmdLogin.setHoverColor(new java.awt.Color(218, 225, 27));
+        cmdLogin.setLineColor(new java.awt.Color(218, 165, 4));
+        cmdLogin.setPressedTextColor(new java.awt.Color(171, 122, 24));
         add(cmdLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 170, 50));
 
         cmdSair.setForeground(new java.awt.Color(153, 0, 0));
         cmdSair.setText("SAIR");
         cmdSair.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        cmdSair.setHoverColor(new java.awt.Color(213, 0, 0));
+        cmdSair.setLineColor(new java.awt.Color(192, 0, 0));
+        cmdSair.setPressedTextColor(new java.awt.Color(169, 0, 0));
         add(cmdSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 170, 50));
 
         lblcmdOut2.setForeground(new java.awt.Color(255, 255, 255));
@@ -297,12 +328,14 @@ public class LoginFrente extends javax.swing.JPanel {
         lblTitulo5.setToolTipText("");
         add(lblTitulo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 580, 407, 40));
 
+        cbbIdioma.setBackground(new java.awt.Color(255, 255, 255));
         cbbIdioma.setForeground(new java.awt.Color(255, 204, 0));
+        cbbIdioma.setHoverColor(new java.awt.Color(218, 225, 27));
         cbbIdioma.setLabelText("IDIOMA");
         cbbIdioma.setLightWeightPopupEnabled(false);
         cbbIdioma.setLineColor(new java.awt.Color(218, 165, 4));
         cbbIdioma.setRequestFocusEnabled(false);
-        add(cbbIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 610, 200, -1));
+        add(cbbIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 620, 200, 60));
 
         lblFundo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/LivroLogin.png"))); // NOI18N

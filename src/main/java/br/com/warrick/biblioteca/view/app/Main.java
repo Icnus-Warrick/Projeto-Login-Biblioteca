@@ -1,7 +1,7 @@
 package br.com.warrick.biblioteca.view.app;
 
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.*;
+import com.formdev.flatlaf.themes.*;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import br.com.warrick.biblioteca.persistence.config.ConnectionFactory;
 import br.com.warrick.biblioteca.view.login.LoginApp;
@@ -48,7 +48,7 @@ public class Main {
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
 
         // Configura o tema escuro
-        FlatMacDarkLaf.setup();
+        FlatLightLaf.setup();
 
         // Iniciar a tela de login
         java.awt.EventQueue.invokeLater(() -> {

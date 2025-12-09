@@ -925,6 +925,12 @@ public class WTextField extends JTextField {
         Insets in = getInsets();
 
         // Define cor do rótulo baseada no estado
+        Color userTextColor = getForeground();
+        Color baseTextColor = userTextColor != null
+                ? userTextColor
+                : getThemeColor("WTextField.textColor", DEFAULT_TEXT_COLOR);
+        Color baseHintColor = getThemeColor("WTextField.hintColor", DEFAULT_HINT_COLOR);
+
         Color labelColor;
         if (hasError) {
             labelColor = isSuccessMessage
@@ -933,9 +939,11 @@ public class WTextField extends JTextField {
         } else if (isFocusOwner()) {
             labelColor = lineColor;
         } else if (!getText().isEmpty()) {
-            labelColor = getThemeColor("WTextField.textColor", DEFAULT_TEXT_COLOR);
+            // Campo preenchido sem foco: usa a cor de texto configurada (por exemplo, branco definido no GUI)
+            labelColor = baseTextColor;
         } else {
-            labelColor = getThemeColor("WTextField.hintColor", DEFAULT_HINT_COLOR);
+            // Campo vazio: usa cor de dica
+            labelColor = baseHintColor;
         }
         g2.setColor(labelColor);
 

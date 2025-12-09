@@ -25,6 +25,20 @@ Este documento lista os créditos para códigos de terceiros e recursos utilizad
   - **Licença**: Código disponibilizado para uso livre com atribuição
   - **Origem**: Componentes personalizados desenvolvidos por Ra Ven e adaptados para o projeto
 
+### Novo Pacote `br.com.warrick.biblioteca.swing`
+- **Autor**: Warrick
+- **Descrição**: Componentes personalizados para Swing e FlatLaf e biblioteca trident
+  - **Componentes**:
+    - WButton
+    - WCheckBox
+    - WComboBox
+    - WLabel
+    - WPasswordField
+    - WTextArea
+    - WTextField    
+  - **Licença**: Código disponibilizado para uso livre com atribuição
+  - **Origem**: Componentes personalizados desenvolvidos por Warrick
+
 ## Bibliotecas e Dependências
 
 ### FlatLaf

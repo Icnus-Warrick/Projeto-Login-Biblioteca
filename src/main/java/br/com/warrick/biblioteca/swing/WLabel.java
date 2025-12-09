@@ -13,8 +13,8 @@ import org.pushingpixels.trident.ease.Spline;
  * Componente de label personalizado com suporte a animações de linha inferior interativa.
  *
  * <p>
- * Esta classe estende JLabel para fornecer um label com linha inferior animada
- * ao passar o mouse, com suporte completo para alinhamentos horizontal e vertical.</p>
+ * Esta classe estende JLabel para fornecer um label com linha inferior animada ao passar o mouse, com suporte completo
+ * para alinhamentos horizontal e vertical.</p>
  *
  * @author Warrick
  * @version 2.1.0
@@ -22,28 +22,6 @@ import org.pushingpixels.trident.ease.Spline;
  * @see JLabel
  */
 public class WLabel extends JLabel {
-    // ============================================ CONSTANTES DE ALINHAMENTO ============================================
-
-    // Alinhamentos horizontais
-    /** Alinhamento à esquerda. */
-    public static final int ALIGN_LEFT = SwingConstants.LEFT;
-    /** Alinhamento centralizado horizontalmente. */
-    public static final int ALIGN_CENTER = SwingConstants.CENTER;
-    /** Alinhamento à direita. */
-    public static final int ALIGN_RIGHT = SwingConstants.RIGHT;
-    /** Alinhamento à esquerda (mesmo que ALIGN_LEFT, segue a direção do texto). */
-    public static final int ALIGN_LEADING = SwingConstants.LEADING;
-    /** Alinhamento à direita (mesmo que ALIGN_RIGHT, segue a direção do texto). */
-    public static final int ALIGN_TRAILING = SwingConstants.TRAILING;
-
-    // Alinhamentos verticais
-    /** Alinhamento no topo. */
-    public static final int ALIGN_TOP = SwingConstants.TOP;
-    /** Alinhamento centralizado verticalmente. */
-    public static final int ALIGN_MIDDLE = SwingConstants.CENTER;
-    /** Alinhamento na base. */
-    public static final int ALIGN_BOTTOM = SwingConstants.BOTTOM;
-    
     // ============================================ CONSTANTES DE CORES ============================================
 
     /**
@@ -62,7 +40,6 @@ public class WLabel extends JLabel {
     protected static final Color DEFAULT_LINE_BG_COLOR = new Color(200, 200, 200);
 
     // ============================================ CONSTANTES DE LAYOUT ============================================
-
     /**
      * Altura em pixels da linha inferior do label.
      */
@@ -79,7 +56,6 @@ public class WLabel extends JLabel {
     protected static final int ANIMATION_DURATION = 300;
 
     // ============================================ ATRIBUTOS ============================================
-
     /**
      * Progresso atual da animação da linha (0.0 a 1.0).
      */
@@ -101,7 +77,6 @@ public class WLabel extends JLabel {
     protected Timeline lineTimeline;
 
     // ============================================ CONSTRUTORES ============================================
-
     /**
      * Cria um novo label vazio.
      */
@@ -131,7 +106,6 @@ public class WLabel extends JLabel {
     }
 
     // ============================================ MÉTODOS PRIVADOS ============================================
-
     /**
      * Obtém uma cor do tema FlatLaf ou retorna a cor padrão fornecida.
      */
@@ -248,16 +222,30 @@ public class WLabel extends JLabel {
         g2.setColor(currentLineBgColor);
         g2.fillRect(x, lineY, textWidth, LINE_HEIGHT);
 
-        // Linha de destaque (hover)
+        // Linha de destaque (hover) - agora respeitando o alinhamento
         if (mouseOver || lineAnimationProgress > 0) {
             g2.setColor(lineColor);
             int lineWidth = (int) (textWidth * lineAnimationProgress);
-            g2.fillRect(x, lineY, lineWidth, LINE_HEIGHT);
+
+            // Ajusta a posição inicial baseado no alinhamento horizontal
+            int lineX;
+            if (horizontalAlignment == SwingConstants.CENTER) {
+                // Cresce do centro para as bordas
+                int offset = (textWidth - lineWidth) / 2;
+                lineX = x + offset;
+            } else if (horizontalAlignment == SwingConstants.RIGHT || horizontalAlignment == SwingConstants.TRAILING) {
+                // Cresce da direita para a esquerda
+                lineX = x + textWidth - lineWidth;
+            } else { // LEFT ou LEADING
+                // LEFT ou LEADING = cresce da esquerda para direita
+                lineX = x;
+            }
+
+            g2.fillRect(lineX, lineY, lineWidth, LINE_HEIGHT);
         }
     }
 
     // ============================================ MÉTODOS DE ANIMAÇÃO ============================================
-
     /**
      * Anima a transição da linha inferior.
      */
@@ -276,7 +264,6 @@ public class WLabel extends JLabel {
     }
 
     // ============================================ MÉTODOS DE CONFIGURAÇÃO ============================================
-
     /**
      * Define a cor da linha inferior do label.
      *
@@ -288,8 +275,19 @@ public class WLabel extends JLabel {
     }
 
     /**
-     * Define o progresso da animação da linha inferior.
-     * Usado internamente pelo sistema de animação.
+     * Define o espaçamento entre o texto e a linha inferior.
+     *
+     * @param lineSpacing O espaçamento em pixels (deve ser >= 0)
+     */
+    public void setLineSpacing(int lineSpacing) {
+        int oldValue = this.lineSpacing;
+        this.lineSpacing = Math.max(0, lineSpacing);
+        firePropertyChange("lineSpacing", oldValue, this.lineSpacing);
+        repaint();
+    }
+
+    /**
+     * Define o progresso da animação da linha inferior. Usado internamente pelo sistema de animação.
      *
      * @param lineAnimationProgress O progresso da animação (0.0 a 1.0)
      */
@@ -326,7 +324,6 @@ public class WLabel extends JLabel {
     }
 
     // ============================================ MÉTODOS DE ACESSO ============================================
-
     /**
      * Retorna a cor atual da linha inferior do label.
      *
@@ -334,6 +331,15 @@ public class WLabel extends JLabel {
      */
     public Color getLineColor() {
         return lineColor;
+    }
+
+    /**
+     * Obtém o espaçamento atual entre o texto e a linha inferior.
+     *
+     * @return O espaçamento em pixels
+     */
+    public int getLineSpacing() {
+        return lineSpacing;
     }
 
     /**
@@ -352,93 +358,5 @@ public class WLabel extends JLabel {
      */
     public boolean isMouseOver() {
         return mouseOver;
-    }
-    
-    // ============================================ BEAN INFO ============================================
-    
-    /**
-     * BeanInfo personalizado para o WLabel.
-     * Permite que o GUI Designer exiba opções amigáveis para alinhamento.
-     */
-    public static class WLabelBeanInfo extends SimpleBeanInfo {
-        @Override
-        public PropertyDescriptor[] getPropertyDescriptors() {
-            try {
-                // Obtém as propriedades padrão
-                PropertyDescriptor[] descriptors = super.getPropertyDescriptors();
-                List<PropertyDescriptor> newDescriptors = new ArrayList<>(Arrays.asList(descriptors));
-                
-                // Adiciona descritores personalizados para as propriedades de alinhamento
-                addAlignmentProperty("horizontalAlignment", "Alinhamento Horizontal", 
-                        "Define o alinhamento horizontal do texto", newDescriptors);
-                addAlignmentProperty("verticalAlignment", "Alinhamento Vertical", 
-                        "Define o alinhamento vertical do texto", newDescriptors);
-                
-                // Adiciona a propriedade lineSpacing
-                try {
-                    PropertyDescriptor pd = new PropertyDescriptor("lineSpacing", WLabel.class);
-                    pd.setDisplayName("Espaçamento da Linha");
-                    pd.setShortDescription("Espaçamento entre o texto e a linha inferior em pixels");
-                    newDescriptors.add(pd);
-                } catch (Exception e) {
-                    // Ignora erro
-                }
-                
-                return newDescriptors.toArray(new PropertyDescriptor[0]);
-            } catch (IntrospectionException e) {
-                return super.getPropertyDescriptors();
-            }
-        }
-        
-        private void addAlignmentProperty(String propertyName, String displayName, 
-                String description, List<PropertyDescriptor> descriptors) throws IntrospectionException {
-            try {
-                // Cria um descritor de propriedade personalizado
-                PropertyDescriptor pd = new PropertyDescriptor(propertyName, WLabel.class);
-                pd.setDisplayName(displayName);
-                pd.setShortDescription(description);
-                
-                // Adiciona os valores possíveis
-                if (propertyName.equals("horizontalAlignment")) {
-                    pd.setValue("enumerationValues", new String[] {
-                        "0=Esquerda (ALIGN_LEFT)",
-                        "1=Centralizado (ALIGN_CENTER)",
-                        "2=Direita (ALIGN_RIGHT)",
-                        "3=Esquerda (ALIGN_LEADING)",
-                        "4=Direita (ALIGN_TRAILING)"
-                    });
-                } else if (propertyName.equals("verticalAlignment")) {
-                    pd.setValue("enumerationValues", new String[] {
-                        "0=Topo (ALIGN_TOP)",
-                        "1=Meio (ALIGN_MIDDLE)",
-                        "3=Base (ALIGN_BOTTOM)"
-                    });
-                }
-                
-                // Adiciona à lista de descritores
-                descriptors.add(pd);
-            } catch (Exception e) {
-                // Ignora erros ao adicionar a propriedade
-            }
-        }
-    }
-
-    /**
-     * Obtém o espaçamento atual entre o texto e a linha inferior.
-     * @return O espaçamento em pixels
-     */
-    public int getLineSpacing() {
-        return lineSpacing;
-    }
-
-    /**
-     * Define o espaçamento entre o texto e a linha inferior.
-     * @param lineSpacing O espaçamento em pixels (deve ser >= 0)
-     */
-    public void setLineSpacing(int lineSpacing) {
-        int oldValue = this.lineSpacing;
-        this.lineSpacing = Math.max(0, lineSpacing);
-        firePropertyChange("lineSpacing", oldValue, this.lineSpacing);
-        repaint();
     }
 }

@@ -22,7 +22,8 @@ public class I18nManager {
     /* ========================================== RECURSOS DE IDIOMA ========================================== */
     private ResourceBundle bundle;
     private Locale currentLocale;
-    private static final String BUNDLE_BASE_NAME = "messages";
+    // Base name ajustado para corresponder à pasta src/main/resources/messages/
+    private static final String BUNDLE_BASE_NAME = "messages.messages";
     
     /* ========================================== PREFERÊNCIAS ========================================== */
     private static final String PREF_LANGUAGE_KEY = "app.language";

@@ -495,6 +495,12 @@ public class WPasswordField extends JPasswordField {
         Insets in = getInsets();
 
         // Define cor do rótulo baseada no estado
+        Color userTextColor = getForeground();
+        Color baseTextColor = userTextColor != null
+                ? userTextColor
+                : getThemeColor("WPasswordField.textColor", DEFAULT_TEXT_COLOR);
+        Color baseHintColor = getThemeColor("WPasswordField.hintColor", DEFAULT_HINT_COLOR);
+
         Color labelColor;
         if (hasError) {
             labelColor = isSuccessMessage ?
@@ -503,9 +509,11 @@ public class WPasswordField extends JPasswordField {
         } else if (isFocusOwner()) {
             labelColor = lineColor;
         } else if (getPassword().length > 0) {
-            labelColor = getThemeColor("WPasswordField.textColor", DEFAULT_TEXT_COLOR);
+            // Campo preenchido sem foco: usa a cor de texto configurada (por exemplo, branco definido no GUI)
+            labelColor = baseTextColor;
         } else {
-            labelColor = getThemeColor("WPasswordField.hintColor", DEFAULT_HINT_COLOR);
+            // Campo vazio: usa cor de dica
+            labelColor = baseHintColor;
         }
         g2.setColor(labelColor);
 

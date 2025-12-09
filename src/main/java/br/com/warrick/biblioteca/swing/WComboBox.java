@@ -45,16 +45,16 @@ public class WComboBox<E> extends JComboBox<E> {
     protected static final Color DEFAULT_HOVER_COLOR = new Color(100, 180, 220);
 
     /** Cor padrão do texto selecionado no campo */
-    protected static final Color DEFAULT_TEXT_COLOR = new Color(50, 50, 50);
+    protected static final Color DEFAULT_TEXT_COLOR = new Color(218,165,4);
 
     /** Cor padrão do texto de dica (hint) quando o campo está vazio */
-    protected static final Color DEFAULT_HINT_COLOR = new Color(150, 150, 150);
+    protected static final Color DEFAULT_HINT_COLOR = new Color(218,165,4);
 
     /** Cor de fundo padrão do campo */
-    protected static final Color DEFAULT_BG_COLOR = Color.WHITE;
+    protected static final Color DEFAULT_BG_COLOR = new Color(136, 209, 191);
 
     /** Cor da linha inferior quando o campo não está em foco */
-    protected static final Color DEFAULT_LINE_BG_COLOR = new Color(200, 200, 200);
+    protected static final Color DEFAULT_LINE_BG_COLOR = new Color(255, 255, 255);
 
     /** Cor de erro para mensagens de validação */
     protected static final Color ERROR_COLOR = new Color(220, 53, 69);
@@ -63,7 +63,7 @@ public class WComboBox<E> extends JComboBox<E> {
     protected static final Color SUCCESS_COLOR = new Color(40, 167, 69);
 
     /** Cor de fundo da lista dropdown */
-    protected static final Color DEFAULT_LIST_BG_COLOR = new Color(250, 250, 250);
+    protected static final Color DEFAULT_LIST_BG_COLOR = new Color(138, 137, 137);
 
     /** Cor de seleção na lista */
     protected static final Color DEFAULT_SELECTION_COLOR = new Color(3, 155, 216);
@@ -217,9 +217,16 @@ public class WComboBox<E> extends JComboBox<E> {
                     com.setForeground(Color.WHITE);
                 } else {
                     com.setBackground(getThemeColor("WComboBox.listBgColor", DEFAULT_LIST_BG_COLOR));
-                    com.setForeground(getThemeColor("WComboBox.textColor", DEFAULT_TEXT_COLOR));
+
+                    Color userTextColor = WComboBox.this.getForeground();
+                    Color baseTextColor = userTextColor != null
+                            ? userTextColor
+                            : getThemeColor("WComboBox.textColor", DEFAULT_TEXT_COLOR);
+
+                    com.setForeground(baseTextColor);
                 }
                 return com;
+
             }
         });
 
@@ -498,6 +505,12 @@ public class WComboBox<E> extends JComboBox<E> {
             Insets in = combo.getInsets();
 
             // Define cor do rótulo baseada no estado
+            Color userTextColor = combo.getForeground();
+            Color baseTextColor = userTextColor !=null
+                    ? userTextColor
+                    : getThemeColor("WComboBox.textColor", DEFAULT_TEXT_COLOR);
+            Color baseHintColor = getThemeColor("WComboBox.hintColor", DEFAULT_HINT_COLOR);
+
             Color labelColor;
             if (hasError) {
                 labelColor = isSuccessMessage ?
@@ -506,9 +519,11 @@ public class WComboBox<E> extends JComboBox<E> {
             } else if (combo.isFocusOwner()) {
                 labelColor = lineColor;
             } else if (combo.getSelectedIndex() != -1) {
-                labelColor = getThemeColor("WComboBox.textColor", DEFAULT_TEXT_COLOR);
+                // Combo preenchido sem foco: usa cor do texto configurado
+                labelColor = baseTextColor;
             } else {
-                labelColor = getThemeColor("WComboBox.hintColor", DEFAULT_HINT_COLOR);
+                // Sem seleção: usa cor de dica
+                labelColor = baseHintColor;
             }
             g2.setColor(labelColor);
 

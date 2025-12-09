@@ -1,6 +1,7 @@
 package br.com.warrick.biblioteca.view.login;
 
 import br.com.warrick.biblioteca.util.I18nManager;
+import java.awt.Color;
 
 /**
  * Painel de registro de usuário da aplicação
@@ -18,8 +19,18 @@ public class LoginTras extends javax.swing.JPanel {
 
     public LoginTras() {
         initComponents();
+        setOpaque(false);
+        setBackground(new java.awt.Color(0, 0, 0, 0));
         setupListeners();
+        configComponentes();
+        atualizarTexto();
     }
+    
+    /* ================================================ CONFIGURAÇÕES =============================================== */
+    private void configComponentes(){
+        cmdLogin.setBackground(new Color(0,0,0,0));
+        cmdSair.setBackground(new Color(0,0,0,0));
+    }    
 
     /* ========================================= CONSTRUTOR COM PARÂMETRO ========================================== */
     public void setParentApp(LoginApp parentApp) {
@@ -219,46 +230,55 @@ public class LoginTras extends javax.swing.JPanel {
      * AVISO: NÃO modifique este código. O conteúdo deste método é sempre regenerado pelo Editor de Formulários.
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Código Gerado">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTituloR = new javax.swing.JLabel();
-        txtNome = new br.com.warrick.biblioteca.peripherals.TextFieldLogin();
-        txtUsuarioR = new br.com.warrick.biblioteca.peripherals.TextFieldLogin();
+        lblTituloR = new br.com.warrick.biblioteca.swing.WLabel();
+        txtNome = new br.com.warrick.biblioteca.swing.WTextField();
+        txtUsuarioR = new br.com.warrick.biblioteca.swing.WTextField();
         lblConf = new javax.swing.JLabel();
         lblInfR1 = new javax.swing.JLabel();
-        txtEmail = new br.com.warrick.biblioteca.peripherals.TextFieldLogin();
-        txtSenhaR = new br.com.warrick.biblioteca.peripherals.PasswordFieldLogin();
-        txtSenhaRC = new br.com.warrick.biblioteca.peripherals.PasswordFieldLogin();
-        cmdLogin = new br.com.warrick.biblioteca.peripherals.WButton();
-        cmdSair = new br.com.warrick.biblioteca.peripherals.WButton();
+        txtEmail = new br.com.warrick.biblioteca.swing.WTextField();
+        txtSenhaR = new br.com.warrick.biblioteca.swing.WPasswordField();
+        txtSenhaRC = new br.com.warrick.biblioteca.swing.WPasswordField();
+        cmdLogin = new br.com.warrick.biblioteca.swing.WButton();
+        cmdSair = new br.com.warrick.biblioteca.swing.WButton();
         lblInfR2 = new javax.swing.JLabel();
-        lblInfR3 = new javax.swing.JLabel();
+        lblInfR3 = new br.com.warrick.biblioteca.swing.WLabel();
         lblFundoT = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(528, 704));
         setPreferredSize(new java.awt.Dimension(528, 704));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTituloR.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         lblTituloR.setForeground(new java.awt.Color(204, 153, 0));
-        lblTituloR.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloR.setHorizontalAlignment(0);
         lblTituloR.setText("REGISTRE-SE");
-        add(lblTituloR, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 410, 25));
+        lblTituloR.setToolTipText("");
+        lblTituloR.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        lblTituloR.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblTituloR.setLineColor(new java.awt.Color(204, 153, 0));
+        add(lblTituloR, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 45, 410, 50));
 
         txtNome.setForeground(new java.awt.Color(255, 204, 0));
         txtNome.setCaretColor(new java.awt.Color(255, 204, 51));
+        txtNome.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNome.setHoverColor(new java.awt.Color(218, 225, 27));
         txtNome.setLabelText("NOME");
-        txtNome.setMinimumSize(new java.awt.Dimension(64, 46));
-        add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 140, 340, 50));
+        txtNome.setLineColor(new java.awt.Color(218, 165, 4));
+        txtNome.setSelectionColor(new java.awt.Color(171, 122, 24));
+        add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 130, 340, -1));
 
         txtUsuarioR.setForeground(new java.awt.Color(255, 204, 0));
         txtUsuarioR.setCaretColor(new java.awt.Color(255, 204, 51));
+        txtUsuarioR.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtUsuarioR.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsuarioR.setHoverColor(new java.awt.Color(218, 225, 27));
         txtUsuarioR.setLabelText("USUÁRIO");
-        txtUsuarioR.setMinimumSize(new java.awt.Dimension(64, 46));
-        add(txtUsuarioR, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 220, 340, 50));
+        txtUsuarioR.setLineColor(new java.awt.Color(218, 165, 4));
+        txtUsuarioR.setSelectionColor(new java.awt.Color(171, 122, 24));
+        add(txtUsuarioR, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 220, 340, -1));
 
         lblConf.setForeground(new java.awt.Color(51, 204, 0));
         lblConf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -274,34 +294,48 @@ public class LoginTras extends javax.swing.JPanel {
 
         txtEmail.setForeground(new java.awt.Color(255, 204, 0));
         txtEmail.setCaretColor(new java.awt.Color(255, 204, 51));
+        txtEmail.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtEmail.setHoverColor(new java.awt.Color(218, 225, 27));
         txtEmail.setLabelText("E-MAIL");
-        txtEmail.setMinimumSize(new java.awt.Dimension(64, 46));
-        add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 300, 340, 50));
+        txtEmail.setLineColor(new java.awt.Color(218, 165, 4));
+        txtEmail.setSelectionColor(new java.awt.Color(171, 122, 24));
+        add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 300, 340, -1));
 
         txtSenhaR.setForeground(new java.awt.Color(255, 204, 0));
-        txtSenhaR.setCaretColor(new java.awt.Color(255, 255, 0));
-        txtSenhaR.setDisabledTextColor(new java.awt.Color(255, 204, 0));
+        txtSenhaR.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtSenhaR.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtSenhaR.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtSenhaR.setHoverColor(new java.awt.Color(255, 204, 0));
         txtSenhaR.setLabelText("SENHA");
-        add(txtSenhaR, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 380, 340, 50));
+        txtSenhaR.setLineColor(new java.awt.Color(218, 165, 4));
+        txtSenhaR.setSelectionColor(new java.awt.Color(171, 122, 24));
+        add(txtSenhaR, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 380, 340, -1));
 
         txtSenhaRC.setForeground(new java.awt.Color(255, 204, 0));
-        txtSenhaRC.setCaretColor(new java.awt.Color(255, 255, 0));
-        txtSenhaRC.setDisabledTextColor(new java.awt.Color(255, 204, 0));
+        txtSenhaRC.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtSenhaRC.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtSenhaRC.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtSenhaRC.setHoverColor(new java.awt.Color(255, 204, 0));
         txtSenhaRC.setLabelText("CONFIRMA SENHA");
-        add(txtSenhaRC, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 460, 340, 50));
+        txtSenhaRC.setLineColor(new java.awt.Color(218, 165, 4));
+        txtSenhaRC.setSelectionColor(new java.awt.Color(171, 122, 24));
+        add(txtSenhaRC, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 460, 340, -1));
 
         cmdLogin.setForeground(new java.awt.Color(51, 102, 255));
         cmdLogin.setText("REGISTRAR");
         cmdLogin.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        add(cmdLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 550, 165, 50));
+        cmdLogin.setLineColor(new java.awt.Color(0, 120, 212));
+        cmdLogin.setPressedTextColor(new java.awt.Color(0, 120, 212));
+        add(cmdLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 550, 165, -1));
 
         cmdSair.setForeground(new java.awt.Color(153, 51, 0));
         cmdSair.setText("SAIR");
         cmdSair.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        add(cmdSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 550, 165, 50));
+        cmdSair.setHoverColor(new java.awt.Color(213, 0, 0));
+        cmdSair.setLineColor(new java.awt.Color(192, 0, 0));
+        cmdSair.setPressedTextColor(new java.awt.Color(169, 0, 0));
+        add(cmdSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 550, 165, -1));
 
         lblInfR2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblInfR2.setForeground(new java.awt.Color(0, 204, 51));
@@ -309,11 +343,15 @@ public class LoginTras extends javax.swing.JPanel {
         lblInfR2.setText("Usuário Registrado!");
         add(lblInfR2, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 515, 340, 25));
 
-        lblInfR3.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblInfR3.setForeground(new java.awt.Color(255, 255, 255));
-        lblInfR3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInfR3.setHorizontalAlignment(0);
         lblInfR3.setText("Já tem conta? Faça login!");
-        add(lblInfR3, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 610, 240, 25));
+        lblInfR3.setToolTipText("");
+        lblInfR3.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblInfR3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblInfR3.setLineColor(new java.awt.Color(204, 153, 0));
+        lblInfR3.setLineSpacing(0);
+        add(lblInfR3, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 610, 240, 50));
 
         lblFundoT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagem/LivroLoginT.png"))); // NOI18N
         add(lblFundoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -321,18 +359,18 @@ public class LoginTras extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private br.com.warrick.biblioteca.peripherals.WButton cmdLogin;
-    private br.com.warrick.biblioteca.peripherals.WButton cmdSair;
+    private br.com.warrick.biblioteca.swing.WButton cmdLogin;
+    private br.com.warrick.biblioteca.swing.WButton cmdSair;
     private javax.swing.JLabel lblConf;
     private javax.swing.JLabel lblFundoT;
     private javax.swing.JLabel lblInfR1;
     private javax.swing.JLabel lblInfR2;
-    private javax.swing.JLabel lblInfR3;
-    private javax.swing.JLabel lblTituloR;
-    private br.com.warrick.biblioteca.peripherals.TextFieldLogin txtEmail;
-    private br.com.warrick.biblioteca.peripherals.TextFieldLogin txtNome;
-    private br.com.warrick.biblioteca.peripherals.PasswordFieldLogin txtSenhaR;
-    private br.com.warrick.biblioteca.peripherals.PasswordFieldLogin txtSenhaRC;
-    private br.com.warrick.biblioteca.peripherals.TextFieldLogin txtUsuarioR;
+    private br.com.warrick.biblioteca.swing.WLabel lblInfR3;
+    private br.com.warrick.biblioteca.swing.WLabel lblTituloR;
+    private br.com.warrick.biblioteca.swing.WTextField txtEmail;
+    private br.com.warrick.biblioteca.swing.WTextField txtNome;
+    private br.com.warrick.biblioteca.swing.WPasswordField txtSenhaR;
+    private br.com.warrick.biblioteca.swing.WPasswordField txtSenhaRC;
+    private br.com.warrick.biblioteca.swing.WTextField txtUsuarioR;
     // End of variables declaration//GEN-END:variables
 }
